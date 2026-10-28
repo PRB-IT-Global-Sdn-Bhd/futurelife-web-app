@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Vendor sign-in preview" />
+  <title>FutureLife Vendor - Sign In</title>
+  <style>
+    :root {
+      --futurelife-green: #78be21;
+      --text: #1c1c1c;
+      --label: #474747;
+      --placeholder: #9f9f9f;
+      --border: #d9d9df;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-width: 320px; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: var(--white);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { border-radius: 0; cursor: pointer; }
+    a { color: inherit; }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand {
+      margin-top: 9px;
+      color: var(--futurelife-green);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .signin-area {
+      width: 270px;
+      margin-top: 73px;
+    }
+
+    h1 {
+      margin: 0 0 21px;
+      color: #121212;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .field { margin: 0 0 18px; }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--label);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      height: 29px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      padding: 0 8px;
+      background: var(--white);
+      color: #222222;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+    }
+    input::placeholder { color: var(--placeholder); }
+    input:focus { border-color: var(--futurelife-green); box-shadow: 0 0 0 1px rgba(120, 190, 33, 0.14); }
+
+    .forgot-row {
+      display: flex;
+      justify-content: flex-end;
+      margin: 5px 0 16px;
+    }
+    .forgot-row a {
+      color: #252525;
+      font-size: 10px;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+    .forgot-row a:hover, .signup-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+    .signin-button {
+      display: block;
+      width: 100%;
+      height: 26px;
+      border: 0;
+      border-radius: 0;
+      background: var(--futurelife-green);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 26px;
+      text-align: center;
+      transition: background 160ms ease-out, transform 160ms ease-out;
+    }
+    .signin-button:hover { background: #6fae1e; }
+    .signin-button:active { transform: scale(0.98); }
+
+    .signup-copy {
+      margin: 39px 0 0;
+      color: #252525;
+      font-size: 10px;
+      line-height: 1.25;
+    }
+    .signup-link {
+      margin-left: 7px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--futurelife-green);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .notice {
+      min-height: 14px;
+      margin: 8px 0 -22px;
+      color: var(--futurelife-green);
+      font-size: 9px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .brand { margin-top: 10px; font-size: 10px; }
+      .signin-area { width: calc(100% - 40px); max-width: 335px; margin-top: 61px; }
+      h1 { margin-bottom: 30px; font-size: 26px; }
+      .field { margin-bottom: 18px; }
+      label { margin-bottom: 7px; font-size: 13px; }
+      input { height: 43px; padding-inline: 10px; font-size: 13px; }
+      .forgot-row { margin-top: -1px; margin-bottom: 20px; }
+      .forgot-row a { font-size: 12px; }
+      .signin-button { height: 46px; font-size: 13px; line-height: 46px; }
+      .signup-copy { margin-top: 28px; font-size: 12px; }
+      .notice { font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+
+    <section class="signin-area" aria-label="Vendor sign in">
+      <h1>Vendor Login</h1>
+      <form id="signin-form" novalidate>
+        <div class="field">
+          <label for="vendor-email">Email Address</label>
+          <input id="vendor-email" name="email" type="email" autocomplete="email" placeholder="Enter email address" required />
+        </div>
+        <div class="field">
+          <label for="vendor-password">Password</label>
+          <input id="vendor-password" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required />
+        </div>
+        <div class="forgot-row"><a class="forgot-link" href="?reset=1">Forgot password?</a></div>
+        <button class="signin-button" type="submit">Login</button>
+        <p class="notice" aria-live="polite"></p>
+      </form>
+      <p class="signup-copy">New Vendor?<button class="signup-link" type="button">Sign Up</button></p>
+    </section>
+  </main>
+
+  <script>
+    const signinForm = document.getElementById('signin-form');
+    const signinNotice = document.querySelector('.notice');
+    signinForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!signinForm.checkValidity()) { signinNotice.textContent = 'Enter a valid email address and password to continue in this preview.'; signinForm.reportValidity(); return; }
+      window.location.href = '/marketplace-vendor-dashboard.html';
+    });
+    document.querySelector('.signup-link').addEventListener('click', () => {
+      window.location.href = '/marketplace-vendor-signup.html';
+    });
+    document.querySelector('.forgot-link').addEventListener('click', (event) => { event.preventDefault(); signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.'; });
+    const authParams = new URLSearchParams(window.location.search);
+    if (authParams.get('loggedout') === '1') signinNotice.textContent = 'Preview only — you have been signed out of the vendor portal.';
+    if (authParams.get('reset') === '1') signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.';
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

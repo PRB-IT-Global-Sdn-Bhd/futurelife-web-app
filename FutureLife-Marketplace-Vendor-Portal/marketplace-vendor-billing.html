@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal Billing preview" />
+  <title>Marketplace Vendor Portal — Billing</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    button, input { border-radius: 0; font: inherit; }
+    button { cursor: pointer; }
+    a, button, input { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .side-menu .billing-parent { display: flex; min-height: 34px; align-items: center; padding: 0 8px; background: #f7fceb; color: #397d13; font-size: 11px; }
+    .side-menu a.billing-sub-link { min-height: 28px; padding-left: 21px; color: #6c6f75; font-size: 10px; }
+    .side-menu a.billing-sub-link::before { content: '›'; margin-right: 7px; color: #98a18f; font-size: 13px; }
+    .side-menu a.billing-sub-link:hover, .side-menu a.billing-sub-link.active { color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .page-copy { margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .summary-card { min-height: 92px; border: 1px solid var(--line); padding: 13px; background: var(--white); }
+    .summary-card.available { border-top: 3px solid var(--green); }
+    .summary-card .label { display: block; color: #73767c; font-size: 9px; font-weight: 700; }
+    .summary-card strong { display: block; overflow: hidden; margin-top: 11px; color: #30333a; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .summary-card small { display: block; margin-top: 5px; color: #8a8d93; font-size: 8.5px; line-height: 1.25; }
+
+    .payout-layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 14px; align-items: start; }
+    .card, .side-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 13px; }
+    .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .card h2, .side-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .card-heading p { margin: 3px 0 0; color: #7b7e84; font-size: 9px; line-height: 1.35; }
+    .link-button { display: inline-flex; min-height: 29px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 9px; background: var(--white); color: #397d13; font-size: 9px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .link-button:hover { background: var(--pale-green); }
+
+    .account-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ededed; }
+    .account-field { min-width: 0; padding: 10px 11px 10px 0; border-bottom: 1px solid #ededed; }
+    .account-field:nth-child(even) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 11px; }
+    .field-label { display: block; margin-bottom: 4px; color: #7c7f85; font-size: 8.5px; }
+    .field-value { display: block; overflow: hidden; color: #32353b; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .account-note { margin: 10px 0 0; color: #777a80; font-size: 9px; line-height: 1.4; }
+
+    .section-tools { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 17px 0 11px; }
+    .section-tools h2 { margin: 0; color: #2b2e34; font-size: 12px; }
+    .section-tools p { margin: 3px 0 0; color: #7b7e84; font-size: 9px; }
+    .search { width: min(270px, 100%); }
+    .search label { display: block; margin-bottom: 5px; color: #676a70; font-size: 8.5px; font-weight: 700; }
+    .search input { display: block; width: 100%; height: 31px; border: 1px solid #d8d8d8; padding: 0 8px; background: var(--white); color: #292c33; font-size: 9px; }
+    .search input::placeholder { color: #96999f; }
+    .search input:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .filter { min-height: 27px; border: 1px solid var(--line); padding: 0 9px; background: var(--white); color: #60636a; font-size: 9px; font-weight: 700; }
+    .filter:hover, .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+
+    .earnings-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid var(--line); }
+    .earnings-table col.order { width: 17%; }
+    .earnings-table col.date { width: 15%; }
+    .earnings-table col.gross { width: 16%; }
+    .earnings-table col.fee { width: 16%; }
+    .earnings-table col.net { width: 18%; }
+    .earnings-table col.status { width: 18%; }
+    .earnings-table th { height: 36px; padding: 0 10px; border-bottom: 1px solid var(--line); background: var(--pale-grey); color: #777a80; font-size: 8.5px; font-weight: 700; text-align: left; }
+    .earnings-table td { padding: 11px 10px; border-bottom: 1px solid #ededed; color: #42454c; font-size: 9.5px; vertical-align: top; }
+    .earnings-table tr:last-child td { border-bottom: 0; }
+    .earnings-table tr[hidden] { display: none; }
+    .order-id { display: block; overflow: hidden; color: #32353b; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .sub-value { display: block; margin-top: 3px; color: #888b91; font-size: 8px; }
+    .money { display: block; color: #32353b; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .status-action { display: grid; justify-items: start; gap: 6px; }
+    .status { display: inline-flex; min-height: 20px; align-items: center; justify-content: center; border: 1px solid var(--line); padding: 0 7px; font-size: 8.5px; font-weight: 700; white-space: nowrap; }
+    .status.pending { border-color: #a8d86a; background: var(--pale-green); color: #397d13; }
+    .status.paid { border-color: #cccccc; background: #f2f2f2; color: #56595f; }
+    .status.hold { border-color: #d6d6d6; background: #fafafa; color: #676a70; }
+    .row-link { color: #356d1c; font-size: 9px; font-weight: 700; text-decoration: underline; }
+    .empty-state { display: none; padding: 24px 13px; border: 1px solid var(--line); border-top: 0; color: #7b7e84; font-size: 10px; text-align: center; }
+    .empty-state.visible { display: block; }
+
+    .earning-cards { display: none; }
+    .earning-card { border: 1px solid var(--line); padding: 12px; background: var(--white); }
+    .earning-card + .earning-card { margin-top: 9px; }
+    .earning-card[hidden] { display: none; }
+    .earning-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .mobile-money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; border-top: 1px solid #ededed; padding-top: 10px; }
+    .mobile-money-grid .field-label { margin-bottom: 3px; }
+    .mobile-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; border-top: 1px solid #ededed; padding-top: 10px; }
+
+    .history-list { border-top: 1px solid #ededed; }
+    .history-row { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.3fr) minmax(100px, .8fr) minmax(88px, .65fr); gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid #ededed; }
+    .history-row:last-child { border-bottom: 0; }
+    .history-label { display: block; overflow: hidden; color: #33363c; font-size: 9.5px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .history-row .status-action { justify-items: end; }
+
+    .side-card + .side-card { margin-top: 13px; }
+    .next-payout { border-left: 4px solid var(--green); background: var(--pale-grey); }
+    .next-payout .field-label { margin-top: 12px; }
+    .next-payout .field-value { font-size: 13px; }
+    .next-payout p { margin: 8px 0 0; color: #6c6f75; font-size: 9px; line-height: 1.45; }
+    .button { display: inline-flex; width: 100%; min-height: 35px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 12px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { margin-top: 8px; background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+    .notice { min-height: 17px; margin: 9px 0 0; color: #397d13; font-size: 9px; font-weight: 700; line-height: 1.35; text-align: center; }
+    .fee-note { border-left: 4px solid var(--green); background: var(--pale-grey); color: #5e6168; font-size: 9.5px; line-height: 1.45; }
+    .fee-note p { margin: 8px 0 0; }
+    .fee-note strong { color: #30333a; }
+
+
+    /* Billing homepage: Marketplace plan comparison */
+    .current-plan-overview { display: grid; grid-template-columns: minmax(280px, 320px) minmax(0, 1fr); gap: 24px; align-items: start; border: 1px solid #b8df86; border-top: 3px solid var(--green); padding: 16px; background: #fbfef7; }
+    .current-plan-kicker { display: block; color: #5d7e35; font-size: 9px; font-weight: 800; letter-spacing: .35px; }
+    .current-plan-overview h2 { margin: 6px 0 5px; color: #24351d; font-size: 18px; }
+    .current-plan-overview p { max-width: 280px; margin: 0; color: #596252; font-size: 10px; line-height: 1.45; }
+    .current-plan-details { display: grid; width: 100%; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); border-left: 1px solid #cce8aa; padding-left: 20px; }
+    .current-plan-detail { min-width: 0; padding: 0 14px; border-left: 1px solid #d9edbf; }
+    .current-plan-detail:first-child { border-left: 0; padding-left: 0; }
+    .current-plan-detail span { display: block; color: #6d8060; font-size: 9px; }
+    .current-plan-detail strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #2e4e15; font-size: 10px; font-weight: 800; line-height: 1.35; }
+    .plan-comparison-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 20px 0 10px; }
+    .plan-comparison-heading h2 { margin: 0; color: #2b2e34; font-size: 16px; font-weight: 700; }
+    .plan-comparison-heading p { margin: 5px 0 0; color: #6d7077; font-size: 10px; line-height: 1.4; }
+    .plan-comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .plan-compare-card { position: relative; min-width: 0; border: 1px solid var(--line); padding: 15px; background: var(--white); }
+    .plan-compare-card.current { border: 2px solid var(--green); padding: 14px; background: #fbfef7; }
+    .plan-compare-badge { display: inline-flex; min-height: 20px; align-items: center; padding: 0 7px; background: var(--green); color: var(--white); font-size: 9px; font-weight: 800; }
+    .plan-compare-card h3 { margin: 13px 0 4px; color: #273226; font-size: 15px; }
+    .plan-compare-price { margin: 0; color: #6b6f76; font-size: 10px; }
+    .plan-compare-price strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #1f2921; font-size: 16px; line-height: 1.25; }
+    .plan-compare-list { display: grid; gap: 0; margin: 15px 0 0; border-top: 1px solid #ededed; }
+    .plan-compare-list div { padding: 9px 0; border-bottom: 1px solid #ededed; }
+    .plan-compare-list span { display: block; color: #777a80; font-size: 9px; }
+    .plan-compare-list strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #33373d; font-size: 10px; font-weight: 700; line-height: 1.35; }
+    .plan-compare-link { display: inline-block; margin-top: 14px; color: #397d13; font-size: 10px; font-weight: 800; text-decoration: none; }
+    .plan-compare-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      html, body { max-width: 100%; overflow-x: clip; }
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .page-copy { margin-bottom: 16px; font-size: 10px; }
+
+      .current-plan-overview { grid-template-columns: 1fr; gap: 12px; padding: 14px; }
+      .current-plan-overview p { max-width: none; }
+      .current-plan-details { grid-template-columns: 1fr; border-top: 1px solid #cce8aa; border-left: 0; padding: 12px 0 0; }
+      .current-plan-detail, .current-plan-detail:last-child { grid-column: auto; padding: 10px 0; border-top: 1px solid #d9edbf; border-left: 0; }
+      .current-plan-detail:first-child { border-top: 0; padding-top: 0; }
+      .plan-comparison-heading { display: block; }
+      .plan-comparison-grid { grid-template-columns: 1fr; }
+
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .summary-card { min-height: 90px; padding: 12px; }
+      .summary-card strong { font-size: 13px; }
+      .payout-layout { display: block; }
+      .content, .payout-layout, .summary-grid, .card, .side-card, .history-row { min-width: 0; }
+      .payout-layout > aside { margin-top: 13px; }
+      .account-grid { grid-template-columns: 1fr; }
+      .account-field, .account-field:nth-child(even) { border-left: 0; padding: 9px 0; }
+      .section-tools { display: block; margin-top: 16px; }
+      .search { width: 100%; margin-top: 11px; }
+      .search input { height: 40px; font-size: 11px; }
+      .filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .filter { min-width: 0; padding: 0 4px; font-size: 8.5px; }
+      .earnings-table { display: none; }
+      .earning-cards { display: block; }
+      .history-row { grid-template-columns: minmax(0, 1fr) minmax(90px, .8fr); gap: 9px; }
+      .history-row .period { grid-row: 2; }
+      .history-row .history-amount { grid-column: 1; grid-row: 3; }
+      .history-row .status-action { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(6, minmax(64px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 64px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button, .earning-card { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active, .earning-card:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a class="billing-parent active" href="/marketplace-vendor-billing.html" aria-current="page">Billing</a>
+        <a class="billing-sub-link" href="#payouts">Platform Fees</a>
+        <a href="#messages">Messages <span class="menu-count">3</span></a>
+        <a href="#profile">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="billing">
+      <p class="eyebrow">Marketplace vendor</p>
+      <h1>Billing</h1>
+      <p class="page-copy">Review your active Marketplace plan and compare available listing plans for your vendor account.</p>
+
+      <section class="current-plan-overview" aria-labelledby="current-plan-heading">
+        <div>
+          <span class="current-plan-kicker">CURRENT ACTIVE PLAN</span>
+          <h2 id="current-plan-heading">Marketplace Basic</h2>
+          <p>Your vendor account is currently on the Marketplace Basic plan. Compare plan allowances below or open Plans &amp; Sponsored Listing Fees for listing-credit and invoice details.</p>
+        </div>
+        <div class="current-plan-details">
+          <div class="current-plan-detail"><span>Plan price</span><strong>RM {{MARKETPLACE_BASIC_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></div>
+          <div class="current-plan-detail"><span>Renewal date</span><strong>{{PLAN_RENEWAL_DATE}}</strong></div>
+          <div class="current-plan-detail"><span>Active listings</span><strong>{{ACTIVE_LISTINGS}} of {{MARKETPLACE_BASIC_LISTING_LIMIT}}</strong></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="plan-comparison-heading">
+        <div class="plan-comparison-heading"><div><h2 id="plan-comparison-heading">Plan comparison</h2><p>Compare active-listing allowances, sponsored-listing allowances, team access, and support before changing your plan.</p></div></div>
+        <div class="plan-comparison-grid">
+          <article class="plan-compare-card current"><span class="plan-compare-badge">CURRENT PLAN</span><h3>Marketplace Basic</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_BASIC_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BASIC_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BASIC_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BASIC_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BASIC_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="/marketplace-vendor-billing-plans.html">View plan details →</a></article>
+          <article class="plan-compare-card"><h3>Marketplace Pro</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_PRO_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_PRO_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_PRO_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_PRO_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_PRO_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="/marketplace-vendor-billing-plans.html">View plan details →</a></article>
+          <article class="plan-compare-card"><h3>Marketplace Business</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_BUSINESS_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BUSINESS_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BUSINESS_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BUSINESS_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BUSINESS_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="/marketplace-vendor-billing-plans.html">View plan details →</a></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a href="#orders">Orders</a>
+    <a class="active" href="#payouts" aria-current="page">Payouts</a>
+    <a href="#messages">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal manage payout details preview" />
+  <title>Marketplace Vendor Portal — Manage Payout Details</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    button, input, select { border-radius: 0; font: inherit; }
+    button { cursor: pointer; }
+    a, button, input, select { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 940px); margin: 35px auto 70px; }
+    .breadcrumb { display: inline-block; margin: 0 0 13px; color: #5e6147; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .breadcrumb:hover { color: var(--green-dark); text-decoration: underline; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .page-copy { max-width: 640px; margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .details-layout { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; align-items: start; }
+    .card, .side-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 13px; }
+    .card h2, .side-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .section-copy { margin: 4px 0 13px; color: #74777d; font-size: 9.5px; line-height: 1.4; }
+
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 5px; color: #55585e; font-size: 9px; font-weight: 700; }
+    .field label span { color: #83868c; font-weight: 400; }
+    .field input, .field select { display: block; width: 100%; height: 35px; border: 1px solid #d8d8d8; padding: 0 9px; background: var(--white); color: #2d3036; font-size: 10px; }
+    .field input::placeholder { color: #a0a3a9; }
+    .field input:focus, .field select:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .field-help { margin: 5px 0 0; color: #85888e; font-size: 8.5px; line-height: 1.35; }
+    .checkbox-row { display: flex; align-items: flex-start; gap: 7px; margin-top: 14px; border-top: 1px solid #ededed; padding-top: 12px; color: #5f6268; font-size: 9.5px; line-height: 1.4; }
+    .checkbox-row input { width: 14px; height: 14px; flex: 0 0 14px; margin: 0; accent-color: var(--green); }
+
+    .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+    .button { display: inline-flex; min-height: 35px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 14px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+    .form-notice { min-height: 17px; margin: 10px 0 0; color: #397d13; font-size: 9px; font-weight: 700; text-align: right; }
+
+    .status-card { border-left: 4px solid var(--green); background: var(--pale-grey); }
+    .status-badge { display: inline-flex; min-height: 21px; align-items: center; border: 1px solid #a8d86a; padding: 0 7px; background: var(--pale-green); color: #397d13; font-size: 9px; font-weight: 700; }
+    .status-card p { margin: 9px 0 0; color: #61646a; font-size: 9px; line-height: 1.45; }
+    .side-card + .side-card { margin-top: 13px; }
+    .summary-list { display: grid; margin-top: 9px; border-top: 1px solid #ededed; }
+    .summary-row { padding: 9px 0; border-bottom: 1px solid #ededed; }
+    .summary-row:last-child { border-bottom: 0; }
+    .summary-label { display: block; margin-bottom: 4px; color: #80838a; font-size: 8.5px; }
+    .summary-value { display: block; overflow: hidden; color: #34373d; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .security-card { border-left: 4px solid var(--green); background: var(--pale-grey); }
+    .security-card p { margin: 8px 0 0; color: #5f6268; font-size: 9px; line-height: 1.45; }
+    .security-card strong { color: #30333a; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .page-copy { margin-bottom: 16px; font-size: 10px; }
+      .details-layout { display: block; }
+      .details-layout > aside { margin-top: 13px; }
+      .field-grid { grid-template-columns: 1fr; gap: 11px; }
+      .field.full { grid-column: auto; }
+      .field input, .field select { height: 41px; font-size: 11px; }
+      .form-actions { display: grid; grid-template-columns: 1fr; }
+      .form-actions .button { width: 100%; }
+      .form-notice { min-height: 17px; text-align: left; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(6, minmax(64px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 64px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a class="active" href="#payouts" aria-current="page">Payouts</a>
+        <a href="#messages">Messages <span class="menu-count">3</span></a>
+        <a href="#profile">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="manage-payout-details">
+      <a class="breadcrumb" href="/marketplace-vendor-payouts.html">← Back to Payouts</a>
+      <p class="eyebrow">Marketplace vendor</p>
+      <h1>Manage Payout Details</h1>
+      <p class="page-copy">Add or update the account used for eligible FutureLife Marketplace vendor payouts.</p>
+
+      <div class="details-layout">
+        <section>
+          <form class="card" id="payout-details-form" novalidate>
+            <h2>Payout method</h2>
+            <p class="section-copy">Choose the method and provide the account details required to receive a payout.</p>
+            <div class="field-grid">
+              <div class="field full">
+                <label for="payout-method">Payout method</label>
+                <select id="payout-method" name="payout-method" required>
+                  <option value="">Select payout method</option>
+                  <option value="malaysia-bank-transfer">Malaysia bank transfer</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="account-holder">Account holder name</label>
+                <input id="account-holder" name="account-holder" type="text" autocomplete="name" placeholder="Enter account holder name" required />
+              </div>
+              <div class="field">
+                <label for="bank-name">Bank name</label>
+                <select id="bank-name" name="bank-name" required>
+                  <option value="">Select bank</option>
+                  <option value="maybank">Maybank</option>
+                  <option value="cimb">CIMB Bank</option>
+                  <option value="public-bank">Public Bank</option>
+                  <option value="rhb">RHB Bank</option>
+                  <option value="hong-leong">Hong Leong Bank</option>
+                  <option value="other">Other Malaysia bank</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="account-number">Bank account number</label>
+                <input id="account-number" name="account-number" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9 ]{6,24}" placeholder="Enter bank account number" required />
+                <p class="field-help">The Payouts overview should show this as masked account information after it is saved.</p>
+              </div>
+            </div>
+            <label class="checkbox-row"><input id="confirm-account" type="checkbox" required /><span>I confirm that I am authorised to receive Marketplace vendor payouts to this account and that the details are correct.</span></label>
+            <div class="form-actions"><a class="button secondary" href="/marketplace-vendor-payouts.html">Cancel</a><button class="button" type="submit">Save Payout Details</button></div>
+            <p class="form-notice" id="form-notice" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <aside>
+          <section class="side-card status-card" aria-labelledby="status-heading">
+            <h2 id="status-heading">Payout account status</h2>
+            <p><span class="status-badge">{{PAYOUT ACCOUNT STATUS}}</span></p>
+            <p>Changes may require FutureLife review before they can be used for the next eligible vendor payout.</p>
+          </section>
+          <section class="side-card" aria-labelledby="current-details-heading">
+            <h2 id="current-details-heading">Current details</h2>
+            <div class="summary-list">
+              <div class="summary-row"><span class="summary-label">Payout method</span><span class="summary-value">{{PAYOUT METHOD}}</span></div>
+              <div class="summary-row"><span class="summary-label">Account holder</span><span class="summary-value">{{ACCOUNT HOLDER NAME}}</span></div>
+              <div class="summary-row"><span class="summary-label">Account</span><span class="summary-value" id="masked-account-preview">{{PAYOUT ACCOUNT DISPLAY}}</span></div>
+            </div>
+          </section>
+          <section class="side-card security-card" aria-labelledby="security-heading">
+            <h2 id="security-heading">Account privacy</h2>
+            <p><strong>Keep account information protected.</strong> After saving, show masked account details on the Payouts overview rather than the full account number.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a href="#orders">Orders</a>
+    <a class="active" href="#payouts" aria-current="page">Payouts</a>
+    <a href="#messages">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    const form = document.getElementById('payout-details-form');
+    const notice = document.getElementById('form-notice');
+    const accountNumber = document.getElementById('account-number');
+    const maskedPreview = document.getElementById('masked-account-preview');
+    accountNumber.addEventListener('input', () => {
+      const digits = accountNumber.value.replace(/\D/g, '');
+      accountNumber.value = digits;
+      maskedPreview.textContent = digits ? `•••• ${digits.slice(-4)}` : '{{PAYOUT ACCOUNT DISPLAY}}';
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        notice.textContent = 'Complete the required payout details and confirmation before saving.';
+        form.reportValidity();
+        return;
+      }
+      notice.textContent = 'Preview only — payout details would be submitted for review and have not been saved or transmitted.';
+    });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Profile preview" />
+  <title>FutureLife — Marketplace Vendor Profile</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #6d7077;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #ffffff; }
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    a, button, input, select { -webkit-tap-highlight-color: transparent; }
+    button, input, select { border-radius: 0; font: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .desktop-sidebar {
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 174px;
+      border-right: 1px solid var(--line);
+      background: var(--white);
+    }
+    .side-brand {
+      display: block;
+      padding: 11px 0 12px 20px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      text-decoration: none;
+    }
+    .account-row {
+      display: grid;
+      grid-template-columns: 31px minmax(0, 1fr) 12px;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 10px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #f7fceb;
+      color: #397d13;
+      text-decoration: none;
+    }
+    .monogram {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border-radius: 0;
+      background: var(--green);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .account-row strong { display: block; color: #2d6136; font-size: 10px; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .account-row .arrow { color: #4e8d1c; font-size: 15px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a {
+      display: flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 0 8px;
+      color: #3e4147;
+      font-size: 11px;
+      text-decoration: none;
+    }
+    .side-menu a:hover, .side-menu a.active { color: #397d13; background: #f7fceb; }
+    .menu-arrow { margin-left: auto; color: #afb2b8; font-size: 16px; font-weight: 400; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .desktop-topbar {
+      display: flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 33px;
+      border-bottom: 1px solid var(--line);
+    }
+    .portal-label { color: #55585d; font-size: 11px; }
+    .portal-label strong { color: var(--green-dark); font-size: 11px; }
+
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .breadcrumb { display: inline-block; margin: 0 0 13px; color: #5e6147; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .breadcrumb:hover { color: var(--green-dark); text-decoration: underline; }
+    .profile-hero {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 17px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .profile-hero .monogram { width: 78px; height: 78px; font-size: 21px; }
+    h1 { margin: 0 0 5px; font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .hero-copy { max-width: 560px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .button {
+      display: inline-flex;
+      min-height: 35px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--green);
+      padding: 0 14px;
+      background: var(--green);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .edit-card { display: none; margin-top: 13px; border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .edit-card.visible { display: block; }
+    .edit-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .edit-card p { margin: 4px 0 13px; color: #74777d; font-size: 9.5px; line-height: 1.4; }
+    .edit-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .edit-field { min-width: 0; }
+    .edit-field.full { grid-column: 1 / -1; }
+    .edit-field label { display: block; margin-bottom: 5px; color: #55585e; font-size: 9px; font-weight: 700; }
+    .edit-field input, .edit-field select { display: block; width: 100%; height: 35px; border: 1px solid #d8d8d8; padding: 0 9px; background: var(--white); color: #2d3036; font-size: 10px; }
+    .edit-field input:focus, .edit-field select:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .edit-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+    .edit-actions .button.secondary { background: var(--white); color: #397d13; }
+    .edit-actions .button.secondary:hover { background: var(--pale-green); }
+    .edit-notice { min-height: 17px; margin: 10px 0 0; color: #397d13; font-size: 9px; font-weight: 700; text-align: right; }
+
+    .info-message {
+      display: flex;
+      gap: 9px;
+      margin-top: 13px;
+      border: 1px solid #8dca3b;
+      border-left: 4px solid var(--green);
+      padding: 11px 12px;
+      background: var(--pale-green);
+      color: #27740d;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+    .info-mark {
+      display: grid;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      place-items: center;
+      background: var(--green);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .info-message strong { display: block; margin-bottom: 2px; }
+
+    .profile-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 25px; margin-top: 16px; align-items: start; }
+    .card, .sidebar-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 12px; }
+    .card-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .card h2, .sidebar-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .card-title-row a { color: #356d1c; font-size: 10px; font-weight: 700; text-decoration: underline; }
+    .field-list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ededed; }
+    .field { min-width: 0; padding: 10px 12px 10px 0; border-bottom: 1px solid #ededed; }
+    .field:nth-child(even) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 12px; }
+    .field-label { display: block; margin-bottom: 4px; color: #777a80; font-size: 9px; }
+    .field-value { display: block; overflow: hidden; color: #292c33; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .field-value.placeholder { color: #7b7e85; font-weight: 400; }
+
+    .preference-row { display: grid; grid-template-columns: 21px minmax(0, 1fr); gap: 8px; padding: 10px 0; border-top: 1px solid #ededed; }
+    .preference-row:first-of-type { padding-top: 0; border-top: 0; }
+    .preference-mark { display: grid; width: 21px; height: 21px; place-items: center; border: 1px solid #9dcc60; background: var(--pale-green); color: #397d13; font-size: 10px; font-weight: 700; }
+    .preference-row strong { display: block; margin-bottom: 3px; color: #33363c; font-size: 10px; }
+    .preference-row p { margin: 0; color: #6c6f75; font-size: 9px; line-height: 1.35; }
+
+    .sidebar-card h2 { margin-bottom: 10px; }
+    .account-links { display: grid; }
+    .account-links a { display: flex; min-height: 36px; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid #ededed; color: #3c3f45; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .account-links a:hover { color: #397d13; }
+    .account-links span { color: #8d9096; font-size: 15px; font-weight: 400; }
+    .privacy-card { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 11px 12px; background: var(--pale-grey); color: #4b4e54; font-size: 9.5px; line-height: 1.4; }
+    .privacy-card strong { color: #2d3036; }
+    .support { margin-top: 12px; border: 1px solid var(--line); padding: 10px; background: var(--white); color: #45484f; font-size: 9.5px; line-height: 1.35; text-align: center; }
+    .support a { color: #356d1c; font-weight: 700; text-decoration: underline; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .desktop-sidebar, .desktop-topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-brand { color: var(--green); font-size: 13px; font-weight: 700; letter-spacing: -.2px; text-decoration: none; }
+      .mobile-portal { color: #5a5d62; font-size: 10px; font-weight: 700; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      .breadcrumb { margin-bottom: 12px; }
+      .profile-hero { grid-template-columns: 58px minmax(0, 1fr); gap: 12px; padding: 13px; }
+      .profile-hero .monogram { width: 58px; height: 58px; font-size: 16px; }
+      h1 { font-size: 20px; }
+      .hero-copy { font-size: 10px; }
+      .profile-hero .button { grid-column: 1 / -1; width: 100%; }
+      .edit-fields { grid-template-columns: 1fr; gap: 11px; }
+      .edit-field.full { grid-column: auto; }
+      .edit-field input, .edit-field select { height: 41px; font-size: 11px; }
+      .edit-actions { display: grid; grid-template-columns: 1fr; }
+      .edit-actions .button { width: 100%; }
+      .edit-notice { text-align: left; }
+      .info-message { margin-top: 12px; }
+      .profile-layout { display: block; margin-top: 15px; }
+      .profile-layout aside { margin-top: 16px; }
+      .field-list { grid-template-columns: 1fr; }
+      .field, .field:nth-child(even) { border-left: 0; padding: 9px 0; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 70px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (max-width: 390px) { .mobile-brand { font-size: 12px; } }
+    @media (prefers-reduced-motion: no-preference) {
+      a { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="desktop-sidebar" aria-label="Vendor portal navigation">
+    <a class="side-brand" href="#vendor-profile">FUTURE LIFE</a>
+    <a class="account-row" href="#vendor-profile" aria-current="page"><span class="monogram">KE</span><span><strong>Vendor Profile</strong><span>Store and contact details</span></span><span class="arrow">›</span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a href="#payouts">Payouts</a>
+        <a href="#messages">Messages</a>
+        <a class="active" href="#vendor-profile" aria-current="page">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="desktop-topbar"><div class="portal-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><a class="mobile-brand" href="#vendor-profile">FUTURE LIFE</a><span class="mobile-portal">Vendor Portal</span></header>
+
+    <main class="content" id="vendor-profile">
+      <a class="breadcrumb" href="#dashboard">← Back to Dashboard</a>
+      <section class="profile-hero" aria-labelledby="profile-heading">
+        <span class="monogram" aria-hidden="true">KE</span>
+        <div>
+          <h1 id="profile-heading">Marketplace Vendor Profile</h1>
+          <p class="hero-copy">Manage the store details and contact information used for your Marketplace listings on FutureLife.</p>
+        </div>
+        <button class="button" type="button" data-action="edit-profile">Edit Profile</button>
+      </section>
+
+      <form class="edit-card" id="vendor-profile-form" novalidate>
+        <h2>Edit Marketplace Vendor Profile</h2>
+        <p>Keep the store and contact details used for Marketplace listings current. The Preview does not save or transmit updates.</p>
+        <div class="edit-fields">
+          <div class="edit-field"><label for="store-name">Store / business name</label><input id="store-name" type="text" value="Kampus Essentials" required /></div>
+          <div class="edit-field"><label for="vendor-type">Vendor type</label><select id="vendor-type" required><option value="marketplace" selected>Marketplace</option></select></div>
+          <div class="edit-field"><label for="store-location">Store location</label><input id="store-location" type="text" value="Subang Jaya, Selangor" required /></div>
+          <div class="edit-field"><label for="contact-person">Contact person</label><input id="contact-person" type="text" value="Khai Lim" required /></div>
+          <div class="edit-field"><label for="profile-email">Email address</label><input id="profile-email" type="email" value="hello@kampusessentials.my" required /></div>
+          <div class="edit-field"><label for="profile-whatsapp">WhatsApp number</label><input id="profile-whatsapp" type="tel" value="+60 12-345 6789" required /></div>
+          <div class="edit-field full"><label for="contact-method">Preferred contact method</label><select id="contact-method" required><option value="whatsapp" selected>WhatsApp</option><option value="email">Email</option><option value="futurelife-messages">FutureLife Messages</option></select></div>
+        </div>
+        <div class="edit-actions"><button class="button secondary" id="cancel-profile-edit" type="button">Cancel</button><button class="button" type="submit">Save Profile Changes</button></div>
+        <p class="edit-notice" id="profile-notice" aria-live="polite"></p>
+      </form>
+
+      <div class="info-message"><span class="info-mark" aria-hidden="true">i</span><div><strong>Keep your store details current.</strong> Clear and current information helps you manage your Marketplace listings and buyer enquiries.</div></div>
+
+      <div class="profile-layout">
+        <section>
+          <section class="card" aria-labelledby="store-heading">
+            <div class="card-title-row"><h2 id="store-heading">Store information</h2><a href="?mode=edit" data-action="edit-profile">Edit</a></div>
+            <div class="field-list">
+              <div class="field"><span class="field-label">Store / business name</span><span class="field-value">Kampus Essentials</span></div>
+              <div class="field"><span class="field-label">Vendor type</span><span class="field-value">Marketplace</span></div>
+              <div class="field"><span class="field-label">Store location</span><span class="field-value">Subang Jaya, Selangor</span></div>
+              <div class="field"><span class="field-label">Business registration number</span><span class="field-value placeholder">Not added</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="contact-heading">
+            <div class="card-title-row"><h2 id="contact-heading">Contact details</h2><a href="?mode=edit" data-action="edit-profile">Edit</a></div>
+            <div class="field-list">
+              <div class="field"><span class="field-label">Contact person</span><span class="field-value">Khai Lim</span></div>
+              <div class="field"><span class="field-label">Email address</span><span class="field-value">hello@kampusessentials.my</span></div>
+              <div class="field"><span class="field-label">WhatsApp number</span><span class="field-value">+60 12-345 6789</span></div>
+              <div class="field"><span class="field-label">Preferred contact method</span><span class="field-value">WhatsApp</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="marketplace-heading">
+            <div class="card-title-row"><h2 id="marketplace-heading">Marketplace preferences</h2><a href="?mode=edit" data-action="edit-profile">Edit</a></div>
+            <div class="preference-row"><span class="preference-mark" aria-hidden="true">1</span><div><strong>Keep listing details current</strong><p>Update product information, availability, and collection or delivery details whenever they change.</p></div></div>
+            <div class="preference-row"><span class="preference-mark" aria-hidden="true">2</span><div><strong>Reply to buyer enquiries</strong><p>Use the vendor inbox to respond to questions relating to your Marketplace listings.</p></div></div>
+          </section>
+        </section>
+
+        <aside>
+          <section class="sidebar-card" aria-labelledby="account-heading">
+            <h2 id="account-heading">Vendor account</h2>
+            <nav class="account-links" aria-label="Vendor account management">
+              <a href="?mode=edit" data-action="edit-profile">Edit Profile <span>›</span></a>
+              <a href="#listings">Manage Listings <span>›</span></a>
+              <a href="/marketplace-vendor-fulfilment-settings.html">Fulfilment Settings <span>›</span></a>
+              <a href="/marketplace-vendor-messages.html">Messages <span>›</span></a>
+              <a href="/marketplace-vendor-account-security.html">Account &amp; Security <span>›</span></a>
+            </nav>
+          </section>
+          <div class="privacy-card"><strong>Profile visibility</strong><br />Only the business details you choose to show on a listing are visible to Marketplace buyers.</div>
+          <div class="support"><strong>Need help?</strong> Visit <a href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=vendor-profile">FutureLife Support</a> for vendor account assistance.</div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a href="#messages">Messages</a>
+    <a class="active" href="#vendor-profile" aria-current="page">Profile</a>
+  </nav>
+  <script>
+    const profileForm = document.getElementById('vendor-profile-form');
+    const profileNotice = document.getElementById('profile-notice');
+    const editTriggers = document.querySelectorAll('[data-action="edit-profile"]');
+    const cancelEdit = document.getElementById('cancel-profile-edit');
+    function setEditMode(open) {
+      profileForm.classList.toggle('visible', open);
+      const url = new URL(window.location.href);
+      if (open) url.searchParams.set('mode', 'edit'); else url.searchParams.delete('mode');
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+      if (open) document.getElementById('store-name').focus();
+    }
+    editTriggers.forEach((trigger) => trigger.addEventListener('click', (event) => { event.preventDefault(); setEditMode(true); }));
+    cancelEdit.addEventListener('click', () => { profileForm.reset(); profileNotice.textContent = ''; setEditMode(false); });
+    profileForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!profileForm.checkValidity()) { profileNotice.textContent = 'Complete the required profile details before saving.'; profileForm.reportValidity(); return; }
+      profileNotice.textContent = 'Preview only — profile changes would be submitted for review and have not been saved or transmitted.';
+    });
+    if (new URLSearchParams(window.location.search).get('mode') === 'edit') setEditMode(true);
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

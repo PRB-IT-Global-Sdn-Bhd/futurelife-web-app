@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Marketplace Vendor Portal order details preview" />
+  <title>Marketplace Vendor Portal — Order Details</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { border-radius: 0; font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .breadcrumb { display: inline-block; margin: 0 0 13px; color: #5e6147; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .breadcrumb:hover { color: var(--green-dark); text-decoration: underline; }
+
+    .order-hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; border: 1px solid var(--line); padding: 17px; background: var(--white); }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .order-date { margin: 6px 0 0; color: var(--muted); font-size: 10px; }
+    .status { display: inline-flex; min-height: 24px; align-items: center; justify-content: center; border: 1px solid #a8d86a; padding: 0 9px; background: var(--pale-green); color: #397d13; font-size: 10px; font-weight: 700; white-space: nowrap; }
+
+    .order-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 25px; margin-top: 16px; align-items: start; }
+    .card, .sidebar-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 12px; }
+    .card-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .card h2, .sidebar-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .card-title-row a { color: #356d1c; font-size: 10px; font-weight: 700; text-decoration: underline; }
+
+    .item-row { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 12px; align-items: center; border-top: 1px solid #ededed; padding-top: 12px; }
+    .item-preview { display: grid; width: 70px; height: 60px; place-items: center; border: 1px solid #d8d8d8; background: var(--pale-grey); color: #8b8e94; font-size: 9px; text-align: center; }
+    .item-title { display: block; overflow: hidden; color: #30333a; font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .item-meta { display: block; margin-top: 4px; color: #797c83; font-size: 9px; }
+    .item-total { color: #30333a; font-size: 11px; font-weight: 700; white-space: nowrap; }
+
+    .price-list { border-top: 1px solid #ededed; }
+    .price-row { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid #ededed; color: #5e6168; font-size: 10px; }
+    .price-row strong { color: #30333a; }
+    .price-row.total { padding: 12px 0 0; border-bottom: 0; color: #30333a; font-size: 12px; font-weight: 700; }
+    .price-row.total strong { font-size: 14px; }
+
+    .field-list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ededed; }
+    .field { min-width: 0; padding: 10px 12px 10px 0; border-bottom: 1px solid #ededed; }
+    .field:nth-child(even) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 12px; }
+    .field-label { display: block; margin-bottom: 4px; color: #777a80; font-size: 9px; }
+    .field-value { display: block; overflow: hidden; color: #292c33; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+
+    .timeline { display: grid; }
+    .timeline-entry { display: grid; grid-template-columns: 21px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 10px 0; border-top: 1px solid #ededed; }
+    .timeline-entry:first-child { padding-top: 0; border-top: 0; }
+    .timeline-number { display: grid; width: 21px; height: 21px; place-items: center; border: 1px solid #9dcc60; background: var(--pale-green); color: #397d13; font-size: 10px; font-weight: 700; }
+    .timeline-entry strong { display: block; margin-bottom: 3px; color: #33363c; font-size: 10px; }
+    .timeline-entry p { margin: 0; color: #6c6f75; font-size: 9px; line-height: 1.35; }
+    .timeline-entry time { color: #8a8d93; font-size: 8px; white-space: nowrap; }
+
+    .action-card { border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 13px; background: var(--pale-grey); }
+    .action-card h2 { margin: 0 0 5px; color: #2d3036; font-size: 12px; }
+    .action-card p { margin: 0 0 12px; color: #61646a; font-size: 9.5px; line-height: 1.4; }
+    .button { display: inline-flex; min-height: 35px; align-items: center; justify-content: center; width: 100%; border: 1px solid var(--green); padding: 0 14px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { margin-top: 8px; background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+    .sidebar-card { margin-top: 12px; }
+    .sidebar-card h2 { margin-bottom: 10px; }
+    .account-links { display: grid; }
+    .account-links a { display: flex; min-height: 36px; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid #ededed; color: #3c3f45; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .account-links a:hover { color: #397d13; }
+    .account-links span { color: #8d9096; font-size: 15px; font-weight: 400; }
+    .privacy-card { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 11px 12px; background: var(--pale-grey); color: #4b4e54; font-size: 9.5px; line-height: 1.4; }
+    .privacy-card strong { color: #2d3036; }
+    .notice { min-height: 17px; margin: 10px 0 0; color: #397d13; font-size: 9px; font-weight: 700; text-align: center; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      .order-hero { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+      h1 { font-size: 21px; }
+      .status { justify-self: start; }
+      .order-layout { display: block; margin-top: 15px; }
+      .order-layout aside { margin-top: 16px; }
+      .field-list { grid-template-columns: 1fr; }
+      .field, .field:nth-child(even) { border-left: 0; padding: 9px 0; }
+      .item-row { grid-template-columns: 60px minmax(0, 1fr); }
+      .item-preview { width: 60px; height: 58px; }
+      .item-total { grid-column: 2; }
+      .timeline-entry { grid-template-columns: 21px minmax(0, 1fr); }
+      .timeline-entry time { grid-column: 2; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(5, minmax(66px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 66px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="/marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
+    <a class="account-row" href="/marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="/marketplace-vendor-dashboard.html">Dashboard</a>
+        <a href="/marketplace-vendor-listings.html">Listings</a>
+        <a class="active" href="/marketplace-vendor-orders.html" aria-current="page">Orders</a>
+        <a href="/marketplace-vendor-payouts.html">Payouts</a>
+        <a href="/marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
+        <a href="/marketplace-vendor-profile.html">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="order-details">
+      <a class="breadcrumb" href="/marketplace-vendor-orders.html">← Back to Orders</a>
+      <section class="order-hero" aria-labelledby="order-heading">
+        <div><p class="eyebrow">Marketplace order</p><h1 id="order-heading">{{ORDER ID}}</h1><p class="order-date">Placed on {{ORDER DATE}}</p></div>
+        <span class="status">New</span>
+      </section>
+
+      <div class="order-layout">
+        <section>
+          <section class="card" aria-labelledby="items-heading">
+            <div class="card-title-row"><h2 id="items-heading">Order items</h2><a href="/marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View Listing</a></div>
+            <article class="item-row"><div class="item-preview">Item photo</div><div><span class="item-title">{{LISTING TITLE}}</span><span class="item-meta">Quantity: {{QUANTITY}}</span></div><span class="item-total">RM {{ITEM TOTAL}}</span></article>
+          </section>
+
+          <section class="card" aria-labelledby="pricing-heading">
+            <div class="card-title-row"><h2 id="pricing-heading">Order summary</h2></div>
+            <div class="price-list">
+              <div class="price-row"><span>Subtotal</span><strong>RM {{SUBTOTAL}}</strong></div>
+              <div class="price-row"><span>Delivery</span><strong>RM {{DELIVERY}}</strong></div>
+              <div class="price-row"><span>Discount</span><strong>RM {{DISCOUNT}}</strong></div>
+              <div class="price-row total"><span>Total</span><strong>RM {{ORDER TOTAL}}</strong></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="fulfilment-heading">
+            <div class="card-title-row"><h2 id="fulfilment-heading">Fulfilment</h2></div>
+            <div class="field-list">
+              <div class="field"><span class="field-label">Method</span><span class="field-value">{{FULFILMENT METHOD}}</span></div>
+              <div class="field"><span class="field-label">Current status</span><span class="field-value">New</span></div>
+              <div class="field"><span class="field-label">Collection / delivery area</span><span class="field-value">{{FULFILMENT AREA}}</span></div>
+              <div class="field"><span class="field-label">Customer contact</span><span class="field-value">{{CUSTOMER CONTACT}}</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="activity-heading">
+            <div class="card-title-row"><h2 id="activity-heading">Order activity</h2></div>
+            <div class="timeline">
+              <article class="timeline-entry"><span class="timeline-number">1</span><div><strong>Order created</strong><p>This order was created and is ready for vendor review.</p></div><time>{{ORDER DATE}}</time></article>
+              <article class="timeline-entry"><span class="timeline-number">2</span><div><strong>Vendor action pending</strong><p>Review the order items and selected fulfilment details before processing.</p></div><time>Now</time></article>
+            </div>
+          </section>
+        </section>
+
+        <aside>
+          <section class="action-card" aria-labelledby="action-heading">
+            <h2 id="action-heading">Next action</h2>
+            <p>Review the order details, then begin the selected fulfilment process.</p>
+            <button class="button" type="button" id="start-processing">Start Processing</button>
+            <a class="button secondary" href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Message Customer</a>
+            <a class="button secondary" href="/marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Cancellation / Refund</a>
+            <p class="notice" id="action-notice" aria-live="polite"></p>
+          </section>
+          <section class="sidebar-card" aria-labelledby="customer-heading">
+            <h2 id="customer-heading">Customer</h2>
+            <nav class="account-links" aria-label="Customer and order actions">
+              <a href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;context=order">{{CUSTOMER NAME}} <span>›</span></a>
+              <a href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Open Conversation <span>›</span></a>
+              <a href="/marketplace-vendor-orders.html">Back to Orders <span>›</span></a>
+            </nav>
+          </section>
+          <div class="privacy-card"><strong>Customer information</strong><br />Use customer and fulfilment details only to manage this order and the related conversation.</div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a class="active" href="#orders" aria-current="page">Orders</a>
+    <a href="#messages">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    const notice = document.getElementById('action-notice');
+    const processingButton = document.getElementById('start-processing');
+    let processingConfirmationPending = false;
+    processingButton.addEventListener('click', () => {
+      if (!processingConfirmationPending) {
+        processingConfirmationPending = true;
+        processingButton.textContent = 'Confirm Start Processing';
+        notice.textContent = 'Confirm only after reviewing the order and selected fulfilment method.';
+        return;
+      }
+      processingConfirmationPending = false;
+      processingButton.textContent = 'Start Processing';
+      notice.textContent = 'Preview only — the order status would be updated to Processing after confirmation.';
+    });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

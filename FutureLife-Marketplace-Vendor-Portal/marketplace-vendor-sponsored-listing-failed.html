@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Sponsored Listing payment-failed preview" />
+  <title>Marketplace Vendor Portal — Sponsored Listing Payment Not Completed</title>
+  <link rel="stylesheet" href="/marketplace-vendor-sponsored-listing-flow.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation"><a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a><a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a><section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section><a class="side-logout" href="#logout">Logout</a></aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="sponsored-payment-failed"><div class="payment-shell"><section class="result-panel" aria-labelledby="failed-heading"><div class="result-marker failed" aria-hidden="true">×</div><p class="eyebrow">Sponsored listing payment</p><h1 id="failed-heading">Payment Not Completed</h1><p class="page-copy">The listing remains unchanged and is not sponsored. Use the payment provider result returned to FutureLife to show the appropriate retry state.</p><div class="result-details"><div><span>Listing</span><strong>{{LISTING_TITLE}}</strong></div><div><span>Listing reference</span><strong>{{LISTING_ID}}</strong></div><div><span>Payment reference</span><strong>{{PAYMENT_ID}}</strong></div><div><span>Amount to pay</span><strong>RM {{TOTAL_PAYABLE}}</strong></div><div><span>Payment status</span><strong>{{PAYMENT_STATUS}}</strong></div></div><div class="action-row"><a class="button secondary" href="/marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Change Selection</a><a class="button" href="/marketplace-vendor-sponsored-listing-payment.html?listing={{LISTING_ID}}&amp;option={{SPONSORED_OPTION_ID}}">Retry Payment</a></div><a class="text-link" href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=sponsored-listing">Message FutureLife Support</a></section><aside class="notice failure"><strong>Do not activate sponsorship:</strong> a failure, cancellation, or unfinished checkout must leave the listing in its previous non-sponsored state. The live error message should come from FutureLife or Stripe, not a hard-coded decline reason.</aside></div></main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

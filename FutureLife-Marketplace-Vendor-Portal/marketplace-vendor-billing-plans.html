@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal Plans and Sponsored Listing Fees preview" />
+  <title>Marketplace Vendor Portal — Plans &amp; Sponsored Listing Fees</title>
+  <style>
+    :root { --green:#78be21; --green-dark:#62a719; --ink:#20232b; --muted:#70737a; --line:#e7e7e7; --pale-green:#f8fff1; --pale-grey:#fbfbfb; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { background:var(--white); }
+    body { min-width:320px; margin:0; background:var(--white); color:var(--ink); font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:1.3; }
+    button, input { border-radius:0; font:inherit; }
+    button { cursor:pointer; }
+    a, button, input { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+
+    .sidebar { position:fixed; z-index:3; top:0; bottom:0; left:0; width:174px; border-right:1px solid var(--line); background:var(--white); }
+    .portal-name { display:block; padding:12px 14px; border-bottom:1px solid var(--line); color:#35383e; font-size:11px; font-weight:700; text-decoration:none; }
+    .account-row { display:grid; grid-template-columns:31px minmax(0,1fr); gap:8px; align-items:center; padding:9px 10px; border-bottom:1px solid var(--line); background:#f7fceb; text-decoration:none; }
+    .avatar { display:grid; width:31px; height:31px; place-items:center; border:1px solid var(--green); background:var(--green); color:var(--white); font-size:10px; font-weight:700; }
+    .account-row strong { display:block; overflow:hidden; color:#2d6136; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+    .account-row span { display:block; margin-top:2px; color:#60805e; font-size:8px; }
+    .side-section { padding:12px 9px 0; }
+    .side-label { margin:0 0 9px; color:#a7aaaf; font-size:10px; font-weight:700; }
+    .side-menu { display:grid; gap:3px; }
+    .side-menu a { display:flex; min-height:34px; align-items:center; padding:0 8px; color:#3e4147; font-size:11px; text-decoration:none; }
+    .side-menu a:hover, .side-menu a.active { background:#f7fceb; color:#397d13; }
+    .side-menu .billing-parent { display:flex; min-height:34px; align-items:center; padding:0 8px; background:#f7fceb; color:#397d13; font-size:11px; }
+    .side-menu a.billing-sub-link { min-height:28px; padding-left:21px; color:#6c6f75; font-size:10px; }
+    .side-menu a.billing-sub-link::before { content:'›'; margin-right:7px; color:#98a18f; font-size:13px; }
+    .side-menu a.billing-sub-link:hover, .side-menu a.billing-sub-link.active { color:#397d13; }
+    .menu-count { min-width:17px; margin-left:auto; padding:2px 4px; background:var(--green); color:var(--white); font-size:8px; font-weight:700; line-height:1; text-align:center; }
+    .side-logout { position:absolute; bottom:26px; left:11px; color:#dd5f5f; font-size:11px; text-decoration:none; }
+
+    .page-shell { min-height:100vh; margin-left:174px; }
+    .topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }
+    .topbar-label { color:#5c5f65; font-size:11px; }
+    .topbar-label strong { color:var(--green-dark); }
+    .mobile-header, .mobile-nav { display:none; }
+    .content { width:min(100% - 70px, 1058px); margin:35px auto 70px; }
+    .heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+    .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }
+    h1 { margin:0; color:var(--ink); font-size:23px; font-weight:400; letter-spacing:-.35px; }
+    h2 { margin:0; color:#2b2e34; font-size:12px; font-weight:700; }
+    .page-copy { max-width:690px; margin:6px 0 19px; color:var(--muted); font-size:11px; line-height:1.45; }
+    .card { border:1px solid var(--line); padding:14px; background:var(--white); }
+    .card + .card { margin-top:13px; }
+    .card-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .card-heading p { margin:3px 0 0; color:#7b7e84; font-size:9px; line-height:1.35; }
+    .link-button { display:inline-flex; min-height:29px; align-items:center; justify-content:center; border:1px solid var(--green); padding:0 9px; background:var(--white); color:#397d13; font-size:9px; font-weight:700; text-decoration:none; white-space:nowrap; }
+    .link-button:hover { background:var(--pale-green); }
+    .link-button.primary { background:var(--green); color:var(--white); }
+    .link-button.primary:hover { background:var(--green-dark); border-color:var(--green-dark); }
+    .back-link { flex:0 0 auto; }
+
+    .plan-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:7px; }
+    .plan-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid #ededed; }
+    .plan-metric { min-width:0; padding:11px 12px; border-left:1px solid #ededed; }
+    .plan-metric:first-child { border-left:0; padding-left:0; }
+    .field-label { display:block; margin-bottom:4px; color:#7c7f85; font-size:8.5px; }
+    .field-value { display:block; overflow-wrap:anywhere; color:#32353b; font-size:10px; font-weight:700; line-height:1.35; }
+    .billing-notice { min-height:16px; margin:10px 0 0; color:#397d13; font-size:9px; font-weight:700; line-height:1.35; }
+
+    .listing-credit-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid #ededed; }
+    .listing-credit-item { min-width:0; padding:11px 12px; border-left:1px solid #ededed; }
+    .listing-credit-item:first-child { border-left:0; padding-left:0; }
+    .listing-credit-action { display:flex; align-items:center; padding:11px 0 11px 12px; border-left:1px solid #ededed; }
+
+    .history-table { width:100%; border-collapse:collapse; table-layout:fixed; border:1px solid var(--line); }
+    .history-table col.invoice { width:17%; }
+    .history-table col.date { width:15%; }
+    .history-table col.description { width:30%; }
+    .history-table col.amount { width:15%; }
+    .history-table col.status { width:14%; }
+    .history-table col.action { width:9%; }
+    .history-table th { height:36px; padding:0 10px; border-bottom:1px solid var(--line); background:var(--pale-grey); color:#777a80; font-size:8.5px; font-weight:700; text-align:left; }
+    .history-table td { padding:11px 10px; border-bottom:1px solid #ededed; color:#42454c; font-size:9.5px; vertical-align:top; }
+    .history-table tr:last-child td { border-bottom:0; }
+    .invoice-id { display:block; overflow-wrap:anywhere; color:#32353b; font-weight:700; }
+    .status { display:inline-flex; min-height:20px; align-items:center; justify-content:center; border:1px solid #a8d86a; padding:0 7px; background:var(--pale-green); color:#397d13; font-size:8.5px; font-weight:700; white-space:nowrap; }
+    .row-link { color:#356d1c; font-size:9px; font-weight:700; text-decoration:underline; }
+    .mobile-invoice-card { display:none; border:1px solid var(--line); padding:12px; background:var(--white); }
+    .mobile-invoice-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .mobile-invoice-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; margin-top:11px; border-top:1px solid #ededed; padding-top:10px; }
+    .mobile-invoice-grid > div { min-width:0; padding:7px 0; }
+    .invoice-action { width:100%; margin-top:10px; }
+
+    .billing-contact-grid { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid #ededed; }
+    .billing-contact-item { min-width:0; padding:11px 12px 11px 0; border-bottom:1px solid #ededed; }
+    .billing-contact-item:nth-child(even) { border-left:1px solid #ededed; padding-right:0; padding-left:12px; }
+
+    .preview-note { margin-top:13px; border:1px solid #dce9ca; border-left:4px solid var(--green); padding:11px; color:#56634d; background:var(--pale-green); font-size:9.5px; line-height:1.45; }
+    .preview-note strong { color:#366a16; }
+
+    @media (max-width:960px) {
+      html, body { max-width:100%; overflow-x:clip; }
+      body { padding-bottom:60px; }
+      .sidebar, .topbar { display:none; }
+      .page-shell { margin-left:0; }
+      .mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }
+      .mobile-portal { color:#34373d; font-size:12px; font-weight:700; }
+      .mobile-account { color:#5d6067; font-size:10px; }
+      .content { width:min(100% - 28px,680px); margin:27px auto 34px; }
+      h1 { font-size:22px; }
+      .page-copy { margin-bottom:16px; font-size:10px; }
+      .heading { display:block; }
+      .back-link { width:100%; margin-top:12px; }
+      .card-heading { display:block; }
+      .plan-actions { display:grid; grid-template-columns:1fr 1fr; margin-top:12px; }
+      .plan-actions .link-button { width:100%; }
+      .plan-metrics, .listing-credit-grid, .billing-contact-grid { grid-template-columns:1fr; }
+      .plan-metric, .plan-metric:first-child, .listing-credit-item, .listing-credit-item:first-child, .billing-contact-item, .billing-contact-item:nth-child(even) { border-left:0; padding:10px 0; }
+      .plan-metric + .plan-metric, .listing-credit-item + .listing-credit-item, .billing-contact-item + .billing-contact-item { border-top:1px solid #ededed; }
+      .listing-credit-action { padding:10px 0 0; border-top:1px solid #ededed; border-left:0; }
+      .listing-credit-action .link-button { width:100%; }
+      .history-table { display:none; }
+      .mobile-invoice-card { display:block; }
+      .mobile-invoice-grid { grid-template-columns:1fr; }
+      .mobile-invoice-grid > div + div { border-top:1px solid #ededed; }
+      .mobile-nav { position:fixed; z-index:5; right:0; bottom:0; left:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); min-height:60px; overflow-x:auto; border-top:1px solid #e4e4e4; background:var(--white); }
+      .mobile-nav a { display:grid; min-width:0; place-items:center; color:#4f5258; font-size:9px; font-weight:700; text-align:center; text-decoration:none; }
+      .mobile-nav a.active { border-top:3px solid var(--green); color:#54751c; }
+    }
+    @media (prefers-reduced-motion:no-preference) { a,button { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active,button:active { transform:scale(.97); } }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a class="billing-parent" href="/marketplace-vendor-billing.html">Billing</a>
+        <a class="billing-sub-link active" href="/marketplace-vendor-billing-plans.html" aria-current="page">Plans &amp; Sponsored Listing Fees</a>
+        <a class="billing-sub-link" href="/marketplace-vendor-payouts.html">Platform Fees</a>
+        <a href="#messages">Messages <span class="menu-count">3</span></a>
+        <a href="#profile">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="billing-plans">
+      <div class="heading">
+        <div>
+          <p class="eyebrow">Billing</p>
+          <h1>Plans &amp; Sponsored Listing Fees</h1>
+          <p class="page-copy">Review recurring plan charges, sponsored-listing allowances, listing credits, and invoices payable to FutureLife.</p>
+        </div>
+        <a class="link-button back-link" href="/marketplace-vendor-billing.html">Back to Billing</a>
+      </div>
+
+      <section class="card" aria-labelledby="current-plan-heading">
+        <div class="card-heading">
+          <div><h2 id="current-plan-heading">Current plan</h2><p>Your active Marketplace vendor plan and listing allowance.</p></div>
+          <div class="plan-actions"><a class="link-button" href="/marketplace-vendor-plan-change.html?intent=manage">Manage Plan</a><a class="link-button primary" href="/marketplace-vendor-plan-change.html?intent=upgrade">Upgrade Plan</a></div>
+        </div>
+        <div class="plan-metrics">
+          <div class="plan-metric"><span class="field-label">Plan name</span><span class="field-value">{{CURRENT_MARKETPLACE_PLAN}}</span></div>
+          <div class="plan-metric"><span class="field-label">Plan price</span><span class="field-value">RM {{PLAN_PRICE}} / {{BILLING_CYCLE}}</span></div>
+          <div class="plan-metric"><span class="field-label">Renewal date</span><span class="field-value">{{PLAN_RENEWAL_DATE}}</span></div>
+          <div class="plan-metric"><span class="field-label">Listing allowance</span><span class="field-value">{{ACTIVE_LISTINGS}} of {{LISTING_LIMIT}} active</span></div>
+        </div>
+        <p class="billing-notice" id="billing-plan-notice" aria-live="polite"></p>
+      </section>
+
+      <section class="card" aria-labelledby="listing-credit-heading">
+        <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing fee &amp; credit summary</h2><p>Use listing credits when you need more active listings. Sponsored listings have a separate paid visibility fee.</p></div></div>
+        <div class="listing-credit-grid">
+          <div class="listing-credit-item"><span class="field-label">Listing credits remaining</span><span class="field-value">{{LISTING_CREDITS_REMAINING}}</span></div>
+          <div class="listing-credit-item"><span class="field-label">Additional listing fee</span><span class="field-value">RM {{ADDITIONAL_LISTING_FEE}}</span></div>
+          <div class="listing-credit-item"><span class="field-label">Sponsored listing fee</span><span class="field-value">RM {{SPONSORED_LISTING_FEE}}</span></div>
+          <div class="listing-credit-action"><a class="link-button" href="/marketplace-vendor-listing-credits.html">Buy Listing Credits</a></div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="billing-history-heading">
+        <div class="card-heading"><div><h2 id="billing-history-heading">Billing history</h2><p>Invoices record platform charges made to this Marketplace vendor account.</p></div></div>
+        <table class="history-table">
+          <colgroup><col class="invoice" /><col class="date" /><col class="description" /><col class="amount" /><col class="status" /><col class="action" /></colgroup>
+          <thead><tr><th>Invoice</th><th>Date</th><th>Description</th><th>Amount</th><th>Payment status</th><th></th></tr></thead>
+          <tbody><tr><td><span class="invoice-id">{{INVOICE_ID}}</span></td><td>{{INVOICE_DATE}}</td><td>{{INVOICE_DESCRIPTION}}</td><td>RM {{INVOICE_AMOUNT}}</td><td><span class="status">{{INVOICE_STATUS}}</span></td><td><button class="row-link" type="button" data-billing-action="view-invoice">View Invoice</button></td></tr></tbody>
+        </table>
+        <article class="mobile-invoice-card">
+          <div class="mobile-invoice-top"><span class="invoice-id">{{INVOICE_ID}}</span><span class="status">{{INVOICE_STATUS}}</span></div>
+          <div class="mobile-invoice-grid"><div><span class="field-label">Date</span><span class="field-value">{{INVOICE_DATE}}</span></div><div><span class="field-label">Amount</span><span class="field-value">RM {{INVOICE_AMOUNT}}</span></div><div><span class="field-label">Description</span><span class="field-value">{{INVOICE_DESCRIPTION}}</span></div></div>
+          <button class="link-button invoice-action" type="button" data-billing-action="view-invoice">View Invoice</button>
+        </article>
+      </section>
+
+      <section class="card" aria-labelledby="billing-contact-heading">
+        <div class="card-heading"><div><h2 id="billing-contact-heading">Billing contact &amp; payment method</h2><p>Keep invoice and payment information current for this Marketplace vendor account.</p></div><button class="link-button" type="button" data-billing-action="update-billing-details">Update Billing Details</button></div>
+        <div class="billing-contact-grid">
+          <div class="billing-contact-item"><span class="field-label">Organisation billing contact</span><span class="field-value">{{BILLING_CONTACT}}</span></div>
+          <div class="billing-contact-item"><span class="field-label">Invoice email address</span><span class="field-value">{{INVOICE_EMAIL}}</span></div>
+          <div class="billing-contact-item"><span class="field-label">Payment method status</span><span class="field-value">{{PAYMENT_METHOD_STATUS}}</span></div>
+          <div class="billing-contact-item"><span class="field-label">Billing account</span><span class="field-value">{{MARKETPLACE_VENDOR_ACCOUNT}}</span></div>
+        </div>
+      </section>
+
+      <aside class="preview-note"><strong>Preview-only actions:</strong> View Invoice and Update Billing Details should connect to approved Marketplace vendor workflows before production use. Manage Plan, Upgrade Plan, and Listing Credits open their connected purchase-flow previews.</aside>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    document.querySelectorAll('[data-billing-action]').forEach((button) => button.addEventListener('click', () => {
+      const notice = document.getElementById('billing-plan-notice');
+      if (notice) notice.textContent = `Preview only — ${button.textContent.trim()} should open the approved Marketplace Billing workflow.`;
+    }));
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Messages inbox preview" />
+  <title>Marketplace Vendor Portal — Messages</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    button, input, textarea { border-radius: 0; font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .page-copy { margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .messages-shell { display: grid; grid-template-columns: 365px minmax(0, 1fr); min-height: 590px; border: 1px solid var(--line); background: var(--white); }
+    .inbox { min-width: 0; border-right: 1px solid var(--line); }
+    .inbox-tools { padding: 13px; border-bottom: 1px solid var(--line); }
+    .search { position: relative; }
+    .search input { display: block; width: 100%; height: 34px; border: 1px solid #d8d8d8; padding: 0 9px; background: var(--white); color: #272a30; font-size: 10px; }
+    .search input::placeholder { color: #979aa0; }
+    .search input:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
+    .filter { min-height: 27px; border: 1px solid var(--line); background: var(--white); color: #60636a; font-size: 9px; font-weight: 700; }
+    .filter:hover, .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+
+    .conversation-list { display: grid; }
+    .conversation { display: grid; grid-template-columns: 37px minmax(0, 1fr) auto; gap: 9px; align-items: start; padding: 12px 13px; border-bottom: 1px solid #ededed; background: var(--white); cursor: pointer; }
+    .conversation:hover, .conversation.selected { background: var(--pale-green); }
+    .conversation[hidden] { display: none; }
+    .conversation .avatar { width: 37px; height: 37px; border-color: #a8d86a; background: #effadd; color: #397d13; font-size: 10px; }
+    .conversation.support .avatar { border-color: #c9c9c9; background: #f2f2f2; color: #53565c; }
+    .conversation-main { min-width: 0; }
+    .conversation-name { display: block; overflow: hidden; color: #34373d; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .conversation-meta { display: block; margin-top: 2px; color: #7c7f85; font-size: 8.5px; }
+    .conversation-preview { display: block; overflow: hidden; margin-top: 4px; color: #666970; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+    .conversation-side { display: grid; justify-items: end; gap: 6px; }
+    .conversation time { color: #898c92; font-size: 8px; white-space: nowrap; }
+    .unread { display: grid; min-width: 17px; height: 17px; place-items: center; padding: 0 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; }
+    .empty-list { display: none; padding: 25px 13px; color: #7b7e84; font-size: 10px; text-align: center; }
+    .empty-list.visible { display: block; }
+
+    .thread { display: flex; min-width: 0; min-height: 100%; flex-direction: column; background: #fcfcfc; }
+    .thread-header { display: grid; grid-template-columns: 37px minmax(0, 1fr); gap: 9px; align-items: center; border-bottom: 1px solid var(--line); padding: 13px; background: var(--white); }
+    .thread-header .avatar { width: 37px; height: 37px; border-color: #a8d86a; background: #effadd; color: #397d13; font-size: 10px; }
+    .thread-header.support .avatar { border-color: #c9c9c9; background: #f2f2f2; color: #53565c; }
+    .thread-name { display: block; overflow: hidden; color: #34373d; font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .thread-meta { display: block; overflow: hidden; margin-top: 3px; color: #75787e; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+    .thread-listing { display: inline-block; margin-top: 4px; color: #356d1c; font-size: 9px; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .thread-listing[hidden], .thread-listing.is-hidden { display: none !important; }
+    .thread-back { display: none; grid-column: 1 / -1; width: max-content; border: 0; padding: 0; background: transparent; color: #356d1c; font-size: 10px; font-weight: 700; }
+    .message-feed { display: flex; min-height: 0; flex: 1; flex-direction: column; gap: 9px; padding: 14px; overflow-y: auto; }
+    .message-row { display: flex; }
+    .message-row.outgoing { justify-content: flex-end; }
+    .message-bubble { max-width: min(82%, 390px); border: 1px solid #dcdcdc; padding: 9px 10px; background: var(--white); color: #45484e; font-size: 10px; line-height: 1.4; }
+    .message-row.outgoing .message-bubble { border-color: #a8d86a; background: var(--pale-green); color: #376e1a; }
+    .message-time { display: block; margin-top: 5px; color: #8a8d93; font-size: 8px; }
+    .thread-compose { border-top: 1px solid var(--line); padding: 12px; background: var(--white); }
+    .compose-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 7px; align-items: end; }
+    .compose-row textarea { display: block; min-height: 35px; width: 100%; resize: vertical; border: 1px solid #d8d8d8; padding: 8px 9px; color: #272a30; font-size: 10px; line-height: 1.35; }
+    .compose-row textarea:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .compose-button { min-height: 35px; border: 1px solid var(--green); padding: 0 10px; background: var(--green); color: var(--white); font-size: 9px; font-weight: 700; }
+    .compose-button.secondary { background: var(--white); color: #397d13; }
+    .compose-button:hover { border-color: var(--green-dark); background: var(--green-dark); color: var(--white); }
+    .compose-notice { min-height: 14px; margin: 8px 0 0; color: #397d13; font-size: 9px; font-weight: 700; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .page-copy { margin-bottom: 16px; font-size: 10px; }
+      .messages-shell { display: block; min-height: 0; }
+      .inbox { border-right: 0; }
+      .thread { display: none; min-height: calc(100vh - 160px); }
+      body.thread-open .inbox { display: none; }
+      body.thread-open .thread { display: flex; }
+      .thread-header { grid-template-columns: 42px minmax(0, 1fr); padding: 13px; }
+      .thread-header .avatar { width: 42px; height: 42px; font-size: 11px; }
+      .thread-name { font-size: 12px; }
+      .thread-meta, .thread-listing { font-size: 10px; }
+      .thread-back { display: inline-flex; }
+      .message-feed { padding: 13px; }
+      .message-bubble { max-width: 88%; font-size: 11px; }
+      .compose-row textarea { min-height: 42px; font-size: 11px; }
+      .compose-button { min-height: 42px; padding: 0 9px; font-size: 10px; }
+      .conversation { grid-template-columns: 42px minmax(0, 1fr) auto; padding: 13px; }
+      .conversation .avatar { width: 42px; height: 42px; font-size: 11px; }
+      .conversation-name { font-size: 11px; }
+      .conversation-meta { font-size: 9px; }
+      .conversation-preview { font-size: 10px; }
+      .filters { gap: 7px; }
+      .filter { min-height: 31px; font-size: 10px; }
+      .search input { height: 42px; font-size: 12px; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 70px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      button, .conversation, a { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      button:active, .conversation:active, a:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a href="#payouts">Payouts</a>
+        <a class="active" href="#messages" aria-current="page">Messages <span class="menu-count">3</span></a>
+        <a href="#profile">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="messages">
+      <p class="eyebrow">Marketplace vendor</p>
+      <h1>Messages</h1>
+      <p class="page-copy">Manage buyer enquiries and messages from FutureLife Support.</p>
+
+      <section class="messages-shell" aria-label="Vendor messages">
+        <div class="inbox">
+          <div class="inbox-tools">
+            <label class="search"><input id="message-search" type="search" placeholder="Search conversations" aria-label="Search conversations" /></label>
+            <div class="filters" role="group" aria-label="Conversation filters">
+              <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter" type="button" data-filter="customer" aria-pressed="false">Customers</button>
+              <button class="filter" type="button" data-filter="support" aria-pressed="false">Support</button>
+              <button class="filter" type="button" data-filter="unread" aria-pressed="false">Unread</button>
+            </div>
+          </div>
+
+          <div class="conversation-list" id="conversation-list">
+            <article class="conversation selected" tabindex="0" data-conversation="aisyah-noor" data-group="customer" data-search="aisyah noor scientific calculator customer">
+              <span class="avatar">AN</span>
+              <div class="conversation-main"><span class="conversation-name">Aisyah Noor</span><span class="conversation-meta">Customer · Scientific Calculator</span><span class="conversation-preview">Hi, is the Scientific Calculator still available?</span></div>
+              <div class="conversation-side"><time>10:45</time><span class="unread">2</span></div>
+            </article>
+            <article class="conversation" tabindex="0" data-conversation="daniel-wong" data-group="customer" data-search="daniel wong calculus book customer">
+              <span class="avatar">DW</span>
+              <div class="conversation-main"><span class="conversation-name">Daniel Wong</span><span class="conversation-meta">Customer · Calculus 1: A Complete Course</span><span class="conversation-preview">Can I collect this after class tomorrow?</span></div>
+              <div class="conversation-side"><time>09:20</time></div>
+            </article>
+            <article class="conversation support" tabindex="0" data-conversation="futurelife-support" data-group="support" data-search="futurelife support listing review support order support">
+              <span class="avatar">FS</span>
+              <div class="conversation-main"><span class="conversation-name">FutureLife Support</span><span class="conversation-meta">Support · Listing review</span><span class="conversation-preview">Your listing is pending review. We will update you here.</span></div>
+              <div class="conversation-side"><time>Yesterday</time><span class="unread">1</span></div>
+            </article>
+            <article class="conversation" tabindex="0" data-conversation="nur-izzati" data-group="customer" data-search="nur izzati laptop sleeve customer">
+              <span class="avatar">NI</span>
+              <div class="conversation-main"><span class="conversation-name">Nur Izzati</span><span class="conversation-meta">Customer · Laptop Sleeve 14 inch</span><span class="conversation-preview">Could you share another photo of the zip?</span></div>
+              <div class="conversation-side"><time>Mon</time></div>
+            </article>
+          </div>
+          <p class="empty-list" id="empty-list">No conversations match your search or filter.</p>
+        </div>
+
+        <section class="thread" aria-label="Conversation thread">
+          <div class="thread-header" id="thread-header">
+            <button class="thread-back" type="button" id="thread-back">← Back to conversations</button>
+            <span class="avatar" id="thread-avatar">AN</span>
+            <div><span class="thread-name" id="thread-name">Aisyah Noor</span><span class="thread-meta" id="thread-meta">Customer · Scientific Calculator</span><a class="thread-listing" id="thread-listing" href="/marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View linked listing</a></div>
+          </div>
+          <div class="message-feed" id="message-feed" aria-live="polite"></div>
+          <form class="thread-compose" id="thread-compose" novalidate>
+            <div class="compose-row"><button class="compose-button secondary" type="button" id="attach-message">Attach</button><textarea id="message-draft" aria-label="Message draft" placeholder="Write a message…"></textarea><button class="compose-button" type="submit">Send</button></div>
+            <input id="message-attachment" type="file" accept="image/*" hidden />
+            <p class="compose-notice" id="compose-notice" aria-live="polite"></p>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a class="active" href="#messages" aria-current="page">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    const threads = {
+      'aisyah-noor': { initials: 'AN', name: 'Aisyah Noor', meta: 'Customer · Scientific Calculator', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Hi, is the Scientific Calculator still available?', time: '10:45' }, { incoming: false, text: 'Yes, it is available. I can arrange the selected fulfilment option once the order is placed.', time: '10:47' }] },
+      'daniel-wong': { initials: 'DW', name: 'Daniel Wong', meta: 'Customer · Calculus 1: A Complete Course', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Can I collect this after class tomorrow?', time: '09:20' }, { incoming: false, text: 'Please place the order first and I will confirm the collection details in this chat.', time: '09:24' }] },
+      'nur-izzati': { initials: 'NI', name: 'Nur Izzati', meta: 'Customer · Laptop Sleeve 14 inch', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Could you share another photo of the zip?', time: 'Mon' }, { incoming: false, text: 'I can share another product photo through this conversation.', time: 'Mon' }] },
+      'futurelife-support': { initials: 'FS', name: 'FutureLife Support', meta: 'Support · Vendor account', support: true, messages: [{ incoming: true, text: 'Your listing is pending review. We will update you here.', time: 'Yesterday' }, { incoming: false, text: 'Thank you. Please let me know if you need any further listing information.', time: 'Yesterday' }] }
+    };
+    const filters = document.querySelectorAll('.filter');
+    const conversations = document.querySelectorAll('.conversation');
+    const search = document.getElementById('message-search');
+    const emptyList = document.getElementById('empty-list');
+    const threadHeader = document.getElementById('thread-header');
+    const threadAvatar = document.getElementById('thread-avatar');
+    const threadName = document.getElementById('thread-name');
+    const threadMeta = document.getElementById('thread-meta');
+    const threadListing = document.getElementById('thread-listing');
+    const messageFeed = document.getElementById('message-feed');
+    const composeForm = document.getElementById('thread-compose');
+    const messageDraft = document.getElementById('message-draft');
+    const composeNotice = document.getElementById('compose-notice');
+    const attachment = document.getElementById('message-attachment');
+    const attachButton = document.getElementById('attach-message');
+    const threadBack = document.getElementById('thread-back');
+    const params = new URLSearchParams(window.location.search);
+    let activeFilter = ['customer', 'support', 'unread'].includes(params.get('filter')) ? params.get('filter') : 'all';
+    let activeConversation = threads[params.get('conversation')] ? params.get('conversation') : 'aisyah-noor';
+    const context = params.get('context');
+    const supportContexts = {
+      'order-support': 'Order support context',
+      'earnings': 'Earnings breakdown context',
+      'payouts': 'Payouts context',
+      'payout-statement': 'Payout statement context',
+      'vendor-profile': 'Vendor profile context',
+      'fulfilment-settings': 'Fulfilment settings context',
+      'account-security': 'Account & security context',
+      'notifications': 'Notifications context',
+      'sponsored-listing': 'Sponsored listing payment context',
+      'listing-credits': 'Listing credits payment context',
+      'plan-change': 'Marketplace plan-change context',
+      'platform-fees': 'Platform-fee automatic-deduction context'
+    };
+
+    function syncUrl() {
+      const url = new URL(window.location.href);
+      if (activeFilter === 'all') url.searchParams.delete('filter'); else url.searchParams.set('filter', activeFilter);
+      if (search.value.trim()) url.searchParams.set('q', search.value.trim()); else url.searchParams.delete('q');
+      url.searchParams.set('conversation', activeConversation);
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+    }
+
+    function updateList() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      conversations.forEach((conversation) => {
+        const groupMatch = activeFilter === 'all' || (activeFilter === 'unread' ? Boolean(conversation.querySelector('.unread')) : conversation.dataset.group === activeFilter);
+        const textMatch = conversation.dataset.search.includes(query);
+        const show = groupMatch && textMatch;
+        conversation.hidden = !show;
+        if (show) visible += 1;
+      });
+      emptyList.classList.toggle('visible', visible === 0);
+      filters.forEach((button) => {
+        const selected = button.dataset.filter === activeFilter;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+    }
+
+    function addBubble(text, incoming, time) {
+      const row = document.createElement('div');
+      row.className = `message-row${incoming ? '' : ' outgoing'}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble';
+      bubble.textContent = text;
+      const timestamp = document.createElement('span');
+      timestamp.className = 'message-time';
+      timestamp.textContent = time;
+      bubble.appendChild(timestamp);
+      row.appendChild(bubble);
+      messageFeed.appendChild(row);
+    }
+
+    function renderThread(id, options = {}) {
+      const { openMobile = true, sync = true } = options;
+      const thread = threads[id];
+      activeConversation = id;
+      document.body.classList.toggle('thread-open', openMobile);
+      threadAvatar.textContent = thread.initials;
+      threadName.textContent = thread.name;
+      const supportContext = thread.support ? supportContexts[context] : null;
+      threadMeta.textContent = supportContext ? `Support · ${supportContext}` : thread.meta;
+      threadHeader.classList.toggle('support', Boolean(thread.support));
+      const hasListing = Boolean(thread.listing);
+      threadListing.hidden = !hasListing;
+      threadListing.classList.toggle('is-hidden', !hasListing);
+      threadListing.style.display = hasListing ? 'inline-block' : 'none';
+      if (hasListing) { threadListing.textContent = thread.listing; threadListing.href = thread.listingHref; }
+      messageFeed.replaceChildren();
+      thread.messages.forEach((message) => addBubble(message.text, message.incoming, message.time));
+      messageFeed.scrollTop = messageFeed.scrollHeight;
+      conversations.forEach((conversation) => conversation.classList.toggle('selected', conversation.dataset.conversation === id));
+      composeNotice.textContent = supportContext ? `This conversation will include your ${supportContext.toLowerCase()} in the live workflow.` : '';
+      if (sync) syncUrl();
+    }
+
+    filters.forEach((filter) => filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.filter;
+      updateList();
+      syncUrl();
+    }));
+    search.addEventListener('input', () => { updateList(); syncUrl(); });
+    conversations.forEach((conversation) => {
+      conversation.addEventListener('click', () => renderThread(conversation.dataset.conversation));
+      conversation.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); renderThread(conversation.dataset.conversation); } });
+    });
+    threadBack.addEventListener('click', () => {
+      document.body.classList.remove('thread-open');
+      const url = new URL(window.location.href);
+      url.searchParams.delete('conversation');
+      url.searchParams.delete('compose');
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+    });
+    attachButton.addEventListener('click', () => attachment.click());
+    attachment.addEventListener('change', () => {
+      const total = attachment.files.length;
+      composeNotice.textContent = total ? `${total} image${total === 1 ? '' : 's'} selected for this preview. Files are not uploaded in this static prototype.` : '';
+    });
+    composeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = messageDraft.value.trim();
+      if (!message) { composeNotice.textContent = 'Write a message before sending.'; messageDraft.focus(); return; }
+      addBubble(message, false, 'Preview now');
+      messageDraft.value = '';
+      composeNotice.textContent = 'Preview only — your message is shown locally and has not been sent.';
+      messageFeed.scrollTop = messageFeed.scrollHeight;
+    });
+
+    search.value = params.get('q') || '';
+    updateList();
+    renderThread(activeConversation, { openMobile: Boolean(params.get('conversation')), sync: false });
+    if (params.get('compose') === '1') { document.body.classList.add('thread-open'); setTimeout(() => messageDraft.focus(), 0); }
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

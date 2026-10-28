@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal order earnings breakdown preview" />
+  <title>Marketplace Vendor Portal — Order Earnings Breakdown</title>
+  <style>
+    :root { --green:#78be21; --green-dark:#62a719; --ink:#20232b; --muted:#70737a; --line:#e7e7e7; --pale-green:#f8fff1; --pale-grey:#fbfbfb; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { background:var(--white); }
+    body { min-width:320px; margin:0; background:var(--white); color:var(--ink); font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.3; }
+    a,button { border-radius:0; -webkit-tap-highlight-color:transparent; }
+    a:focus-visible,button:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    .sidebar { position:fixed; z-index:3; top:0; bottom:0; left:0; width:174px; border-right:1px solid var(--line); background:var(--white); }
+    .portal-name { display:block; padding:12px 14px; border-bottom:1px solid var(--line); color:#35383e; font-size:11px; font-weight:700; text-decoration:none; }
+    .account-row { display:grid; grid-template-columns:31px minmax(0,1fr); gap:8px; align-items:center; padding:9px 10px; border-bottom:1px solid var(--line); background:#f7fceb; text-decoration:none; }
+    .avatar { display:grid; width:31px; height:31px; place-items:center; border:1px solid var(--green); background:var(--green); color:var(--white); font-size:10px; font-weight:700; }
+    .account-row strong { display:block; overflow:hidden; color:#2d6136; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+    .account-row span { display:block; margin-top:2px; color:#60805e; font-size:8px; }
+    .side-section { padding:12px 9px 0; }
+    .side-label { margin:0 0 9px; color:#a7aaaf; font-size:10px; font-weight:700; }
+    .side-menu { display:grid; gap:3px; }
+    .side-menu a { display:flex; min-height:34px; align-items:center; padding:0 8px; color:#3e4147; font-size:11px; text-decoration:none; }
+    .side-menu a:hover,.side-menu a.active { background:#f7fceb; color:#397d13; }
+    .menu-count { min-width:17px; margin-left:auto; padding:2px 4px; background:var(--green); color:var(--white); font-size:8px; font-weight:700; line-height:1; text-align:center; }
+    .side-logout { position:absolute; bottom:26px; left:11px; color:#dd5f5f; font-size:11px; text-decoration:none; }
+    .page-shell { min-height:100vh; margin-left:174px; }
+    .topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }
+    .topbar-label { color:#5c5f65; font-size:11px; }
+    .topbar-label strong { color:var(--green-dark); }
+    .content { width:min(100% - 70px,940px); margin:35px auto 70px; }
+    .breadcrumb { display:inline-block; margin:0 0 13px; color:#5e6147; font-size:10px; font-weight:700; text-decoration:none; }
+    .breadcrumb:hover { color:var(--green-dark); text-decoration:underline; }
+    .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }
+    h1 { margin:0; color:var(--ink); font-size:23px; font-weight:400; letter-spacing:-.35px; }
+    .page-copy { max-width:650px; margin:6px 0 18px; color:var(--muted); font-size:11px; line-height:1.45; }
+    .order-banner { display:flex; align-items:center; justify-content:space-between; gap:14px; border:1px solid var(--line); border-left:4px solid var(--green); padding:13px 14px; background:var(--pale-grey); }
+    .order-banner h2 { margin:0; color:#30333a; font-size:13px; }
+    .order-banner p { margin:4px 0 0; color:#74777d; font-size:9.5px; }
+    .status { display:inline-flex; min-height:23px; align-items:center; justify-content:center; border:1px solid #a8d86a; padding:0 8px; background:var(--pale-green); color:#397d13; font-size:9px; font-weight:700; white-space:nowrap; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:14px; align-items:start; margin-top:14px; }
+    .card,.side-card { border:1px solid var(--line); padding:14px; background:var(--white); }
+    .card + .card,.side-card + .side-card { margin-top:13px; }
+    .card h2,.side-card h2 { margin:0; color:#2b2e34; font-size:12px; font-weight:700; }
+    .section-copy { margin:4px 0 12px; color:#777a80; font-size:9.5px; line-height:1.4; }
+    .detail-grid { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid #ededed; }
+    .detail { min-width:0; padding:10px 11px 10px 0; border-bottom:1px solid #ededed; }
+    .detail:nth-child(even) { border-left:1px solid #ededed; padding-right:0; padding-left:11px; }
+    .detail:last-child,.detail:nth-last-child(2):nth-child(odd) { border-bottom:0; }
+    .label { display:block; margin-bottom:4px; color:#7c7f85; font-size:8.5px; }
+    .value { display:block; overflow:hidden; color:#32353b; font-size:10px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+    .calculation { border:1px solid var(--line); }
+    .calc-row { display:flex; align-items:center; justify-content:space-between; gap:18px; min-height:40px; padding:0 12px; border-bottom:1px solid #ededed; color:#54575d; font-size:10px; }
+    .calc-row:last-child { border-bottom:0; }
+    .calc-row .amount { color:#30333a; font-weight:700; white-space:nowrap; }
+    .calc-row.deduction .amount { color:#666970; }
+    .calc-row.total { min-height:49px; background:var(--pale-green); color:#2e5a1e; font-size:11px; font-weight:700; }
+    .calc-row.total .amount { color:#397d13; font-size:14px; }
+    .policy-note { margin:12px 0 0; border-left:4px solid var(--green); padding:9px 10px; background:var(--pale-grey); color:#62656b; font-size:9px; line-height:1.45; }
+    .policy-note strong { color:#33363c; }
+    .summary-list { display:grid; margin-top:9px; border-top:1px solid #ededed; }
+    .summary-row { padding:9px 0; border-bottom:1px solid #ededed; }
+    .summary-row:last-child { border-bottom:0; }
+    .summary-value { display:block; overflow:hidden; color:#34373d; font-size:10px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+    .button { display:inline-flex; width:100%; min-height:35px; align-items:center; justify-content:center; border:1px solid var(--green); padding:0 12px; background:var(--green); color:var(--white); font-size:10px; font-weight:700; text-align:center; text-decoration:none; }
+    .button:hover { border-color:var(--green-dark); background:var(--green-dark); }
+    .button.secondary { margin-top:8px; background:var(--white); color:#397d13; }
+    .button.secondary:hover { background:var(--pale-green); }
+    .support-note { margin:9px 0 0; color:#6d7076; font-size:9px; line-height:1.45; }
+    .mobile-header,.mobile-nav { display:none; }
+    @media (max-width:960px) {
+      body { padding-bottom:60px; }
+      .sidebar,.topbar { display:none; }
+      .page-shell { margin-left:0; }
+      .mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }
+      .mobile-portal { color:#34373d; font-size:12px; font-weight:700; }
+      .mobile-account { color:#5d6067; font-size:10px; }
+      .content { width:min(100% - 28px,680px); margin:27px auto 34px; }
+      h1 { font-size:22px; }
+      .page-copy { margin-bottom:16px; font-size:10px; }
+      .order-banner { display:block; }
+      .order-banner .status { margin-top:9px; }
+      .layout { display:block; margin-top:13px; }
+      .layout > aside { margin-top:13px; }
+      .detail-grid { grid-template-columns:1fr; }
+      .detail,.detail:nth-child(even),.detail:last-child,.detail:nth-last-child(2):nth-child(odd) { border-left:0; padding:9px 0; border-bottom:1px solid #ededed; }
+      .detail:last-child { border-bottom:0; }
+      .calc-row { min-height:44px; padding:0 10px; font-size:10px; }
+      .calc-row.total { min-height:54px; }
+      .mobile-nav { position:fixed; z-index:5; right:0; bottom:0; left:0; display:grid; grid-template-columns:repeat(6,minmax(64px,1fr)); min-height:60px; overflow-x:auto; border-top:1px solid #e4e4e4; background:var(--white); }
+      .mobile-nav a { display:grid; min-width:64px; place-items:center; color:#4f5258; font-size:9px; font-weight:700; text-decoration:none; }
+      .mobile-nav a.active { border-top:3px solid var(--green); color:#54751c; }
+    }
+    @media (prefers-reduced-motion:no-preference) { a { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active { transform:scale(.97); } }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="active" href="/marketplace-vendor-payouts.html" aria-current="page">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content">
+      <a class="breadcrumb" href="/marketplace-vendor-payouts.html">← Back to Platform Fees</a>
+      <p class="eyebrow">Billing</p>
+      <h1>Order Earnings Breakdown</h1>
+      <p class="page-copy">Review the settlement calculation for this Marketplace order. The applicable platform fee is automatically deducted before the net earnings are included in a vendor payout.</p>
+      <section class="order-banner" aria-labelledby="order-reference-heading"><div><h2 id="order-reference-heading">{{ORDER ID}}</h2><p>Marketplace order · Eligible on {{ELIGIBLE DATE}} · Fee deducted before payout</p></div><span class="status">{{PAYOUT STATUS}}</span></section>
+      <div class="layout">
+        <section>
+          <section class="card" aria-labelledby="order-details-heading">
+            <h2 id="order-details-heading">Order details</h2><p class="section-copy">Details linked to the order earnings record.</p>
+            <div class="detail-grid">
+              <div class="detail"><span class="label">Listing</span><span class="value">{{LISTING TITLE}}</span></div>
+              <div class="detail"><span class="label">Quantity</span><span class="value">{{ORDER QUANTITY}}</span></div>
+              <div class="detail"><span class="label">Order date</span><span class="value">{{ORDER DATE}}</span></div>
+              <div class="detail"><span class="label">Fulfilment</span><span class="value">{{FULFILMENT METHOD}}</span></div>
+            </div>
+          </section>
+          <section class="card" aria-labelledby="calculation-heading">
+            <h2 id="calculation-heading">Order earnings &amp; fee deduction</h2><p class="section-copy">Only recorded fees and approved adjustments for this order should appear here. No separate platform-fee payment is required for a standard Marketplace order.</p>
+            <div class="calculation">
+              <div class="calc-row"><span>Customer paid</span><span class="amount">RM {{ORDER TOTAL}}</span></div>
+              <div class="calc-row deduction"><span>Less: Platform fee deducted automatically</span><span class="amount">RM {{PLATFORM FEE}}</span></div>
+              <div class="calc-row deduction"><span>Less: Approved adjustments, if applicable</span><span class="amount">RM {{APPROVED ADJUSTMENTS}}</span></div>
+              <div class="calc-row total"><span>Net to vendor</span><span class="amount">RM {{NET PAYOUT}}</span></div>
+            </div>
+            <p class="policy-note"><strong>Platform fee clarity.</strong> Net to vendor is the amount remaining after the applicable FutureLife platform fee is automatically deducted and any approved order-specific adjustment is reflected. Do not display charges that are not part of the confirmed order record.</p>
+          </section>
+        </section>
+        <aside>
+          <section class="side-card" aria-labelledby="payout-context-heading"><h2 id="payout-context-heading">Payout context</h2><div class="summary-list"><div class="summary-row"><span class="label">Payout reference</span><span class="summary-value">{{PAYOUT ID}}</span></div><div class="summary-row"><span class="label">Expected payout date</span><span class="summary-value">{{NEXT PAYOUT DATE}}</span></div><div class="summary-row"><span class="label">Payout status</span><span class="summary-value">{{PAYOUT STATUS}}</span></div></div></section>
+          <section class="side-card" aria-labelledby="breakdown-actions-heading"><h2 id="breakdown-actions-heading">Settlement actions</h2><p class="support-note">Review the related payout statement or ask FutureLife Support about this order’s fee calculation using the order reference.</p><a class="button" href="/marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View Payout Statement</a><a class="button secondary" href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=platform-fees">Ask about a Fee</a><a class="button secondary" href="/marketplace-vendor-payouts.html">Back to Platform Fees</a></section>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="active" href="/marketplace-vendor-payouts.html" aria-current="page">Payouts</a><a href="#messages">Messages</a><a href="#profile">Profile</a></nav>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

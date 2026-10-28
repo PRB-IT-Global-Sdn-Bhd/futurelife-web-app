@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Listing Credits preview" />
+  <title>Marketplace Vendor Portal — Buy Listing Credits</title>
+  <link rel="stylesheet" href="/marketplace-vendor-sponsored-listing-flow.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="/marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="/marketplace-vendor-billing-plans.html">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="/marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="listing-credits">
+      <div class="heading"><div><p class="eyebrow">Billing</p><h1>Buy Listing Credits</h1><p class="page-copy">Choose a configured listing-credit package when your Marketplace vendor account needs more active-listing capacity.</p></div><a class="button secondary back-link" href="/marketplace-vendor-billing-plans.html">Back to Plans &amp; Fees</a></div>
+
+      <section class="card" aria-labelledby="balance-heading"><div class="card-heading"><div><h2 id="balance-heading">Current listing credits</h2><p>Your live credit balance is shown from the Marketplace vendor account.</p></div></div><div class="listing-reference"><div><span class="label">Credits remaining</span><span class="listing-name">{{LISTING_CREDITS_REMAINING}}</span><span class="listing-meta">Available for future active listings according to your current plan rules.</span></div><div><span class="label">Additional listing fee</span><span class="value">RM {{ADDITIONAL_LISTING_FEE}}</span></div></div></section>
+
+      <div class="flow-layout">
+        <section class="card" aria-labelledby="package-heading">
+          <div class="card-heading"><div><h2 id="package-heading">Choose credit package</h2><p>Only packages enabled by FutureLife should be presented to the vendor.</p></div></div>
+          <form id="credit-package-form" novalidate>
+            <div class="duration-grid" role="radiogroup" aria-label="Listing credit package">
+              <label class="duration-option"><input type="radio" name="credit-package" value="{{CREDIT_PACKAGE_ID_1}}" data-label="{{CREDIT_PACKAGE_LABEL_1}}" data-credits="{{CREDITS_IN_PACKAGE_1}}" data-fee="{{CREDIT_PACKAGE_FEE_1}}" checked /><strong>{{CREDIT_PACKAGE_LABEL_1}}</strong><span>{{CREDITS_IN_PACKAGE_1}} listing credits</span><em>RM {{CREDIT_PACKAGE_FEE_1}}</em></label>
+              <label class="duration-option"><input type="radio" name="credit-package" value="{{CREDIT_PACKAGE_ID_2}}" data-label="{{CREDIT_PACKAGE_LABEL_2}}" data-credits="{{CREDITS_IN_PACKAGE_2}}" data-fee="{{CREDIT_PACKAGE_FEE_2}}" /><strong>{{CREDIT_PACKAGE_LABEL_2}}</strong><span>{{CREDITS_IN_PACKAGE_2}} listing credits</span><em>RM {{CREDIT_PACKAGE_FEE_2}}</em></label>
+              <label class="duration-option"><input type="radio" name="credit-package" value="{{CREDIT_PACKAGE_ID_3}}" data-label="{{CREDIT_PACKAGE_LABEL_3}}" data-credits="{{CREDITS_IN_PACKAGE_3}}" data-fee="{{CREDIT_PACKAGE_FEE_3}}" /><strong>{{CREDIT_PACKAGE_LABEL_3}}</strong><span>{{CREDITS_IN_PACKAGE_3}} listing credits</span><em>RM {{CREDIT_PACKAGE_FEE_3}}</em></label>
+            </div>
+            <div class="action-row"><a class="button secondary" href="/marketplace-vendor-billing-plans.html">Cancel</a><button class="button" type="submit">Continue to Payment</button></div><p class="feedback" id="credit-feedback" role="alert"></p>
+          </form>
+        </section>
+        <aside class="summary-card" aria-labelledby="credit-summary-heading"><h2 id="credit-summary-heading">Purchase summary</h2><ul class="summary-list"><li><span>Current balance</span><span>{{LISTING_CREDITS_REMAINING}}</span></li><li><span>Package</span><span id="summary-package">{{CREDIT_PACKAGE_LABEL_1}}</span></li><li><span>Credits to add</span><span id="summary-credits">{{CREDITS_IN_PACKAGE_1}}</span></li><li class="total"><span>Package total</span><span id="summary-fee">RM {{CREDIT_PACKAGE_FEE_1}}</span></li></ul></aside>
+      </div>
+      <aside class="notice"><strong>Payment rule:</strong> do not add listing credits from this page. In the live Bubble workflow, credit balances should change only after FutureLife validates the completed Stripe payment through its webhook.</aside>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="active" href="#payouts" aria-current="page">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
+  <script>
+    const packages = [...document.querySelectorAll('input[name="credit-package"]')];
+    const packageField = document.getElementById('summary-package'); const creditsField = document.getElementById('summary-credits'); const feeField = document.getElementById('summary-fee');
+    function syncPackage(input) { packageField.textContent=input.dataset.label; creditsField.textContent=input.dataset.credits; feeField.textContent=`RM ${input.dataset.fee}`; }
+    packages.forEach((input) => input.addEventListener('change', () => syncPackage(input)));
+    document.getElementById('credit-package-form').addEventListener('submit', (event) => { event.preventDefault(); const selected=packages.find((input)=>input.checked); const feedback=document.getElementById('credit-feedback'); if (!selected) { feedback.textContent='Select a configured credit package before continuing.'; feedback.classList.add('visible'); return; } const params=new URLSearchParams(); params.set('package',selected.value); window.location.href=`/marketplace-vendor-listing-credits-payment.html?${params.toString()}`; });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

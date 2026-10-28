@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Sponsor Listing preview" />
+  <title>Marketplace Vendor Portal — Sponsor Listing</title>
+  <link rel="stylesheet" href="/marketplace-vendor-sponsored-listing-flow.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="sponsor-listing">
+      <div class="heading">
+        <div><p class="eyebrow">Marketplace listings</p><h1>Sponsor Listing</h1><p class="page-copy">Choose an approved sponsorship option for this live listing. Fees and sponsorship terms must be configured by FutureLife.</p></div>
+        <a class="button secondary back-link" href="/marketplace-vendor-listings.html">Back to Listings</a>
+      </div>
+
+      <section class="card" aria-labelledby="listing-heading">
+        <div class="card-heading"><div><h2 id="listing-heading">Selected listing</h2><p>Only an eligible live listing should enter this payment flow.</p></div><span class="status">{{LISTING_STATUS}}</span></div>
+        <div class="listing-reference"><div><span class="listing-name">{{LISTING_TITLE}}</span><span class="listing-meta">{{LISTING_CATEGORY}} · RM {{LISTING_PRICE}}</span></div><div><span class="label">Listing reference</span><span class="value">{{LISTING_ID}}</span></div></div>
+      </section>
+
+      <div class="flow-layout">
+        <section class="card" aria-labelledby="sponsorship-heading">
+          <div class="card-heading"><div><h2 id="sponsorship-heading">Choose sponsorship</h2><p>Select only options currently configured and available for this listing.</p></div></div>
+          <form id="sponsorship-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field full"><label for="placement">Placement</label><select id="placement" name="placement" required><option value="{{SPONSORED_PLACEMENT_ID}}">{{SPONSORED_PLACEMENT_NAME}}</option></select><p class="help">Placement availability is determined by the FutureLife Marketplace configuration.</p></div>
+              <div class="form-field full"><label>Duration and fee</label><div class="duration-grid" role="radiogroup" aria-label="Sponsored listing duration and fee">
+                <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_1}}" data-label="{{SPONSORED_OPTION_LABEL_1}}" data-duration="{{SPONSORED_OPTION_DURATION_1}}" data-fee="{{SPONSORED_OPTION_FEE_1}}" checked /><strong>{{SPONSORED_OPTION_LABEL_1}}</strong><span>{{SPONSORED_OPTION_DURATION_1}}</span><em>RM {{SPONSORED_OPTION_FEE_1}}</em></label>
+                <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_2}}" data-label="{{SPONSORED_OPTION_LABEL_2}}" data-duration="{{SPONSORED_OPTION_DURATION_2}}" data-fee="{{SPONSORED_OPTION_FEE_2}}" /><strong>{{SPONSORED_OPTION_LABEL_2}}</strong><span>{{SPONSORED_OPTION_DURATION_2}}</span><em>RM {{SPONSORED_OPTION_FEE_2}}</em></label>
+                <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_3}}" data-label="{{SPONSORED_OPTION_LABEL_3}}" data-duration="{{SPONSORED_OPTION_DURATION_3}}" data-fee="{{SPONSORED_OPTION_FEE_3}}" /><strong>{{SPONSORED_OPTION_LABEL_3}}</strong><span>{{SPONSORED_OPTION_DURATION_3}}</span><em>RM {{SPONSORED_OPTION_FEE_3}}</em></label>
+              </div></div>
+            </div>
+            <div class="action-row"><a class="button secondary" href="/marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View Listing</a><button class="button" type="submit">Continue to Payment</button></div>
+            <p class="feedback" id="selection-feedback" role="alert"></p>
+          </form>
+        </section>
+
+        <aside class="summary-card" aria-labelledby="summary-heading"><h2 id="summary-heading">Sponsorship summary</h2><ul class="summary-list"><li><span>Listing</span><span>{{LISTING_TITLE}}</span></li><li><span>Option</span><span id="summary-option">{{SPONSORED_OPTION_LABEL_1}}</span></li><li><span>Duration</span><span id="summary-duration">{{SPONSORED_OPTION_DURATION_1}}</span></li><li class="total"><span>Total payable</span><span id="summary-fee">RM {{SPONSORED_OPTION_FEE_1}}</span></li></ul></aside>
+      </div>
+
+      <aside class="notice"><strong>Payment rule:</strong> Do not mark a listing as sponsored from this page. In the live Bubble workflow, FutureLife should activate a sponsored status only after a verified Stripe webhook confirms payment.</aside>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
+  <script>
+    const options = [...document.querySelectorAll('input[name="sponsorship-option"]')];
+    const optionField = document.getElementById('summary-option');
+    const durationField = document.getElementById('summary-duration');
+    const feeField = document.getElementById('summary-fee');
+    const form = document.getElementById('sponsorship-form');
+    const feedback = document.getElementById('selection-feedback');
+    function syncSummary(input) { optionField.textContent = input.dataset.label; durationField.textContent = input.dataset.duration; feeField.textContent = `RM ${input.dataset.fee}`; }
+    options.forEach((input) => input.addEventListener('change', () => syncSummary(input)));
+    form.addEventListener('submit', (event) => { event.preventDefault(); const selected = options.find((input) => input.checked); if (!selected) { feedback.textContent = 'Select a configured sponsorship option before continuing.'; feedback.classList.add('visible'); return; } const params = new URLSearchParams(window.location.search); params.set('listing', params.get('listing') || '{{LISTING_ID}}'); params.set('option', selected.value); window.location.href = `/marketplace-vendor-sponsored-listing-payment.html?${params.toString()}`; });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

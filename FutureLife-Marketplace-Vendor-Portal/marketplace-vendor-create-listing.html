@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Create New Listing preview" />
+  <title>FutureLife — Create New Listing</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #6d7077;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { border-radius: 0; font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .desktop-sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .side-brand { display: block; padding: 11px 0 12px 20px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .2px; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr) 12px; align-items: center; gap: 7px; padding: 9px 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f7fceb; color: #397d13; text-decoration: none; }
+    .monogram { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; color: #2d6136; font-size: 10px; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .account-row .arrow { color: #4e8d1c; font-size: 15px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { margin-left: auto; min-width: 17px; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .desktop-topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .portal-label { color: #55585d; font-size: 11px; }
+    .portal-label strong { color: var(--green-dark); }
+
+    .content { width: min(100% - 70px, 900px); margin: 35px auto 70px; }
+    .breadcrumb { display: inline-block; margin: 0 0 13px; color: #5e6147; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .breadcrumb:hover { color: var(--green-dark); text-decoration: underline; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .heading-copy { max-width: 620px; margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .listing-form { border: 1px solid var(--line); background: var(--white); }
+    .form-section { padding: 16px; border-bottom: 1px solid var(--line); }
+    .form-section:last-of-type { border-bottom: 0; }
+    .section-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .form-section h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .section-note { margin: 0; color: #7a7d83; font-size: 9px; }
+    .type-value { display: inline-flex; min-height: 23px; align-items: center; border: 1px solid #a8d86a; padding: 0 8px; background: var(--pale-green); color: #397d13; font-size: 9px; font-weight: 700; }
+
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+    .fields.pricing { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    label, .field-label { display: block; margin-bottom: 5px; color: #45484f; font-size: 10px; font-weight: 700; }
+    .required { color: #397d13; }
+    input[type="text"], input[type="number"], select, textarea {
+      display: block;
+      width: 100%;
+      border: 1px solid #d8d8d8;
+      border-radius: 0;
+      background: var(--white);
+      color: #282b31;
+      font: inherit;
+      font-size: 10px;
+    }
+    input[type="text"], input[type="number"], select { height: 34px; padding: 0 9px; }
+    textarea { min-height: 84px; resize: vertical; padding: 9px; line-height: 1.45; }
+    input::placeholder, textarea::placeholder { color: #9da0a6; }
+    select:invalid { color: #9da0a6; }
+    select option { color: #282b31; }
+    input:focus, select:focus, textarea:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); outline: 0; }
+    .price-input { display: grid; grid-template-columns: 36px minmax(0, 1fr); }
+    .currency { display: grid; height: 34px; place-items: center; border: 1px solid #d8d8d8; border-right: 0; background: var(--pale-grey); color: #676a70; font-size: 10px; font-weight: 700; }
+    .price-input input { border-left: 1px solid #d8d8d8; }
+
+    .photo-upload { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 13px; align-items: center; min-height: 102px; border: 1px dashed #aeb2b8; padding: 12px; background: var(--pale-grey); }
+    .photo-preview { display: grid; width: 94px; height: 74px; place-items: center; border: 1px solid #d8d8d8; background: var(--white); color: #93969c; font-size: 9px; text-align: center; }
+    .upload-copy strong { display: block; margin-bottom: 4px; color: #34373d; font-size: 10px; }
+    .upload-copy p { margin: 0 0 9px; color: #74777d; font-size: 9px; line-height: 1.35; }
+    .upload-button { display: inline-flex; min-height: 29px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 10px; background: var(--white); color: #397d13; font-size: 9px; font-weight: 700; }
+    .upload-button:hover { background: var(--pale-green); }
+
+    .fulfilment-list { display: flex; flex-wrap: wrap; gap: 9px 14px; }
+    .choice { display: inline-flex; align-items: center; gap: 7px; color: #4f5258; font-size: 10px; cursor: pointer; }
+    .choice input { width: 14px; height: 14px; margin: 0; border-radius: 0; accent-color: var(--green-dark); }
+    .location-help { margin: 7px 0 0; color: #777a80; font-size: 9px; line-height: 1.35; }
+    .location-map { height: 150px; margin-top: 10px; overflow: hidden; border: 1px solid #d8d8d8; background: var(--pale-grey); }
+    .location-map iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+    .consent-list { display: grid; gap: 10px; }
+    .consent { display: flex; align-items: flex-start; gap: 8px; color: #54575d; font-size: 10px; line-height: 1.4; cursor: pointer; }
+    .consent input { width: 14px; height: 14px; flex: 0 0 auto; margin: 0; border-radius: 0; accent-color: var(--green-dark); }
+    .consent a { color: #356d1c; font-weight: 700; text-underline-offset: 2px; }
+
+    .form-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; border-top: 1px solid var(--line); padding: 14px 16px; background: #fcfcfc; }
+    .button { display: inline-flex; min-height: 35px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 14px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+    .form-notice { min-height: 17px; margin: 11px 0 -2px; color: #397d13; font-size: 10px; font-weight: 700; text-align: right; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .desktop-sidebar, .desktop-topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-brand { color: var(--green); font-size: 13px; font-weight: 700; letter-spacing: -.2px; text-decoration: none; }
+      .mobile-portal { color: #5a5d62; font-size: 10px; font-weight: 700; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .heading-copy { margin-bottom: 16px; font-size: 10px; }
+      .form-section { padding: 14px; }
+      .fields { grid-template-columns: 1fr; gap: 15px; }
+      .fields.pricing { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      label, .field-label { margin-bottom: 7px; font-size: 12px; }
+      input[type="text"], input[type="number"], select { height: 43px; padding-inline: 10px; font-size: 13px; }
+      textarea { min-height: 104px; font-size: 13px; }
+      .currency { height: 43px; font-size: 12px; }
+      .photo-upload { grid-template-columns: 98px minmax(0, 1fr); min-height: 108px; gap: 10px; padding: 10px; }
+      .photo-preview { width: 78px; height: 78px; }
+      .upload-copy strong { font-size: 11px; }
+      .upload-copy p { font-size: 10px; }
+      .fulfilment-list { display: grid; grid-template-columns: 1fr; gap: 11px; }
+      .choice, .consent { font-size: 12px; }
+      .choice input, .consent input { width: 15px; height: 15px; }
+      .location-help { font-size: 10px; }
+      .location-map { height: 164px; }
+      .form-actions { display: grid; grid-template-columns: 1fr 1fr; padding: 14px; }
+      .form-actions .button { width: 100%; min-height: 46px; font-size: 12px; }
+      .form-notice { font-size: 10px; text-align: center; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 70px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="desktop-sidebar" aria-label="Vendor portal navigation">
+    <a class="side-brand" href="/marketplace-vendor-dashboard.html">FUTURE LIFE</a>
+    <a class="account-row" href="/marketplace-vendor-profile.html"><span class="monogram">KE</span><span><strong>Vendor Profile</strong><span>Store and contact details</span></span><span class="arrow">›</span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="/marketplace-vendor-dashboard.html">Dashboard</a>
+        <a class="active" href="/marketplace-vendor-listings.html" aria-current="page">Listings</a>
+        <a href="/marketplace-vendor-orders.html">Orders</a>
+        <a href="/marketplace-vendor-payouts.html">Payouts</a>
+        <a href="/marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
+        <a href="/marketplace-vendor-profile.html">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="desktop-topbar"><div class="portal-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><a class="mobile-brand" href="/marketplace-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-portal">Vendor Portal</span></header>
+
+    <main class="content" id="create-listing">
+      <a class="breadcrumb" href="/marketplace-vendor-listings.html">← Back to Listings</a>
+      <h1 id="listing-form-heading">Create New Listing</h1>
+      <p class="heading-copy" id="listing-form-copy">Add the information Marketplace buyers need to understand your item before you submit it for review.</p>
+
+      <form class="listing-form" id="listing-form" novalidate>
+        <section class="form-section" aria-labelledby="details-heading">
+          <div class="section-title-row"><h2 id="details-heading">Listing details</h2><span class="type-value">Marketplace</span></div>
+          <div class="fields">
+            <div class="field full">
+              <label for="title">Title <span class="required">*</span></label>
+              <input id="title" name="title" type="text" placeholder="Enter a clear listing title" required />
+            </div>
+            <div class="field">
+              <label for="category">Category <span class="required">*</span></label>
+              <select id="category" name="category" required>
+                <option value="" selected disabled>Select category</option>
+                <option>Books</option>
+                <option>Study essentials</option>
+                <option>Electronics</option>
+                <option>Accessories</option>
+                <option>Room essentials</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="condition">Condition <span class="required">*</span></label>
+              <select id="condition" name="condition" required>
+                <option value="" selected disabled>Select condition</option>
+                <option>New</option>
+                <option>Like new</option>
+                <option>Good</option>
+                <option>Used</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="description">Description <span class="required">*</span></label>
+              <textarea id="description" name="description" placeholder="Describe the item, including what is included and any relevant condition details." required></textarea>
+            </div>
+            <div class="field full">
+              <label for="location">Location <span class="required">*</span></label>
+              <input id="location" name="location" type="text" value="Subang Jaya, Selangor" placeholder="Enter collection or delivery location" required />
+              <p class="location-help">Share only the collection area or delivery location needed for this listing.</p>
+              <div class="location-map">
+                <iframe title="Location preview for Subang Jaya, Selangor" src="https://www.openstreetmap.org/export/embed.html?bbox=101.566%2C3.025%2C101.635%2C3.080&amp;layer=mapnik&amp;marker=3.043%2C101.585" loading="eager"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="price-heading">
+          <div class="section-title-row"><h2 id="price-heading">Price and quantity</h2><p class="section-note">Enter prices in MYR.</p></div>
+          <div class="fields pricing">
+            <div class="field">
+              <label for="price">Price <span class="required">*</span></label>
+              <div class="price-input"><span class="currency">RM</span><input id="price" name="price" type="number" min="0" step="0.01" placeholder="0.00" required /></div>
+            </div>
+            <div class="field">
+              <label for="quantity">Quantity <span class="required">*</span></label>
+              <input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="Enter quantity" required />
+            </div>
+            <div class="field">
+              <label for="delivery">Delivery (RM)</label>
+              <div class="price-input"><span class="currency">RM</span><input id="delivery" name="delivery" type="number" min="0" step="0.01" placeholder="0.00" /></div>
+            </div>
+            <div class="field">
+              <label for="discount">Discount (RM)</label>
+              <div class="price-input"><span class="currency">RM</span><input id="discount" name="discount" type="number" min="0" step="0.01" placeholder="0.00" /></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="photos-heading">
+          <div class="section-title-row"><h2 id="photos-heading">Photos</h2><p class="section-note">Add clear item photos.</p></div>
+          <div class="photo-upload">
+            <div class="photo-preview" aria-hidden="true">Photo preview</div>
+            <div class="upload-copy"><strong>Upload item photos</strong><p id="photo-help">Add photos that show the item and its condition clearly.</p><input id="photo-input" type="file" accept="image/*" multiple hidden /><button class="upload-button" type="button" id="choose-photos">Choose Photos</button></div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="fulfilment-heading">
+          <div class="section-title-row"><h2 id="fulfilment-heading">Fulfilment</h2></div>
+          <div class="fields">
+            <div class="field full">
+              <span class="field-label">Fulfilment <span class="required">*</span></span>
+              <div class="fulfilment-list">
+                <label class="choice"><input type="checkbox" name="fulfilment" value="delivery" />Delivery</label>
+                <label class="choice"><input type="checkbox" name="fulfilment" value="collect-in-store" />Collect in-store</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="consent-heading">
+          <div class="section-title-row"><h2 id="consent-heading">Review and consent</h2></div>
+          <div class="consent-list">
+            <label class="consent"><input type="checkbox" required /><span>I confirm that the listing details and photos are accurate.</span></label>
+            <label class="consent"><input type="checkbox" required /><span>I agree to the Marketplace <a href="#listing-guidelines">Listing Guidelines</a>.</span></label>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button class="button secondary" type="button" id="save-draft">Save as Draft</button>
+          <button class="button" type="submit">Submit for Review</button>
+        </div>
+        <p class="form-notice" id="form-notice" aria-live="polite"></p>
+      </form>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="/marketplace-vendor-dashboard.html">Dashboard</a>
+    <a class="active" href="/marketplace-vendor-listings.html" aria-current="page">Listings</a>
+    <a href="/marketplace-vendor-orders.html">Orders</a>
+    <a href="/marketplace-vendor-payouts.html">Payouts</a>
+    <a href="/marketplace-vendor-messages.html">Messages</a>
+    <a href="/marketplace-vendor-profile.html">Profile</a>
+  </nav>
+
+  <script>
+    const form = document.getElementById('listing-form');
+    const notice = document.getElementById('form-notice');
+    const saveDraft = document.getElementById('save-draft');
+    const photoInput = document.getElementById('photo-input');
+    const choosePhotos = document.getElementById('choose-photos');
+    const photoHelp = document.getElementById('photo-help');
+    const query = new URLSearchParams(window.location.search);
+    const editing = query.get('mode') === 'edit';
+
+    if (editing) {
+      document.getElementById('listing-form-heading').textContent = 'Edit Listing';
+      document.getElementById('listing-form-copy').textContent = 'Update the selected Marketplace listing, then save it as a draft or submit the change for review.';
+    }
+
+    choosePhotos.addEventListener('click', () => photoInput.click());
+    photoInput.addEventListener('change', () => {
+      const total = photoInput.files.length;
+      photoHelp.textContent = total ? `${total} photo${total === 1 ? '' : 's'} selected for this preview. Images are not uploaded in this static prototype.` : 'Add photos that show the item and its condition clearly.';
+    });
+
+    saveDraft.addEventListener('click', () => {
+      notice.textContent = editing ? 'Preview only — listing changes would be saved as a draft.' : 'Preview only — listing would be saved as a draft.';
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        notice.textContent = 'Complete the required listing details and consents before submitting for review.';
+        form.reportValidity();
+        return;
+      }
+      const fulfilmentSelected = [...form.querySelectorAll('input[name="fulfilment"]')].some((input) => input.checked);
+      if (!fulfilmentSelected) {
+        notice.textContent = 'Select at least one fulfilment option to submit for review.';
+        return;
+      }
+      notice.textContent = editing ? 'Preview only — listing changes would be submitted for review.' : 'Preview only — listing would be submitted for review.';
+    });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

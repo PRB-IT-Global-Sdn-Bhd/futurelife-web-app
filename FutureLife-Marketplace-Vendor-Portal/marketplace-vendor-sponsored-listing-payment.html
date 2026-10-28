@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Sponsored Listing payment review preview" />
+  <title>Marketplace Vendor Portal — Review Sponsored Listing Payment</title>
+  <link rel="stylesheet" href="/marketplace-vendor-sponsored-listing-flow.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="sponsored-payment">
+      <div class="payment-shell">
+        <div class="payment-header"><p class="eyebrow">Marketplace listings</p><h1>Review Sponsored Listing Payment</h1><p class="page-copy">Confirm the configured sponsorship selection before opening Stripe Checkout.</p></div>
+        <section class="payment-summary" aria-labelledby="payment-summary-heading">
+          <div class="payment-title" id="payment-summary-heading">Payment summary</div>
+          <ul class="summary-list"><li><span>Listing</span><span>{{LISTING_TITLE}}</span></li><li><span>Listing reference</span><span>{{LISTING_ID}}</span></li><li><span>Sponsorship option</span><span>{{SPONSORED_OPTION_LABEL}}</span></li><li><span>Duration</span><span>{{SPONSORED_OPTION_DURATION}}</span></li><li><span>Placement</span><span>{{SPONSORED_PLACEMENT_NAME}}</span></li><li><span>Sponsored listing fee</span><span>RM {{SPONSORED_OPTION_FEE}}</span></li><li><span>Tax</span><span>RM {{TAX_AMOUNT}}</span></li><li class="total"><span>Total payable</span><span>RM {{TOTAL_PAYABLE}}</span></li></ul>
+        </section>
+        <section class="payment-method" aria-labelledby="payment-method-heading"><h2 id="payment-method-heading">Payment</h2><p>This preview opens no real checkout. In production, create a Stripe Checkout Session in MYR and supply the payment result through a verified FutureLife server-side webhook.</p><span class="stripe-label">Secure payment by Stripe</span></section>
+        <form id="payment-form" novalidate><label class="confirm-check"><input id="payment-confirmation" type="checkbox" /><span>I confirm that the listing and configured sponsorship option above are correct. I understand that sponsorship must not be activated until payment is verified.</span></label><p class="feedback" id="payment-feedback" role="alert"></p><div class="action-row"><a class="button secondary" href="/marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Back to Selection</a><button class="button" type="submit">Open Stripe Checkout</button></div></form>
+        <aside class="notice warning"><strong>Preview-only payment action:</strong> the button demonstrates the post-payment route only. In Bubble, redirect the vendor to Stripe Checkout; use the verified webhook—not the return URL—to create the payment record and activate sponsorship.</aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a class="active" href="#listings" aria-current="page">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
+  <script>
+    document.getElementById('payment-form').addEventListener('submit', (event) => { event.preventDefault(); const checkbox = document.getElementById('payment-confirmation'); const feedback = document.getElementById('payment-feedback'); if (!checkbox.checked) { feedback.textContent = 'Confirm the sponsorship details before continuing to payment.'; feedback.classList.add('visible'); return; } const params = new URLSearchParams(window.location.search); params.set('listing', params.get('listing') || '{{LISTING_ID}}'); params.set('option', params.get('option') || '{{SPONSORED_OPTION_ID}}'); params.set('payment', '{{PAYMENT_ID}}'); params.set('preview', 'verified'); window.location.href = `/marketplace-vendor-sponsored-listing-success.html?${params.toString()}`; });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

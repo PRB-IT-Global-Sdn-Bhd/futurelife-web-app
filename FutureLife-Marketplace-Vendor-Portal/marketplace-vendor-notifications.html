@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal notifications centre preview" />
+  <title>Marketplace Vendor Portal — Notifications Centre</title>
+  <style>
+    :root { --green:#78be21; --green-dark:#62a719; --ink:#20232b; --muted:#70737a; --line:#e7e7e7; --pale-green:#f8fff1; --pale-grey:#fbfbfb; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { background:var(--white); }
+    body { min-width:320px; margin:0; background:var(--white); color:var(--ink); font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.3; }
+    button,input { border-radius:0; font:inherit; } button { cursor:pointer; }
+    a,button,input { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible,button:focus-visible,input:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    .sidebar { position:fixed; z-index:3; top:0; bottom:0; left:0; width:174px; border-right:1px solid var(--line); background:var(--white); }
+    .portal-name { display:block; padding:12px 14px; border-bottom:1px solid var(--line); color:#35383e; font-size:11px; font-weight:700; text-decoration:none; }
+    .account-row { display:grid; grid-template-columns:31px minmax(0,1fr); gap:8px; align-items:center; padding:9px 10px; border-bottom:1px solid var(--line); background:#f7fceb; text-decoration:none; }
+    .avatar { display:grid; width:31px; height:31px; place-items:center; border:1px solid var(--green); background:var(--green); color:var(--white); font-size:10px; font-weight:700; }
+    .account-row strong { display:block; overflow:hidden; color:#2d6136; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }.account-row span { display:block; margin-top:2px; color:#60805e; font-size:8px; }
+    .side-section { padding:12px 9px 0; }.side-label { margin:0 0 9px; color:#a7aaaf; font-size:10px; font-weight:700; }.side-menu { display:grid; gap:3px; }
+    .side-menu a { display:flex; min-height:34px; align-items:center; padding:0 8px; color:#3e4147; font-size:11px; text-decoration:none; }.side-menu a:hover,.side-menu a.active { background:#f7fceb; color:#397d13; }.menu-count { min-width:17px; margin-left:auto; padding:2px 4px; background:var(--green); color:var(--white); font-size:8px; font-weight:700; line-height:1; text-align:center; }.side-logout { position:absolute; bottom:26px; left:11px; color:#dd5f5f; font-size:11px; text-decoration:none; }
+    .page-shell { min-height:100vh; margin-left:174px; }.topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }.topbar-label { color:#5c5f65; font-size:11px; }.topbar-label strong { color:var(--green-dark); }
+    .content { width:min(100% - 70px,940px); margin:35px auto 70px; }.breadcrumb { display:inline-block; margin:0 0 13px; color:#5e6147; font-size:10px; font-weight:700; text-decoration:none; }.breadcrumb:hover { color:var(--green-dark); text-decoration:underline; }
+    .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }h1 { margin:0; color:var(--ink); font-size:23px; font-weight:400; letter-spacing:-.35px; }.page-copy { max-width:660px; margin:6px 0 18px; color:var(--muted); font-size:11px; line-height:1.45; }
+    .page-title-row { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }.button { display:inline-flex; min-height:35px; align-items:center; justify-content:center; border:1px solid var(--green); padding:0 14px; background:var(--green); color:var(--white); font-size:10px; font-weight:700; text-align:center; text-decoration:none; white-space:nowrap; }.button:hover { border-color:var(--green-dark); background:var(--green-dark); }.button.secondary { background:var(--white); color:#397d13; }.button.secondary:hover { background:var(--pale-green); }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:14px; align-items:start; }.card,.side-card { border:1px solid var(--line); padding:14px; background:var(--white); }.side-card + .side-card { margin-top:13px; }.card h2,.side-card h2 { margin:0; color:#2b2e34; font-size:12px; font-weight:700; }.section-copy { margin:4px 0 12px; color:#777a80; font-size:9.5px; line-height:1.4; }
+    .filters { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }.filter { min-height:28px; border:1px solid var(--line); padding:0 9px; background:var(--white); color:#60636a; font-size:9px; font-weight:700; }.filter:hover,.filter.active { border-color:var(--green); background:var(--pale-green); color:#397d13; }
+    .notification-list { border-top:1px solid #ededed; }.notification { display:grid; grid-template-columns:9px minmax(0,1fr) auto; gap:10px; align-items:start; padding:12px 0; border-bottom:1px solid #ededed; }.notification[hidden] { display:none; }.read-marker { width:8px; height:8px; margin-top:4px; border:1px solid #cacaca; background:var(--white); }.notification.unread .read-marker { border-color:var(--green); background:var(--green); }.notification.read .read-marker { background:#f5f5f5; }.notification h3 { margin:0; color:#34373a; font-size:10px; }.notification p { margin:4px 0 0; color:#6d7076; font-size:9px; line-height:1.4; }.notification-meta { display:grid; justify-items:end; gap:6px; }.type-badge { display:inline-flex; min-height:20px; align-items:center; border:1px solid #d3d3d3; padding:0 6px; color:#62656b; font-size:8px; font-weight:700; white-space:nowrap; }.type-badge.orders,.type-badge.listings { border-color:#a8d86a; background:var(--pale-green); color:#397d13; }.type-badge.payouts { background:#f6f6f6; }.type-badge.messages { border-color:#cddfc1; background:#fbfff8; color:#507c39; }.type-badge.account { background:#fafafa; }.notification time { color:#8b8e94; font-size:8px; white-space:nowrap; }.notification-actions { display:flex; justify-content:flex-end; gap:6px; }.review-link,.mark-read { min-height:24px; border:1px solid #d7d7d7; padding:0 7px; background:var(--white); color:#397d13; font-size:8px; font-weight:700; line-height:22px; text-decoration:none; white-space:nowrap; }.review-link:hover,.mark-read:hover { border-color:var(--green); background:var(--pale-green); }.notification.read .mark-read { display:none; }.preview-count { margin-left:4px; color:#898c92; font-size:8px; font-weight:400; }
+    .empty-state { display:none; padding:25px 12px; border:1px solid var(--line); border-top:0; color:#777a80; font-size:10px; text-align:center; }.empty-state.visible { display:block; }.notice { min-height:17px; margin:9px 0 0; color:#397d13; font-size:9px; font-weight:700; line-height:1.4; }
+    .summary-list { display:grid; margin-top:9px; border-top:1px solid #ededed; }.summary-row { padding:9px 0; border-bottom:1px solid #ededed; }.summary-row:last-child { border-bottom:0; }.summary-label { display:block; margin-bottom:4px; color:#80838a; font-size:8.5px; }.summary-value { display:block; overflow:hidden; color:#34373d; font-size:10px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }.policy-card { border-left:4px solid var(--green); background:var(--pale-grey); }.policy-card p { margin:8px 0 0; color:#5f6268; font-size:9px; line-height:1.45; }.policy-card strong { color:#30333a; }.support-copy { margin:8px 0 10px; color:#62656b; font-size:9px; line-height:1.45; }
+    .mobile-header,.mobile-nav { display:none; }
+    @media (max-width:960px) { body { padding-bottom:60px; }.sidebar,.topbar { display:none; }.page-shell { margin-left:0; }.mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }.mobile-portal { color:#34373d; font-size:12px; font-weight:700; }.mobile-account { color:#5d6067; font-size:10px; }.content { width:min(100% - 28px,680px); margin:27px auto 34px; }h1 { font-size:22px; }.page-copy { margin-bottom:16px; font-size:10px; }.page-title-row { display:block; }.page-title-row .button { width:100%; margin-top:12px; }.layout { display:block; margin-top:13px; }.layout > aside { margin-top:13px; }.filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }.filter { min-width:0; padding:0 4px; font-size:8.5px; }.notification { grid-template-columns:8px minmax(0,1fr); gap:8px; }.notification-meta { grid-column:2; grid-row:2; display:flex; flex-wrap:wrap; align-items:center; justify-items:start; justify-content:space-between; margin-top:7px; }.notification-actions { gap:5px; }.mobile-nav { position:fixed; z-index:5; right:0; bottom:0; left:0; display:grid; grid-template-columns:repeat(6,minmax(64px,1fr)); min-height:60px; overflow-x:auto; border-top:1px solid #e4e4e4; background:var(--white); }.mobile-nav a { display:grid; min-width:64px; place-items:center; color:#4f5258; font-size:9px; font-weight:700; text-decoration:none; }.mobile-nav a.active { border-top:3px solid var(--green); color:#54751c; } }
+    @media (prefers-reduced-motion:no-preference) { a,button,.notification { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active,button:active { transform:scale(.97); } }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a><a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section><a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell"><header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header><header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="notifications-centre">
+      <a class="breadcrumb" href="#dashboard">← Back to Dashboard</a>
+      <div class="page-title-row"><div><p class="eyebrow">Marketplace vendor</p><h1>Notifications Centre</h1><p class="page-copy">Keep track of relevant Marketplace updates from orders, listings, payouts, messages, and your vendor account.</p></div><button class="button secondary" id="mark-all-read" type="button">Mark all as read</button></div>
+      <div class="layout"><section class="card" aria-labelledby="notifications-heading"><h2 id="notifications-heading">In-app notifications</h2><p class="section-copy">Unread updates are marked with a green indicator. Filter the list to focus on a notification category.</p>
+        <div class="filters" role="group" aria-label="Notification filters"><button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button><button class="filter" type="button" data-filter="unread" aria-pressed="false">Unread</button><button class="filter" type="button" data-filter="orders" aria-pressed="false">Orders</button><button class="filter" type="button" data-filter="listings" aria-pressed="false">Listings</button><button class="filter" type="button" data-filter="payouts" aria-pressed="false">Payouts</button><button class="filter" type="button" data-filter="messages" aria-pressed="false">Messages</button><button class="filter" type="button" data-filter="account" aria-pressed="false">Account</button></div>
+        <div class="notification-list" aria-live="polite">
+          <article class="notification unread" data-type="orders" data-state="unread"><span class="read-marker" aria-label="Unread"></span><div><h3>Order update</h3><p>{{NOTIFICATION MESSAGE}}</p></div><div class="notification-meta"><span class="type-badge orders">Orders</span><time>{{NOTIFICATION TIME}}</time><div class="notification-actions"><a class="review-link" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">Review</a><button class="mark-read" type="button">Mark read</button></div></div></article>
+          <article class="notification unread" data-type="listings" data-state="unread"><span class="read-marker" aria-label="Unread"></span><div><h3>Listing review update</h3><p>{{NOTIFICATION MESSAGE}}</p></div><div class="notification-meta"><span class="type-badge listings">Listings</span><time>{{NOTIFICATION TIME}}</time><div class="notification-actions"><a class="review-link" href="/marketplace-vendor-listings.html?status=pending">Review</a><button class="mark-read" type="button">Mark read</button></div></div></article>
+          <article class="notification unread" data-type="payouts" data-state="unread"><span class="read-marker" aria-label="Unread"></span><div><h3>Payout update</h3><p>{{NOTIFICATION MESSAGE}}</p></div><div class="notification-meta"><span class="type-badge payouts">Payouts</span><time>{{NOTIFICATION TIME}}</time><div class="notification-actions"><a class="review-link" href="/marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">Review</a><button class="mark-read" type="button">Mark read</button></div></div></article>
+          <article class="notification read" data-type="messages" data-state="read"><span class="read-marker" aria-label="Read"></span><div><h3>Message update</h3><p>{{NOTIFICATION MESSAGE}}</p></div><div class="notification-meta"><span class="type-badge messages">Messages</span><time>{{NOTIFICATION TIME}}</time><div class="notification-actions"><a class="review-link" href="/marketplace-vendor-messages.html?conversation=aisyah-noor">Open message</a><button class="mark-read" type="button">Mark read</button></div></div></article>
+          <article class="notification read" data-type="account" data-state="read"><span class="read-marker" aria-label="Read"></span><div><h3>Account update</h3><p>{{NOTIFICATION MESSAGE}}</p></div><div class="notification-meta"><span class="type-badge account">Account</span><time>{{NOTIFICATION TIME}}</time><div class="notification-actions"><a class="review-link" href="/marketplace-vendor-account-security.html">Review</a><button class="mark-read" type="button">Mark read</button></div></div></article>
+        </div>
+        <p class="empty-state" id="empty-state">No notifications match this filter.</p><p class="notice" id="notification-notice" aria-live="polite"></p>
+      </section>
+      <aside><section class="side-card" aria-labelledby="notification-summary-heading"><h2 id="notification-summary-heading">Notification summary</h2><div class="summary-list"><div class="summary-row"><span class="summary-label">Unread updates</span><span class="summary-value"><span id="unread-count">3</span><span class="preview-count">preview count</span></span></div><div class="summary-row"><span class="summary-label">Last notification</span><span class="summary-value">{{LAST NOTIFICATION TIME}}</span></div><div class="summary-row"><span class="summary-label">In-app notifications</span><span class="summary-value">{{IN-APP NOTIFICATION STATUS}}</span></div></div></section><section class="side-card policy-card" aria-labelledby="notification-guidance-heading"><h2 id="notification-guidance-heading">Notification guidance</h2><p><strong>Use notifications as a prompt to review the related order, listing, payout, message, or account record.</strong> A notification itself should not change order, payout, or listing status.</p></section><section class="side-card" aria-labelledby="support-heading"><h2 id="support-heading">Need help?</h2><p class="support-copy">For an update you cannot resolve from the related record, contact FutureLife Support.</p><a class="button" href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=notifications">Message Support</a></section></aside></div>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#profile">Profile</a></nav>
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const notifications = document.querySelectorAll('.notification');
+    const emptyState = document.getElementById('empty-state');
+    const notice = document.getElementById('notification-notice');
+    const unreadCount = document.getElementById('unread-count');
+    const params = new URLSearchParams(window.location.search);
+    let activeFilter = ['unread', 'orders', 'listings', 'payouts', 'messages', 'account'].includes(params.get('filter')) ? params.get('filter') : 'all';
+    function syncUrl() {
+      const url = new URL(window.location.href);
+      if (activeFilter === 'all') url.searchParams.delete('filter'); else url.searchParams.set('filter', activeFilter);
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+    }
+    function updateUnreadCount() {
+      unreadCount.textContent = String([...notifications].filter((item) => item.dataset.state === 'unread').length);
+    }
+    function updateNotifications() {
+      let visible = 0;
+      notifications.forEach((item) => {
+        const matches = activeFilter === 'all' || (activeFilter === 'unread' ? item.dataset.state === 'unread' : item.dataset.type === activeFilter);
+        item.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      emptyState.classList.toggle('visible', visible === 0);
+      updateUnreadCount();
+    }
+    filters.forEach((filter) => filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.filter;
+      filters.forEach((button) => { const selected = button === filter; button.classList.toggle('active', selected); button.setAttribute('aria-pressed', String(selected)); });
+      updateNotifications();
+      syncUrl();
+    }));
+    document.querySelectorAll('.mark-read').forEach((button) => button.addEventListener('click', () => {
+      const item = button.closest('.notification');
+      item.dataset.state = 'read';
+      item.classList.remove('unread');
+      item.classList.add('read');
+      item.querySelector('.read-marker').setAttribute('aria-label', 'Read');
+      notice.textContent = 'Preview only — this notification would be marked as read.';
+      updateNotifications();
+    }));
+    document.getElementById('mark-all-read').addEventListener('click', () => {
+      notifications.forEach((item) => { item.dataset.state = 'read'; item.classList.remove('unread'); item.classList.add('read'); item.querySelector('.read-marker').setAttribute('aria-label', 'Read'); });
+      updateNotifications();
+      notice.textContent = 'Preview only — all notifications would be marked as read.';
+    });
+    filters.forEach((button) => { const selected = button.dataset.filter === activeFilter; button.classList.toggle('active', selected); button.setAttribute('aria-pressed', String(selected)); });
+    updateNotifications();
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

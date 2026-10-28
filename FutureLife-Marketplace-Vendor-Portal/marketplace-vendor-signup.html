@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Vendor sign-up preview" />
+  <title>FutureLife Vendor - Sign Up</title>
+  <style>
+    :root {
+      --futurelife-green: #78be21;
+      --text: #1c1c1c;
+      --label: #474747;
+      --placeholder: #9f9f9f;
+      --border: #d9d9df;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-width: 320px; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: var(--white);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select { font: inherit; }
+    button { border-radius: 0; cursor: pointer; }
+    a { color: inherit; }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand {
+      margin-top: 9px;
+      color: var(--futurelife-green);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .signup-area {
+      width: 270px;
+      margin-top: 57px;
+    }
+
+    h1 {
+      margin: 0 0 21px;
+      color: #121212;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .field { margin: 0 0 14px; }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--label);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    input, select {
+      display: block;
+      width: 100%;
+      height: 29px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      padding: 0 8px;
+      background: var(--white);
+      color: #222222;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+    }
+    input::placeholder { color: var(--placeholder); }
+    select { appearance: auto; }
+    input:focus, select:focus { border-color: var(--futurelife-green); box-shadow: 0 0 0 1px rgba(120, 190, 33, 0.14); }
+
+    .agreement {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin: 3px 0 15px;
+      color: #454545;
+      font-size: 9px;
+      line-height: 1.35;
+    }
+    .agreement input {
+      flex: 0 0 auto;
+      width: 12px;
+      height: 12px;
+      margin: 0;
+      padding: 0;
+      accent-color: var(--futurelife-green);
+    }
+
+    .signup-button {
+      display: block;
+      width: 100%;
+      height: 26px;
+      border: 0;
+      border-radius: 0;
+      background: var(--futurelife-green);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 26px;
+      text-align: center;
+      transition: background 160ms ease-out, transform 160ms ease-out;
+    }
+    .signup-button:hover { background: #6fae1e; }
+    .signup-button:active { transform: scale(0.98); }
+
+    .signin-copy {
+      margin: 31px 0 0;
+      color: #252525;
+      font-size: 10px;
+      line-height: 1.25;
+    }
+    .signin-link {
+      margin-left: 7px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--futurelife-green);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .signin-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+    .notice {
+      min-height: 14px;
+      margin: 8px 0 -22px;
+      color: var(--futurelife-green);
+      font-size: 9px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .brand { margin-top: 10px; font-size: 10px; }
+      .signup-area { width: calc(100% - 40px); max-width: 335px; margin-top: 52px; }
+      h1 { margin-bottom: 30px; font-size: 26px; }
+      .field { margin-bottom: 18px; }
+      label { margin-bottom: 7px; font-size: 13px; }
+      input, select { height: 43px; padding-inline: 10px; font-size: 13px; }
+      .agreement { gap: 8px; margin: 4px 0 18px; font-size: 11px; }
+      .agreement input { width: 15px; height: 15px; }
+      .signup-button { height: 46px; font-size: 13px; line-height: 46px; }
+      .signin-copy { margin-top: 29px; font-size: 12px; }
+      .notice { font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+
+    <section class="signup-area" aria-label="Vendor sign up">
+      <h1>Create Account</h1>
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="vendor-name">Full Name</label>
+          <input id="vendor-name" name="name" type="text" autocomplete="name" placeholder="Enter full name" required />
+        </div>
+        <div class="field">
+          <label for="business-name">Store / Business Name</label>
+          <input id="business-name" name="business" type="text" autocomplete="organization" placeholder="Enter store or business name" required />
+        </div>
+        <div class="field">
+          <label for="vendor-type">Vendor Type</label>
+          <select id="vendor-type" name="vendor-type" required>
+            <option value="" selected disabled>Select vendor type</option>
+            <option value="marketplace">Marketplace</option>
+            <option value="jobs">Jobs</option>
+            <option value="rentals">Rentals</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="vendor-email">Email Address</label>
+          <input id="vendor-email" name="email" type="email" autocomplete="email" placeholder="Enter email address" required />
+        </div>
+        <div class="field">
+          <label for="vendor-password">Create Password</label>
+          <input id="vendor-password" name="password" type="password" autocomplete="new-password" placeholder="Create password" minlength="8" required />
+        </div>
+        <div class="field">
+          <label for="confirm-password">Confirm Password</label>
+          <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" placeholder="Confirm password" minlength="8" required />
+        </div>
+        <label class="agreement"><input type="checkbox" required /><span>I agree to the Vendor Terms.</span></label>
+        <button class="signup-button" type="submit">Sign Up</button>
+        <p class="notice" aria-live="polite"></p>
+      </form>
+      <p class="signin-copy">Already a Vendor?<button class="signin-link" type="button">Login</button></p>
+    </section>
+  </main>
+
+  <script>
+    const signupForm = document.getElementById('signup-form');
+    const signupNotice = document.querySelector('.notice');
+    const signupPassword = document.getElementById('vendor-password');
+    const confirmPassword = document.getElementById('confirm-password');
+    signupForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!signupForm.checkValidity()) { signupNotice.textContent = 'Complete all required account details before creating the preview account.'; signupForm.reportValidity(); return; }
+      if (signupPassword.value !== confirmPassword.value) { signupNotice.textContent = 'The password and confirmation must match.'; confirmPassword.focus(); return; }
+      window.location.href = '/marketplace-vendor-dashboard.html';
+    });
+    document.querySelector('.signin-link').addEventListener('click', () => {
+      window.location.href = '/marketplace-vendor-signin-vendor-login.html';
+    });
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

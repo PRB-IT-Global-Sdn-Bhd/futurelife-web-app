@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Portal Platform Fees preview" />
+  <title>Marketplace Vendor Portal — Platform Fees</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    button, input { border-radius: 0; font: inherit; }
+    button { cursor: pointer; }
+    a, button, input { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .side-menu .billing-parent { display: flex; min-height: 34px; align-items: center; padding: 0 8px; background: #f7fceb; color: #397d13; font-size: 11px; }
+    .side-menu a.billing-sub-link { min-height: 28px; padding-left: 21px; color: #6c6f75; font-size: 10px; }
+    .side-menu a.billing-sub-link::before { content: '›'; margin-right: 7px; color: #98a18f; font-size: 13px; }
+    .side-menu a.billing-sub-link:hover, .side-menu a.billing-sub-link.active { color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .page-copy { margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .summary-card { min-height: 92px; border: 1px solid var(--line); padding: 13px; background: var(--white); }
+    .summary-card.available { border-top: 3px solid var(--green); }
+    .summary-card .label { display: block; color: #73767c; font-size: 9px; font-weight: 700; }
+    .summary-card strong { display: block; overflow: hidden; margin-top: 11px; color: #30333a; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .summary-card small { display: block; margin-top: 5px; color: #8a8d93; font-size: 8.5px; line-height: 1.25; }
+
+    .payout-layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 14px; align-items: start; }
+    .card, .side-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 13px; }
+    .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .card h2, .side-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .card-heading p { margin: 3px 0 0; color: #7b7e84; font-size: 9px; line-height: 1.35; }
+    .link-button { display: inline-flex; min-height: 29px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 9px; background: var(--white); color: #397d13; font-size: 9px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .link-button:hover { background: var(--pale-green); }
+
+    .account-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ededed; }
+    .account-field { min-width: 0; padding: 10px 11px 10px 0; border-bottom: 1px solid #ededed; }
+    .account-field:nth-child(even) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 11px; }
+    .field-label { display: block; margin-bottom: 4px; color: #7c7f85; font-size: 8.5px; }
+    .field-value { display: block; overflow: hidden; color: #32353b; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .account-note { margin: 10px 0 0; color: #777a80; font-size: 9px; line-height: 1.4; }
+
+    .section-tools { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 17px 0 11px; }
+    .section-tools h2 { margin: 0; color: #2b2e34; font-size: 12px; }
+    .section-tools p { margin: 3px 0 0; color: #7b7e84; font-size: 9px; }
+    .search { width: min(270px, 100%); }
+    .search label { display: block; margin-bottom: 5px; color: #676a70; font-size: 8.5px; font-weight: 700; }
+    .search input { display: block; width: 100%; height: 31px; border: 1px solid #d8d8d8; padding: 0 8px; background: var(--white); color: #292c33; font-size: 9px; }
+    .search input::placeholder { color: #96999f; }
+    .search input:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .filter { min-height: 27px; border: 1px solid var(--line); padding: 0 9px; background: var(--white); color: #60636a; font-size: 9px; font-weight: 700; }
+    .filter:hover, .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+
+    .earnings-table { width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid var(--line); }
+    .earnings-table col.order { width: 17%; }
+    .earnings-table col.date { width: 15%; }
+    .earnings-table col.gross { width: 16%; }
+    .earnings-table col.fee { width: 16%; }
+    .earnings-table col.net { width: 18%; }
+    .earnings-table col.status { width: 18%; }
+    .earnings-table th { height: 36px; padding: 0 10px; border-bottom: 1px solid var(--line); background: var(--pale-grey); color: #777a80; font-size: 8.5px; font-weight: 700; text-align: left; }
+    .earnings-table td { padding: 11px 10px; border-bottom: 1px solid #ededed; color: #42454c; font-size: 9.5px; vertical-align: top; }
+    .earnings-table tr:last-child td { border-bottom: 0; }
+    .earnings-table tr[hidden] { display: none; }
+    .order-id { display: block; overflow: hidden; color: #32353b; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .sub-value { display: block; margin-top: 3px; color: #888b91; font-size: 8px; }
+    .money { display: block; color: #32353b; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .status-action { display: grid; justify-items: start; gap: 6px; }
+    .status { display: inline-flex; min-height: 20px; align-items: center; justify-content: center; border: 1px solid var(--line); padding: 0 7px; font-size: 8.5px; font-weight: 700; white-space: nowrap; }
+    .status.pending { border-color: #a8d86a; background: var(--pale-green); color: #397d13; }
+    .status.paid { border-color: #cccccc; background: #f2f2f2; color: #56595f; }
+    .status.hold { border-color: #d6d6d6; background: #fafafa; color: #676a70; }
+    .row-link { color: #356d1c; font-size: 9px; font-weight: 700; text-decoration: underline; }
+    .empty-state { display: none; padding: 24px 13px; border: 1px solid var(--line); border-top: 0; color: #7b7e84; font-size: 10px; text-align: center; }
+    .empty-state.visible { display: block; }
+
+    .earning-cards { display: none; }
+    .earning-card { border: 1px solid var(--line); padding: 12px; background: var(--white); }
+    .earning-card + .earning-card { margin-top: 9px; }
+    .earning-card[hidden] { display: none; }
+    .earning-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .mobile-money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; border-top: 1px solid #ededed; padding-top: 10px; }
+    .mobile-money-grid .field-label { margin-bottom: 3px; }
+    .mobile-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; border-top: 1px solid #ededed; padding-top: 10px; }
+
+    .history-list { border-top: 1px solid #ededed; }
+    .history-row { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.3fr) minmax(100px, .8fr) minmax(88px, .65fr); gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid #ededed; }
+    .history-row:last-child { border-bottom: 0; }
+    .history-label { display: block; overflow: hidden; color: #33363c; font-size: 9.5px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .history-row .status-action { justify-items: end; }
+
+    .side-card + .side-card { margin-top: 13px; }
+    .next-payout { border-left: 4px solid var(--green); background: var(--pale-grey); }
+    .next-payout .field-label { margin-top: 12px; }
+    .next-payout .field-value { font-size: 13px; }
+    .next-payout p { margin: 8px 0 0; color: #6c6f75; font-size: 9px; line-height: 1.45; }
+    .button { display: inline-flex; width: 100%; min-height: 35px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 12px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { margin-top: 8px; background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+    .notice { min-height: 17px; margin: 9px 0 0; color: #397d13; font-size: 9px; font-weight: 700; line-height: 1.35; text-align: center; }
+    .fee-note { border-left: 4px solid var(--green); background: var(--pale-grey); color: #5e6168; font-size: 9.5px; line-height: 1.45; }
+    .fee-note p { margin: 8px 0 0; }
+    .fee-note strong { color: #30333a; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      html, body { max-width: 100%; overflow-x: clip; }
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .page-copy { margin-bottom: 16px; font-size: 10px; }
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .summary-card { min-height: 90px; padding: 12px; }
+      .summary-card strong { font-size: 13px; }
+      .payout-layout { display: block; }
+      .content, .payout-layout, .summary-grid, .card, .side-card, .history-row { min-width: 0; }
+      .payout-layout > aside { margin-top: 13px; }
+      .account-grid { grid-template-columns: 1fr; }
+      .account-field, .account-field:nth-child(even) { border-left: 0; padding: 9px 0; }
+      .section-tools { display: block; margin-top: 16px; }
+      .search { width: 100%; margin-top: 11px; }
+      .search input { height: 40px; font-size: 11px; }
+      .filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .filter { min-width: 0; padding: 0 4px; font-size: 8.5px; }
+      .earnings-table { display: none; }
+      .earning-cards { display: block; }
+      .history-row { grid-template-columns: minmax(0, 1fr) minmax(90px, .8fr); gap: 9px; }
+      .history-row .period { grid-row: 2; }
+      .history-row .history-amount { grid-column: 1; grid-row: 3; }
+      .history-row .status-action { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(6, minmax(64px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 64px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button, .earning-card { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active, .earning-card:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#listings">Listings</a>
+        <a href="#orders">Orders</a>
+        <a class="billing-parent" href="/marketplace-vendor-billing.html">Billing</a>
+        <a class="active billing-sub-link" href="#payouts" aria-current="page">Platform Fees</a>
+        <a href="#messages">Messages <span class="menu-count">3</span></a>
+        <a href="#profile">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="platform-fees">
+      <p class="eyebrow">Billing</p>
+      <h1>Platform Fees</h1>
+      <p class="page-copy">Review automatic platform-fee deductions, order earnings, and payout statements. For standard Marketplace orders, the applicable platform fee is deducted before the vendor payout—there is no separate per-order fee payment.</p>
+
+      <section class="summary-grid" aria-label="Platform fees and payout summary">
+        <article class="summary-card available"><span class="label">Net available for payout</span><strong>RM {{AVAILABLE BALANCE}}</strong><small>Eligible vendor earnings after recorded deductions.</small></article>
+        <article class="summary-card"><span class="label">Net pending payout</span><strong>RM {{PENDING BALANCE}}</strong><small>Eligible order earnings awaiting settlement.</small></article>
+        <article class="summary-card"><span class="label">Paid to vendor this month</span><strong>RM {{PAID OUT THIS MONTH}}</strong><small>Completed vendor settlements in the current month.</small></article>
+        <article class="summary-card"><span class="label">Platform fees deducted</span><strong>RM {{PLATFORM FEES THIS MONTH}}</strong><small>Automatically deducted from eligible order settlements.</small></article>
+      </section>
+
+      <div class="payout-layout">
+        <section>
+          <section class="card" aria-labelledby="payout-account-heading">
+            <div class="card-heading"><div><h2 id="payout-account-heading">Payout account</h2><p>Use the account details on file for future vendor payouts.</p></div><a class="link-button" href="/marketplace-vendor-manage-payout-details.html">Manage details</a></div>
+            <div class="account-grid">
+              <div class="account-field"><span class="field-label">Payout method</span><span class="field-value">{{PAYOUT METHOD}}</span></div>
+              <div class="account-field"><span class="field-label">Account holder</span><span class="field-value">{{ACCOUNT HOLDER NAME}}</span></div>
+              <div class="account-field"><span class="field-label">Account details</span><span class="field-value">{{PAYOUT ACCOUNT DISPLAY}}</span></div>
+              <div class="account-field"><span class="field-label">Account status</span><span class="field-value">{{PAYOUT ACCOUNT STATUS}}</span></div>
+            </div>
+            <p class="account-note">Show only the minimum account information needed for confirmation. Keep full financial details protected in the vendor profile workflow.</p>
+          </section>
+
+          <section aria-labelledby="earnings-heading">
+            <div class="section-tools"><div><h2 id="earnings-heading">Order earnings breakdowns</h2><p>Each record shows the applicable fee already deducted before the vendor’s settlement amount is calculated.</p></div><label class="search"><span>Search order earnings</span><input id="earning-search" type="search" placeholder="Search order ID or status" aria-label="Search order earnings" /></label></div>
+            <div class="filters" role="group" aria-label="Settlement status filters">
+              <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter" type="button" data-filter="pending" aria-pressed="false">Pending</button>
+              <button class="filter" type="button" data-filter="paid" aria-pressed="false">Paid</button>
+              <button class="filter" type="button" data-filter="hold" aria-pressed="false">On hold</button>
+            </div>
+            <table class="earnings-table">
+              <colgroup><col class="order" /><col class="date" /><col class="gross" /><col class="fee" /><col class="net" /><col class="status" /></colgroup>
+              <thead><tr><th>Order</th><th>Eligible on</th><th>Customer paid</th><th>Fee deducted</th><th>Net to vendor</th><th>Settlement status</th></tr></thead>
+              <tbody>
+                <tr data-status="pending" data-search="order id pending"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+                <tr data-status="paid" data-search="order id paid"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+                <tr data-status="hold" data-search="order id hold"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status hold">On hold</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+              </tbody>
+            </table>
+
+            <div class="earning-cards" aria-live="polite">
+              <article class="earning-card" data-status="pending" data-search="order id pending"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status pending">Pending</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></article>
+              <article class="earning-card" data-status="paid" data-search="order id paid"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status paid">Paid</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></article>
+              <article class="earning-card" data-status="hold" data-search="order id hold"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status hold">On hold</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="/marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}">View breakdown</a></div></article>
+            </div>
+            <p class="empty-state" id="empty-state">No order earnings match your search or status filter.</p>
+          </section>
+
+          <section class="card" aria-labelledby="payout-history-heading">
+            <div class="card-heading"><div><h2 id="payout-history-heading">Payout statements</h2><p>Settlement records show the orders, automatic fee deductions, and net amount for each vendor payout.</p></div></div>
+            <div class="history-list">
+              <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount paid</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="/marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View statement</a></div></article>
+              <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="/marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View details</a></div></article>
+            </div>
+          </section>
+        </section>
+
+        <aside>
+          <section class="side-card next-payout" aria-labelledby="next-payout-heading">
+            <h2 id="next-payout-heading">Next payout</h2>
+            <span class="field-label">Expected payout date</span>
+            <span class="field-value">{{NEXT PAYOUT DATE}}</span>
+            <span class="field-label">Available balance</span>
+            <span class="field-value">RM {{AVAILABLE BALANCE}}</span>
+            <p>Payout timing and eligibility should follow the current FutureLife Vendor Terms and confirmed account status.</p>
+          </section>
+          <section class="side-card" aria-labelledby="payout-actions-heading">
+            <h2 id="payout-actions-heading">Settlement actions</h2>
+            <a class="button" href="/marketplace-vendor-manage-payout-details.html">Manage Payout Details</a>
+            <a class="button secondary" href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=platform-fees" aria-label="Ask FutureLife Support about a platform fee">Ask about a Fee</a>
+            <p class="notice" id="payout-notice" aria-live="polite"></p>
+          </section>
+          <section class="side-card fee-note" aria-labelledby="fee-heading">
+            <h2 id="fee-heading">Platform fee clarity</h2>
+            <p><strong>Net to vendor</strong> is the amount remaining after the applicable platform fee is automatically deducted from an eligible order. Standard Marketplace orders do not require a separate platform-fee payment. Do not add charges that are not part of the actual FutureLife fee policy.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a href="#orders">Orders</a>
+    <a class="active" href="#payouts" aria-current="page">Payouts</a>
+    <a href="#messages">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const tableRows = document.querySelectorAll('.earnings-table tbody tr');
+    const cards = document.querySelectorAll('.earning-card');
+    const search = document.getElementById('earning-search');
+    const emptyState = document.getElementById('empty-state');
+    let activeFilter = 'all';
+
+    function updateEarnings() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      [...tableRows, ...cards].forEach((entry) => {
+        const categoryMatch = activeFilter === 'all' || entry.dataset.status === activeFilter;
+        const queryMatch = entry.dataset.search.includes(query);
+        entry.hidden = !(categoryMatch && queryMatch);
+      });
+      cards.forEach((card) => { if (!card.hidden) visible += 1; });
+      emptyState.classList.toggle('visible', visible === 0);
+    }
+
+    filters.forEach((filter) => filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.filter;
+      filters.forEach((button) => {
+        const selected = button === filter;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+      updateEarnings();
+      syncUrl();
+    }));
+
+    function syncUrl() {
+      const url = new URL(window.location.href);
+      if (activeFilter === 'all') url.searchParams.delete('status');
+      else url.searchParams.set('status', activeFilter);
+      if (search.value.trim()) url.searchParams.set('q', search.value.trim());
+      else url.searchParams.delete('q');
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+    }
+
+    search.addEventListener('input', () => { updateEarnings(); syncUrl(); });
+
+    const requested = new URLSearchParams(window.location.search);
+    const requestedStatus = requested.get('status');
+    activeFilter = ['pending', 'paid', 'hold'].includes(requestedStatus) ? requestedStatus : 'all';
+    search.value = requested.get('q') || '';
+    filters.forEach((button) => {
+      const selected = button.dataset.filter === activeFilter;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    updateEarnings();
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>

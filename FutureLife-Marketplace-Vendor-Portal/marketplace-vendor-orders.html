@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Marketplace Vendor Portal orders-management preview" />
+  <title>Marketplace Vendor Portal — Orders</title>
+  <style>
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #70737a;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    a, button, input { -webkit-tap-highlight-color: transparent; }
+    button, input { border-radius: 0; font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .portal-name { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: #35383e; font-size: 11px; font-weight: 700; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--line); background: #f7fceb; text-decoration: none; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid var(--green); border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; overflow: hidden; color: #2d6136; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { min-width: 17px; margin-left: auto; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .topbar-label { color: #5c5f65; font-size: 11px; }
+    .topbar-label strong { color: var(--green-dark); }
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .page-copy { margin: 6px 0 19px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+
+    .toolbar { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .search { width: min(360px, 100%); }
+    .search label { display: block; margin-bottom: 5px; color: #666970; font-size: 9px; font-weight: 700; }
+    .search input { display: block; width: 100%; height: 34px; border: 1px solid #d8d8d8; padding: 0 9px; background: var(--white); color: #272a30; font-size: 10px; }
+    .search input::placeholder { color: #979aa0; }
+    .search input:focus { border-color: var(--green); outline: 0; box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); }
+    .order-count { color: #7c7f85; font-size: 10px; white-space: nowrap; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 13px; }
+    .filter { min-height: 28px; border: 1px solid var(--line); padding: 0 10px; background: var(--white); color: #60636a; font-size: 9px; font-weight: 700; }
+    .filter:hover, .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+
+    .orders-shell { border: 1px solid var(--line); background: var(--white); }
+    .orders-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .orders-table col.order { width: 14%; }
+    .orders-table col.customer { width: 19%; }
+    .orders-table col.item { width: 25%; }
+    .orders-table col.method { width: 13%; }
+    .orders-table col.total { width: 10%; }
+    .orders-table col.status { width: 19%; }
+    .orders-table th { height: 38px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--pale-grey); color: #777a80; font-size: 9px; font-weight: 700; text-align: left; }
+    .orders-table td { padding: 13px 14px; border-bottom: 1px solid #ededed; color: #42454c; font-size: 10px; vertical-align: middle; }
+    .orders-table tr:last-child td { border-bottom: 0; }
+    .orders-table tr[hidden] { display: none; }
+    .order-number { display: block; color: #34373d; font-weight: 700; }
+    .order-date { display: block; margin-top: 3px; color: #878a90; font-size: 8.5px; }
+    .customer-name { display: block; overflow: hidden; color: #34373d; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .customer-meta { display: block; margin-top: 3px; color: #878a90; font-size: 8.5px; }
+    .item-name { display: block; overflow: hidden; color: #34373d; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .item-meta { display: block; margin-top: 3px; color: #878a90; font-size: 8.5px; }
+    .status { display: inline-flex; min-height: 20px; align-items: center; justify-content: center; border: 1px solid var(--line); padding: 0 7px; font-size: 9px; font-weight: 700; white-space: nowrap; }
+    .status.new { border-color: #a8d86a; background: var(--pale-green); color: #397d13; }
+    .status.processing { border-color: #cdcdcd; background: #fafafa; color: #5d6067; }
+    .status.completed { border-color: #cacaca; background: #f2f2f2; color: #55585d; }
+    .status-action { display: grid; justify-items: start; gap: 6px; }
+    .view-order { color: #356d1c; font-size: 10px; font-weight: 700; text-decoration: underline; }
+    .empty-orders { display: none; padding: 25px 13px; color: #7b7e84; font-size: 10px; text-align: center; }
+    .empty-orders.visible { display: block; }
+
+    .mobile-order-cards { display: none; }
+    .help-panel { display: flex; gap: 9px; margin-top: 13px; border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 11px 12px; background: var(--pale-grey); color: #53565c; font-size: 10px; line-height: 1.4; }
+    .help-mark { display: grid; width: 18px; height: 18px; flex: 0 0 18px; place-items: center; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .help-panel strong { display: block; margin-bottom: 2px; color: #32353b; }
+
+    .mobile-header, .mobile-nav { display: none; }
+    @media (max-width: 960px) {
+      body { padding-bottom: 60px; }
+      .sidebar, .topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-portal { color: #34373d; font-size: 12px; font-weight: 700; }
+      .mobile-account { color: #5d6067; font-size: 10px; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      h1 { font-size: 22px; }
+      .page-copy { margin-bottom: 16px; font-size: 10px; }
+      .toolbar { display: block; }
+      .search { width: 100%; }
+      .search input { height: 42px; font-size: 12px; }
+      .order-count { display: block; margin-top: 10px; }
+      .filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .filter { min-width: 0; padding: 0 5px; font-size: 9px; }
+      .orders-shell { border: 0; background: transparent; }
+      .orders-table { display: none; }
+      .mobile-order-cards { display: grid; gap: 10px; }
+      .order-card { border: 1px solid var(--line); padding: 13px; background: var(--white); }
+      .order-card[hidden] { display: none; }
+      .order-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+      .order-card .order-number { font-size: 11px; }
+      .order-card .order-date { font-size: 9px; }
+      .order-item { margin-top: 11px; border-top: 1px solid #ededed; padding-top: 10px; }
+      .order-item strong { display: block; color: #34373d; font-size: 10px; }
+      .order-item span { display: block; margin-top: 3px; color: #7d8086; font-size: 9px; }
+      .order-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 11px; border-top: 1px solid #ededed; padding-top: 10px; }
+      .meta-label { display: block; margin-bottom: 3px; color: #85888e; font-size: 8px; }
+      .meta-value { display: block; color: #3e4147; font-size: 10px; font-weight: 700; }
+      .order-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; border-top: 1px solid #ededed; padding-top: 10px; }
+      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(5, minmax(66px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
+      .mobile-nav a { display: grid; min-width: 66px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
+      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      button, .order-card, a { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      button:active, .order-card:active, a:active { transform: scale(.97); }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="/marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
+    <a class="account-row" href="/marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="/marketplace-vendor-dashboard.html">Dashboard</a>
+        <a href="/marketplace-vendor-listings.html">Listings</a>
+        <a class="active" href="/marketplace-vendor-orders.html" aria-current="page">Orders</a>
+        <a href="/marketplace-vendor-payouts.html">Payouts</a>
+        <a href="/marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
+        <a href="/marketplace-vendor-profile.html">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+
+    <main class="content" id="orders">
+      <p class="eyebrow">Marketplace vendor</p>
+      <h1>Orders</h1>
+      <p class="page-copy">Review Marketplace orders and keep customers informed about fulfilment.</p>
+
+      <div class="toolbar">
+        <label class="search"><span>Search orders</span><input id="order-search" type="search" placeholder="Search order number, customer, or item" aria-label="Search orders" /></label>
+        <span class="order-count" id="order-count">4 orders</span>
+      </div>
+
+      <div class="filters" role="group" aria-label="Order status filters">
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-filter="new" aria-pressed="false">New</button>
+        <button class="filter" type="button" data-filter="processing" aria-pressed="false">Processing</button>
+        <button class="filter" type="button" data-filter="completed" aria-pressed="false">Completed</button>
+      </div>
+
+      <section class="orders-shell" aria-label="Marketplace orders">
+        <table class="orders-table">
+          <colgroup><col class="order" /><col class="customer" /><col class="item" /><col class="method" /><col class="total" /><col class="status" /></colgroup>
+          <thead><tr><th>Order</th><th>Customer</th><th>Item</th><th>Fulfilment</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr data-status="new" data-search="fl ord 1024 aisyah noor scientific calculator delivery"><td><span class="order-number">{{ORDER ID}}</span><span class="order-date">Today</span></td><td><span class="customer-name">Aisyah Noor</span><span class="customer-meta">Customer</span></td><td><span class="item-name">Scientific Calculator</span><span class="item-meta">Qty 1</span></td><td>Delivery</td><td>RM39.00</td><td><div class="status-action"><span class="status new">New</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View</a></div></td></tr>
+            <tr data-status="processing" data-search="fl ord 1018 daniel wong calculus complete course collect in store"><td><span class="order-number">{{ORDER ID}}</span><span class="order-date">Today</span></td><td><span class="customer-name">Daniel Wong</span><span class="customer-meta">Customer</span></td><td><span class="item-name">Calculus 1: A Complete Course</span><span class="item-meta">Qty 1</span></td><td>Collect in-store</td><td>RM28.00</td><td><div class="status-action"><span class="status processing">Processing</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View</a></div></td></tr>
+            <tr data-status="completed" data-search="fl ord 1009 nur izzati laptop sleeve delivery"><td><span class="order-number">{{ORDER ID}}</span><span class="order-date">Yesterday</span></td><td><span class="customer-name">Nur Izzati</span><span class="customer-meta">Customer</span></td><td><span class="item-name">Laptop Sleeve 14 inch</span><span class="item-meta">Qty 1</span></td><td>Delivery</td><td>RM23.00</td><td><div class="status-action"><span class="status completed">Completed</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View</a></div></td></tr>
+            <tr data-status="processing" data-search="fl ord 1003 haris azlan desk lamp collect in store"><td><span class="order-number">{{ORDER ID}}</span><span class="order-date">18 Oct</span></td><td><span class="customer-name">Haris Azlan</span><span class="customer-meta">Customer</span></td><td><span class="item-name">Desk Lamp</span><span class="item-meta">Qty 1</span></td><td>Collect in-store</td><td>RM20.00</td><td><div class="status-action"><span class="status processing">Processing</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View</a></div></td></tr>
+          </tbody>
+        </table>
+
+        <div class="mobile-order-cards" aria-live="polite">
+          <article class="order-card" data-status="new" data-search="fl ord 1024 aisyah noor scientific calculator delivery"><div class="order-card-top"><div><span class="order-number">{{ORDER ID}}</span><span class="order-date">Today</span></div><span class="status new">New</span></div><div class="order-item"><strong>Scientific Calculator</strong><span>Customer: Aisyah Noor · Qty 1</span></div><div class="order-meta"><div><span class="meta-label">Fulfilment</span><span class="meta-value">Delivery</span></div><div><span class="meta-label">Total</span><span class="meta-value">RM39.00</span></div></div><div class="order-card-footer"><span class="customer-meta">Customer order</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View order</a></div></article>
+          <article class="order-card" data-status="processing" data-search="fl ord 1018 daniel wong calculus complete course collect in store"><div class="order-card-top"><div><span class="order-number">{{ORDER ID}}</span><span class="order-date">Today</span></div><span class="status processing">Processing</span></div><div class="order-item"><strong>Calculus 1: A Complete Course</strong><span>Customer: Daniel Wong · Qty 1</span></div><div class="order-meta"><div><span class="meta-label">Fulfilment</span><span class="meta-value">Collect in-store</span></div><div><span class="meta-label">Total</span><span class="meta-value">RM28.00</span></div></div><div class="order-card-footer"><span class="customer-meta">Customer order</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View order</a></div></article>
+          <article class="order-card" data-status="completed" data-search="fl ord 1009 nur izzati laptop sleeve delivery"><div class="order-card-top"><div><span class="order-number">{{ORDER ID}}</span><span class="order-date">Yesterday</span></div><span class="status completed">Completed</span></div><div class="order-item"><strong>Laptop Sleeve 14 inch</strong><span>Customer: Nur Izzati · Qty 1</span></div><div class="order-meta"><div><span class="meta-label">Fulfilment</span><span class="meta-value">Delivery</span></div><div><span class="meta-label">Total</span><span class="meta-value">RM23.00</span></div></div><div class="order-card-footer"><span class="customer-meta">Customer order</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View order</a></div></article>
+          <article class="order-card" data-status="processing" data-search="fl ord 1003 haris azlan desk lamp collect in store"><div class="order-card-top"><div><span class="order-number">{{ORDER ID}}</span><span class="order-date">18 Oct</span></div><span class="status processing">Processing</span></div><div class="order-item"><strong>Desk Lamp</strong><span>Customer: Haris Azlan · Qty 1</span></div><div class="order-meta"><div><span class="meta-label">Fulfilment</span><span class="meta-value">Collect in-store</span></div><div><span class="meta-label">Total</span><span class="meta-value">RM20.00</span></div></div><div class="order-card-footer"><span class="customer-meta">Customer order</span><a class="view-order" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">View order</a></div></article>
+        </div>
+        <p class="empty-orders" id="empty-orders">No orders match your search or filter.</p>
+      </section>
+
+      <aside class="help-panel"><span class="help-mark">i</span><div><strong>Order updates</strong> Use each order record to review the selected fulfilment method and keep customer communication in the linked message thread.</div></aside>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#listings">Listings</a>
+    <a class="active" href="#orders" aria-current="page">Orders</a>
+    <a href="#messages">Messages</a>
+    <a href="#profile">Profile</a>
+  </nav>
+
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const tableRows = document.querySelectorAll('.orders-table tbody tr');
+    const cards = document.querySelectorAll('.order-card');
+    const search = document.getElementById('order-search');
+    const count = document.getElementById('order-count');
+    const emptyOrders = document.getElementById('empty-orders');
+    let activeFilter = 'all';
+
+    function updateOrders() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      [...tableRows, ...cards].forEach((order) => {
+        const groupMatch = activeFilter === 'all' || order.dataset.status === activeFilter;
+        const textMatch = order.dataset.search.includes(query);
+        const show = groupMatch && textMatch;
+        order.hidden = !show;
+      });
+      cards.forEach((card) => { if (!card.hidden) visible += 1; });
+      count.textContent = `${visible} order${visible === 1 ? '' : 's'}`;
+      emptyOrders.classList.toggle('visible', visible === 0);
+    }
+
+    filters.forEach((filter) => filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.filter;
+      filters.forEach((button) => {
+        const selected = button === filter;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+      updateOrders();
+      syncUrl();
+    }));
+
+    function syncUrl() {
+      const url = new URL(window.location.href);
+      if (activeFilter === 'all') url.searchParams.delete('status');
+      else url.searchParams.set('status', activeFilter);
+      if (search.value.trim()) url.searchParams.set('q', search.value.trim());
+      else url.searchParams.delete('q');
+      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
+    }
+
+    search.addEventListener('input', () => { updateOrders(); syncUrl(); });
+
+    const requested = new URLSearchParams(window.location.search);
+    const requestedStatus = requested.get('status');
+    activeFilter = ['new', 'processing', 'completed'].includes(requestedStatus) ? requestedStatus : 'all';
+    search.value = requested.get('q') || '';
+    filters.forEach((button) => {
+      const selected = button.dataset.filter === activeFilter;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    updateOrders();
+  </script>
+  <script src="/vendor-portal-navigation.js"></script>
+</body>
+</html>
