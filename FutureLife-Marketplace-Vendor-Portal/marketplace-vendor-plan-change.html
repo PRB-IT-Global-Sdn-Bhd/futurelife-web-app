@@ -21,7 +21,7 @@
     const plans=[...document.querySelectorAll('input[name="target-plan"]')]; const planName=document.getElementById('summary-target-plan'); const planPrice=document.getElementById('summary-target-price'); const planLimit=document.getElementById('summary-target-limit');
     function syncPlan(input){planName.textContent=input.dataset.plan;planPrice.textContent=`RM ${input.dataset.price} / {{BILLING_CYCLE}}`;planLimit.textContent=`${input.dataset.limit} active`;}
     plans.forEach((input)=>input.addEventListener('change',()=>syncPlan(input)));
-    document.getElementById('plan-change-form').addEventListener('submit',(event)=>{event.preventDefault();const selected=plans.find((input)=>input.checked);const feedback=document.getElementById('plan-change-feedback');if(!selected){feedback.textContent='Select a configured plan before reviewing the change.';feedback.classList.add('visible');return;}window.location.href=`/marketplace-vendor-plan-change-review.html?target=${encodeURIComponent(selected.value)}`;});
+    document.getElementById('plan-change-form').addEventListener('submit',(event)=>{event.preventDefault();const selected=plans.find((input)=>input.checked);const feedback=document.getElementById('plan-change-feedback');if(!selected){feedback.textContent='Select a configured plan before reviewing the change.';feedback.classList.add('visible');return;}window.location.href=`marketplace-vendor-plan-change-review.html?target=${encodeURIComponent(selected.value)}`;});
   </script><script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

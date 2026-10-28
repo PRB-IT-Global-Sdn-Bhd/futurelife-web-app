@@ -16,7 +16,7 @@
   </div>
   <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="active" href="#payouts" aria-current="page">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
   <script>
-    document.getElementById('credit-payment-form').addEventListener('submit',(event)=>{event.preventDefault();const checkbox=document.getElementById('credit-payment-confirmation');const feedback=document.getElementById('credit-payment-feedback');if(!checkbox.checked){feedback.textContent='Confirm the package details before continuing to payment.';feedback.classList.add('visible');return;}const params=new URLSearchParams(window.location.search);params.set('package',params.get('package')||'{{CREDIT_PACKAGE_ID}}');params.set('payment','{{PAYMENT_ID}}');window.location.href=`/marketplace-vendor-listing-credits-success.html?${params.toString()}`;});
+    document.getElementById('credit-payment-form').addEventListener('submit',(event)=>{event.preventDefault();const checkbox=document.getElementById('credit-payment-confirmation');const feedback=document.getElementById('credit-payment-feedback');if(!checkbox.checked){feedback.textContent='Confirm the package details before continuing to payment.';feedback.classList.add('visible');return;}const params=new URLSearchParams(window.location.search);params.set('package',params.get('package')||'{{CREDIT_PACKAGE_ID}}');params.set('payment','{{PAYMENT_ID}}');window.location.href=`marketplace-vendor-listing-credits-success.html?${params.toString()}`;});
   </script>
   <script src="vendor-portal-navigation.js"></script>
 </body>

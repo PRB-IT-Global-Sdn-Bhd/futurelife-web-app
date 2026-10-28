@@ -48,7 +48,7 @@
     const packageField = document.getElementById('summary-package'); const creditsField = document.getElementById('summary-credits'); const feeField = document.getElementById('summary-fee');
     function syncPackage(input) { packageField.textContent=input.dataset.label; creditsField.textContent=input.dataset.credits; feeField.textContent=`RM ${input.dataset.fee}`; }
     packages.forEach((input) => input.addEventListener('change', () => syncPackage(input)));
-    document.getElementById('credit-package-form').addEventListener('submit', (event) => { event.preventDefault(); const selected=packages.find((input)=>input.checked); const feedback=document.getElementById('credit-feedback'); if (!selected) { feedback.textContent='Select a configured credit package before continuing.'; feedback.classList.add('visible'); return; } const params=new URLSearchParams(); params.set('package',selected.value); window.location.href=`/marketplace-vendor-listing-credits-payment.html?${params.toString()}`; });
+    document.getElementById('credit-package-form').addEventListener('submit', (event) => { event.preventDefault(); const selected=packages.find((input)=>input.checked); const feedback=document.getElementById('credit-feedback'); if (!selected) { feedback.textContent='Select a configured credit package before continuing.'; feedback.classList.add('visible'); return; } const params=new URLSearchParams(); params.set('package',selected.value); window.location.href=`marketplace-vendor-listing-credits-payment.html?${params.toString()}`; });
   </script>
   <script src="vendor-portal-navigation.js"></script>
 </body>

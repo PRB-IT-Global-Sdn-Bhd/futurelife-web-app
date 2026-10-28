@@ -64,7 +64,7 @@
     const feedback = document.getElementById('selection-feedback');
     function syncSummary(input) { optionField.textContent = input.dataset.label; durationField.textContent = input.dataset.duration; feeField.textContent = `RM ${input.dataset.fee}`; }
     options.forEach((input) => input.addEventListener('change', () => syncSummary(input)));
-    form.addEventListener('submit', (event) => { event.preventDefault(); const selected = options.find((input) => input.checked); if (!selected) { feedback.textContent = 'Select a configured sponsorship option before continuing.'; feedback.classList.add('visible'); return; } const params = new URLSearchParams(window.location.search); params.set('listing', params.get('listing') || '{{LISTING_ID}}'); params.set('option', selected.value); window.location.href = `/marketplace-vendor-sponsored-listing-payment.html?${params.toString()}`; });
+    form.addEventListener('submit', (event) => { event.preventDefault(); const selected = options.find((input) => input.checked); if (!selected) { feedback.textContent = 'Select a configured sponsorship option before continuing.'; feedback.classList.add('visible'); return; } const params = new URLSearchParams(window.location.search); params.set('listing', params.get('listing') || '{{LISTING_ID}}'); params.set('option', selected.value); window.location.href = `marketplace-vendor-sponsored-listing-payment.html?${params.toString()}`; });
   </script>
   <script src="vendor-portal-navigation.js"></script>
 </body>
