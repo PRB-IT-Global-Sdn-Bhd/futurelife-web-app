@@ -224,12 +224,12 @@
       event.preventDefault();
       if (!signupForm.checkValidity()) { signupNotice.textContent = 'Complete all required account details before creating the preview account.'; signupForm.reportValidity(); return; }
       if (signupPassword.value !== confirmPassword.value) { signupNotice.textContent = 'The password and confirmation must match.'; confirmPassword.focus(); return; }
-      window.location.href = '/marketplace-vendor-dashboard.html';
+      window.location.href = 'marketplace-vendor-dashboard.html';
     });
     document.querySelector('.signin-link').addEventListener('click', () => {
-      window.location.href = '/marketplace-vendor-signin-vendor-login.html';
+      window.location.href = 'marketplace-vendor-signin-vendor-login.html';
     });
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

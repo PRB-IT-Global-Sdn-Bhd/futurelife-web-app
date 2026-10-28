@@ -78,16 +78,16 @@
 </head>
 <body>
   <aside class="sidebar" aria-label="Vendor portal navigation">
-    <a class="portal-name" href="/marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
-    <a class="account-row" href="/marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="/marketplace-vendor-dashboard.html">Dashboard</a><a href="/marketplace-vendor-listings.html">Listings</a><a class="active" href="/marketplace-vendor-orders.html" aria-current="page">Orders</a><a href="/marketplace-vendor-payouts.html">Payouts</a><a href="/marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a><a href="/marketplace-vendor-profile.html">Profile</a></nav></section>
+    <a class="portal-name" href="marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
+    <a class="account-row" href="marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="marketplace-vendor-dashboard.html">Dashboard</a><a href="marketplace-vendor-listings.html">Listings</a><a class="active" href="marketplace-vendor-orders.html" aria-current="page">Orders</a><a href="marketplace-vendor-payouts.html">Payouts</a><a href="marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a><a href="marketplace-vendor-profile.html">Profile</a></nav></section>
     <a class="side-logout" href="#logout">Logout</a>
   </aside>
   <div class="page-shell">
     <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
     <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
     <main class="content" id="order-support-request">
-      <a class="breadcrumb" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">← Back to Order Details</a>
+      <a class="breadcrumb" href="marketplace-vendor-order-details.html?order={{ORDER_ID}}">← Back to Order Details</a>
       <p class="eyebrow">Marketplace order</p>
       <h1>Order Issue, Cancellation &amp; Refund</h1>
       <p class="page-copy">Create a support request for this order. Submitting a request does not automatically cancel the order or issue a refund.</p>
@@ -108,14 +108,14 @@
               <div class="field full"><label for="request-evidence">Supporting image <span>(optional)</span></label><div class="file-field"><input id="request-evidence" type="file" accept="image/*" /><p class="field-help" id="evidence-help">Attach only evidence relevant to this request. File upload is a preview-only control.</p></div></div>
             </div>
             <label class="confirm-row"><input id="confirm-request" type="checkbox" required /><span>I confirm that this request relates to the order shown above and that the information provided is accurate.</span></label>
-            <div class="form-actions"><a class="button secondary" href="/marketplace-vendor-order-details.html?order={{ORDER_ID}}">Cancel</a><button class="button" type="submit">Submit Request</button></div>
+            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-order-details.html?order={{ORDER_ID}}">Cancel</a><button class="button" type="submit">Submit Request</button></div>
             <p class="form-notice" id="form-notice" aria-live="polite"></p>
           </form>
         </section>
         <aside>
           <section class="side-card" aria-labelledby="order-context-heading"><h2 id="order-context-heading">Order context</h2><div class="summary-list"><div class="summary-row"><span class="summary-label">Order</span><span class="summary-value">{{ORDER ID}}</span></div><div class="summary-row"><span class="summary-label">Customer</span><span class="summary-value">{{CUSTOMER NAME}}</span></div><div class="summary-row"><span class="summary-label">Order total</span><span class="summary-value">RM {{ORDER TOTAL}}</span></div><div class="summary-row"><span class="summary-label">Fulfilment</span><span class="summary-value">{{FULFILMENT METHOD}}</span></div></div></section>
           <section class="side-card policy-card" aria-labelledby="review-heading"><h2 id="review-heading">Request review</h2><p><strong>FutureLife should review the request before a cancellation or refund outcome is recorded.</strong> Use the confirmed order, payment, and fulfilment records to assess the request.</p></section>
-          <section class="side-card" aria-labelledby="support-heading"><h2 id="support-heading">Need help?</h2><p class="support-copy">Continue the relevant conversation with FutureLife Support and include the order reference.</p><a class="button" href="/marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=order-support">Message Support</a></section>
+          <section class="side-card" aria-labelledby="support-heading"><h2 id="support-heading">Need help?</h2><p class="support-copy">Continue the relevant conversation with FutureLife Support and include the order reference.</p><a class="button" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=order-support">Message Support</a></section>
         </aside>
       </div>
     </main>
@@ -144,6 +144,6 @@
       notice.textContent = 'Preview only — the order support request would be submitted for FutureLife review.';
     });
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

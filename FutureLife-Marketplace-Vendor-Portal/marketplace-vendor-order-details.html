@@ -135,17 +135,17 @@
 </head>
 <body>
   <aside class="sidebar" aria-label="Vendor portal navigation">
-    <a class="portal-name" href="/marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
-    <a class="account-row" href="/marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <a class="portal-name" href="marketplace-vendor-dashboard.html">Marketplace Vendor Portal</a>
+    <a class="account-row" href="marketplace-vendor-profile.html"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
     <section class="side-section">
       <p class="side-label">Vendor portal</p>
       <nav class="side-menu" aria-label="Vendor portal pages">
-        <a href="/marketplace-vendor-dashboard.html">Dashboard</a>
-        <a href="/marketplace-vendor-listings.html">Listings</a>
-        <a class="active" href="/marketplace-vendor-orders.html" aria-current="page">Orders</a>
-        <a href="/marketplace-vendor-payouts.html">Payouts</a>
-        <a href="/marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
-        <a href="/marketplace-vendor-profile.html">Profile</a>
+        <a href="marketplace-vendor-dashboard.html">Dashboard</a>
+        <a href="marketplace-vendor-listings.html">Listings</a>
+        <a class="active" href="marketplace-vendor-orders.html" aria-current="page">Orders</a>
+        <a href="marketplace-vendor-payouts.html">Payouts</a>
+        <a href="marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
+        <a href="marketplace-vendor-profile.html">Profile</a>
       </nav>
     </section>
     <a class="side-logout" href="#logout">Logout</a>
@@ -156,7 +156,7 @@
     <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
 
     <main class="content" id="order-details">
-      <a class="breadcrumb" href="/marketplace-vendor-orders.html">← Back to Orders</a>
+      <a class="breadcrumb" href="marketplace-vendor-orders.html">← Back to Orders</a>
       <section class="order-hero" aria-labelledby="order-heading">
         <div><p class="eyebrow">Marketplace order</p><h1 id="order-heading">{{ORDER ID}}</h1><p class="order-date">Placed on {{ORDER DATE}}</p></div>
         <span class="status">New</span>
@@ -165,7 +165,7 @@
       <div class="order-layout">
         <section>
           <section class="card" aria-labelledby="items-heading">
-            <div class="card-title-row"><h2 id="items-heading">Order items</h2><a href="/marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View Listing</a></div>
+            <div class="card-title-row"><h2 id="items-heading">Order items</h2><a href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View Listing</a></div>
             <article class="item-row"><div class="item-preview">Item photo</div><div><span class="item-title">{{LISTING TITLE}}</span><span class="item-meta">Quantity: {{QUANTITY}}</span></div><span class="item-total">RM {{ITEM TOTAL}}</span></article>
           </section>
 
@@ -203,16 +203,16 @@
             <h2 id="action-heading">Next action</h2>
             <p>Review the order details, then begin the selected fulfilment process.</p>
             <button class="button" type="button" id="start-processing">Start Processing</button>
-            <a class="button secondary" href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Message Customer</a>
-            <a class="button secondary" href="/marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Cancellation / Refund</a>
+            <a class="button secondary" href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Message Customer</a>
+            <a class="button secondary" href="marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Cancellation / Refund</a>
             <p class="notice" id="action-notice" aria-live="polite"></p>
           </section>
           <section class="sidebar-card" aria-labelledby="customer-heading">
             <h2 id="customer-heading">Customer</h2>
             <nav class="account-links" aria-label="Customer and order actions">
-              <a href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;context=order">{{CUSTOMER NAME}} <span>›</span></a>
-              <a href="/marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Open Conversation <span>›</span></a>
-              <a href="/marketplace-vendor-orders.html">Back to Orders <span>›</span></a>
+              <a href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;context=order">{{CUSTOMER NAME}} <span>›</span></a>
+              <a href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Open Conversation <span>›</span></a>
+              <a href="marketplace-vendor-orders.html">Back to Orders <span>›</span></a>
             </nav>
           </section>
           <div class="privacy-card"><strong>Customer information</strong><br />Use customer and fulfilment details only to manage this order and the related conversation.</div>
@@ -245,6 +245,6 @@
       notice.textContent = 'Preview only — the order status would be updated to Processing after confirmation.';
     });
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

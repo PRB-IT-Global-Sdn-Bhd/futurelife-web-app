@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FutureLife Marketplace Vendor Sponsored Listing payment review preview" />
   <title>Marketplace Vendor Portal — Review Sponsored Listing Payment</title>
-  <link rel="stylesheet" href="/marketplace-vendor-sponsored-listing-flow.css" />
+  <link rel="stylesheet" href="marketplace-vendor-sponsored-listing-flow.css" />
 </head>
 <body>
   <aside class="sidebar" aria-label="Vendor portal navigation">
@@ -27,7 +27,7 @@
           <ul class="summary-list"><li><span>Listing</span><span>{{LISTING_TITLE}}</span></li><li><span>Listing reference</span><span>{{LISTING_ID}}</span></li><li><span>Sponsorship option</span><span>{{SPONSORED_OPTION_LABEL}}</span></li><li><span>Duration</span><span>{{SPONSORED_OPTION_DURATION}}</span></li><li><span>Placement</span><span>{{SPONSORED_PLACEMENT_NAME}}</span></li><li><span>Sponsored listing fee</span><span>RM {{SPONSORED_OPTION_FEE}}</span></li><li><span>Tax</span><span>RM {{TAX_AMOUNT}}</span></li><li class="total"><span>Total payable</span><span>RM {{TOTAL_PAYABLE}}</span></li></ul>
         </section>
         <section class="payment-method" aria-labelledby="payment-method-heading"><h2 id="payment-method-heading">Payment</h2><p>This preview opens no real checkout. In production, create a Stripe Checkout Session in MYR and supply the payment result through a verified FutureLife server-side webhook.</p><span class="stripe-label">Secure payment by Stripe</span></section>
-        <form id="payment-form" novalidate><label class="confirm-check"><input id="payment-confirmation" type="checkbox" /><span>I confirm that the listing and configured sponsorship option above are correct. I understand that sponsorship must not be activated until payment is verified.</span></label><p class="feedback" id="payment-feedback" role="alert"></p><div class="action-row"><a class="button secondary" href="/marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Back to Selection</a><button class="button" type="submit">Open Stripe Checkout</button></div></form>
+        <form id="payment-form" novalidate><label class="confirm-check"><input id="payment-confirmation" type="checkbox" /><span>I confirm that the listing and configured sponsorship option above are correct. I understand that sponsorship must not be activated until payment is verified.</span></label><p class="feedback" id="payment-feedback" role="alert"></p><div class="action-row"><a class="button secondary" href="marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Back to Selection</a><button class="button" type="submit">Open Stripe Checkout</button></div></form>
         <aside class="notice warning"><strong>Preview-only payment action:</strong> the button demonstrates the post-payment route only. In Bubble, redirect the vendor to Stripe Checkout; use the verified webhook—not the return URL—to create the payment record and activate sponsorship.</aside>
       </div>
     </main>
@@ -37,6 +37,6 @@
   <script>
     document.getElementById('payment-form').addEventListener('submit', (event) => { event.preventDefault(); const checkbox = document.getElementById('payment-confirmation'); const feedback = document.getElementById('payment-feedback'); if (!checkbox.checked) { feedback.textContent = 'Confirm the sponsorship details before continuing to payment.'; feedback.classList.add('visible'); return; } const params = new URLSearchParams(window.location.search); params.set('listing', params.get('listing') || '{{LISTING_ID}}'); params.set('option', params.get('option') || '{{SPONSORED_OPTION_ID}}'); params.set('payment', '{{PAYMENT_ID}}'); params.set('preview', 'verified'); window.location.href = `/marketplace-vendor-sponsored-listing-success.html?${params.toString()}`; });
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

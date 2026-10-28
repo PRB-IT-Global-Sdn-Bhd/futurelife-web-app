@@ -135,9 +135,9 @@
         <a href="#dashboard">Dashboard</a>
         <a href="#listings">Listings</a>
         <a href="#orders">Orders</a>
-        <a class="billing-parent" href="/marketplace-vendor-billing.html">Billing</a>
-        <a class="billing-sub-link active" href="/marketplace-vendor-billing-plans.html" aria-current="page">Plans &amp; Sponsored Listing Fees</a>
-        <a class="billing-sub-link" href="/marketplace-vendor-payouts.html">Platform Fees</a>
+        <a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a>
+        <a class="billing-sub-link active" href="marketplace-vendor-billing-plans.html" aria-current="page">Plans &amp; Sponsored Listing Fees</a>
+        <a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a>
         <a href="#messages">Messages <span class="menu-count">3</span></a>
         <a href="#profile">Profile</a>
       </nav>
@@ -156,13 +156,13 @@
           <h1>Plans &amp; Sponsored Listing Fees</h1>
           <p class="page-copy">Review recurring plan charges, sponsored-listing allowances, listing credits, and invoices payable to FutureLife.</p>
         </div>
-        <a class="link-button back-link" href="/marketplace-vendor-billing.html">Back to Billing</a>
+        <a class="link-button back-link" href="marketplace-vendor-billing.html">Back to Billing</a>
       </div>
 
       <section class="card" aria-labelledby="current-plan-heading">
         <div class="card-heading">
           <div><h2 id="current-plan-heading">Current plan</h2><p>Your active Marketplace vendor plan and listing allowance.</p></div>
-          <div class="plan-actions"><a class="link-button" href="/marketplace-vendor-plan-change.html?intent=manage">Manage Plan</a><a class="link-button primary" href="/marketplace-vendor-plan-change.html?intent=upgrade">Upgrade Plan</a></div>
+          <div class="plan-actions"><a class="link-button" href="marketplace-vendor-plan-change.html?intent=manage">Manage Plan</a><a class="link-button primary" href="marketplace-vendor-plan-change.html?intent=upgrade">Upgrade Plan</a></div>
         </div>
         <div class="plan-metrics">
           <div class="plan-metric"><span class="field-label">Plan name</span><span class="field-value">{{CURRENT_MARKETPLACE_PLAN}}</span></div>
@@ -179,7 +179,7 @@
           <div class="listing-credit-item"><span class="field-label">Listing credits remaining</span><span class="field-value">{{LISTING_CREDITS_REMAINING}}</span></div>
           <div class="listing-credit-item"><span class="field-label">Additional listing fee</span><span class="field-value">RM {{ADDITIONAL_LISTING_FEE}}</span></div>
           <div class="listing-credit-item"><span class="field-label">Sponsored listing fee</span><span class="field-value">RM {{SPONSORED_LISTING_FEE}}</span></div>
-          <div class="listing-credit-action"><a class="link-button" href="/marketplace-vendor-listing-credits.html">Buy Listing Credits</a></div>
+          <div class="listing-credit-action"><a class="link-button" href="marketplace-vendor-listing-credits.html">Buy Listing Credits</a></div>
         </div>
       </section>
 
@@ -221,6 +221,6 @@
       if (notice) notice.textContent = `Preview only — ${button.textContent.trim()} should open the approved Marketplace Billing workflow.`;
     }));
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

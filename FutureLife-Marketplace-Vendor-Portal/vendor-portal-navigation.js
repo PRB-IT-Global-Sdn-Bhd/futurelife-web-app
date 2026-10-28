@@ -1,15 +1,15 @@
 (() => {
   const ROUTES = {
-    dashboard: '/marketplace-vendor-dashboard.html',
-    listings: '/marketplace-vendor-listings.html',
-    orders: '/marketplace-vendor-orders.html',
-    payouts: '/marketplace-vendor-payouts.html',
-    billing: '/marketplace-vendor-billing.html',
-    billingPlans: '/marketplace-vendor-billing-plans.html',
-    messages: '/marketplace-vendor-messages.html',
-    notifications: '/marketplace-vendor-notifications.html',
-    profile: '/marketplace-vendor-profile.html',
-    login: '/marketplace-vendor-signin-vendor-login.html?loggedout=1'
+    dashboard: 'marketplace-vendor-dashboard.html',
+    listings: 'marketplace-vendor-listings.html',
+    orders: 'marketplace-vendor-orders.html',
+    payouts: 'marketplace-vendor-payouts.html',
+    billing: 'marketplace-vendor-billing.html',
+    billingPlans: 'marketplace-vendor-billing-plans.html',
+    messages: 'marketplace-vendor-messages.html',
+    notifications: 'marketplace-vendor-notifications.html',
+    profile: 'marketplace-vendor-profile.html',
+    login: 'marketplace-vendor-signin-vendor-login.html?loggedout=1'
   };
 
   const hashRoutes = {

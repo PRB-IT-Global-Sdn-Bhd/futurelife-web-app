@@ -193,16 +193,16 @@
     signinForm.addEventListener('submit', (event) => {
       event.preventDefault();
       if (!signinForm.checkValidity()) { signinNotice.textContent = 'Enter a valid email address and password to continue in this preview.'; signinForm.reportValidity(); return; }
-      window.location.href = '/marketplace-vendor-dashboard.html';
+      window.location.href = 'marketplace-vendor-dashboard.html';
     });
     document.querySelector('.signup-link').addEventListener('click', () => {
-      window.location.href = '/marketplace-vendor-signup.html';
+      window.location.href = 'marketplace-vendor-signup.html';
     });
     document.querySelector('.forgot-link').addEventListener('click', (event) => { event.preventDefault(); signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.'; });
     const authParams = new URLSearchParams(window.location.search);
     if (authParams.get('loggedout') === '1') signinNotice.textContent = 'Preview only — you have been signed out of the vendor portal.';
     if (authParams.get('reset') === '1') signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.';
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>

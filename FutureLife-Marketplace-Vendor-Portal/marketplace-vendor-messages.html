@@ -209,7 +209,7 @@
           <div class="thread-header" id="thread-header">
             <button class="thread-back" type="button" id="thread-back">← Back to conversations</button>
             <span class="avatar" id="thread-avatar">AN</span>
-            <div><span class="thread-name" id="thread-name">Aisyah Noor</span><span class="thread-meta" id="thread-meta">Customer · Scientific Calculator</span><a class="thread-listing" id="thread-listing" href="/marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View linked listing</a></div>
+            <div><span class="thread-name" id="thread-name">Aisyah Noor</span><span class="thread-meta" id="thread-meta">Customer · Scientific Calculator</span><a class="thread-listing" id="thread-listing" href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View linked listing</a></div>
           </div>
           <div class="message-feed" id="message-feed" aria-live="polite"></div>
           <form class="thread-compose" id="thread-compose" novalidate>
@@ -231,9 +231,9 @@
 
   <script>
     const threads = {
-      'aisyah-noor': { initials: 'AN', name: 'Aisyah Noor', meta: 'Customer · Scientific Calculator', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Hi, is the Scientific Calculator still available?', time: '10:45' }, { incoming: false, text: 'Yes, it is available. I can arrange the selected fulfilment option once the order is placed.', time: '10:47' }] },
-      'daniel-wong': { initials: 'DW', name: 'Daniel Wong', meta: 'Customer · Calculus 1: A Complete Course', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Can I collect this after class tomorrow?', time: '09:20' }, { incoming: false, text: 'Please place the order first and I will confirm the collection details in this chat.', time: '09:24' }] },
-      'nur-izzati': { initials: 'NI', name: 'Nur Izzati', meta: 'Customer · Laptop Sleeve 14 inch', listing: 'View linked listing', listingHref: '/marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Could you share another photo of the zip?', time: 'Mon' }, { incoming: false, text: 'I can share another product photo through this conversation.', time: 'Mon' }] },
+      'aisyah-noor': { initials: 'AN', name: 'Aisyah Noor', meta: 'Customer · Scientific Calculator', listing: 'View linked listing', listingHref: 'marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Hi, is the Scientific Calculator still available?', time: '10:45' }, { incoming: false, text: 'Yes, it is available. I can arrange the selected fulfilment option once the order is placed.', time: '10:47' }] },
+      'daniel-wong': { initials: 'DW', name: 'Daniel Wong', meta: 'Customer · Calculus 1: A Complete Course', listing: 'View linked listing', listingHref: 'marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Can I collect this after class tomorrow?', time: '09:20' }, { incoming: false, text: 'Please place the order first and I will confirm the collection details in this chat.', time: '09:24' }] },
+      'nur-izzati': { initials: 'NI', name: 'Nur Izzati', meta: 'Customer · Laptop Sleeve 14 inch', listing: 'View linked listing', listingHref: 'marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}', messages: [{ incoming: true, text: 'Could you share another photo of the zip?', time: 'Mon' }, { incoming: false, text: 'I can share another product photo through this conversation.', time: 'Mon' }] },
       'futurelife-support': { initials: 'FS', name: 'FutureLife Support', meta: 'Support · Vendor account', support: true, messages: [{ incoming: true, text: 'Your listing is pending review. We will update you here.', time: 'Yesterday' }, { incoming: false, text: 'Thank you. Please let me know if you need any further listing information.', time: 'Yesterday' }] }
     };
     const filters = document.querySelectorAll('.filter');
@@ -371,6 +371,6 @@
     renderThread(activeConversation, { openMobile: Boolean(params.get('conversation')), sync: false });
     if (params.get('compose') === '1') { document.body.classList.add('thread-open'); setTimeout(() => messageDraft.focus(), 0); }
   </script>
-  <script src="/vendor-portal-navigation.js"></script>
+  <script src="vendor-portal-navigation.js"></script>
 </body>
 </html>
