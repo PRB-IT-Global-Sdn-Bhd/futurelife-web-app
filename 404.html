@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Redirecting…</title><script>
+(function(){var base='/futurelife-web-app/',p=location.pathname,low=p.toLowerCase(),q=location.search;
+var dirs={'futurelife-marketplace-vendor-portal':'FutureLife-Marketplace-Vendor-Portal','futurelife-rentals-vendor-portal':'FutureLife-Rentals-Vendor-Portal','futurelife-jobs-vendor-portal':'FutureLife-Jobs-Vendor-Portal'};
+var f=low.split('/').pop();
+if(/^marketplace-vendor-.*\.html$/.test(f)){location.replace(base+dirs['futurelife-marketplace-vendor-portal']+'/'+f+q);return;}
+for(var k in dirs){if(low.indexOf('/'+k)>-1){location.replace(base+dirs[k]+'/'+(f&&f!==k?f:'')+q);return;}}
+location.replace(base);})();
+</script></head><body><a href="/futurelife-web-app/">FutureLife Vendor Portals</a></body></html>
