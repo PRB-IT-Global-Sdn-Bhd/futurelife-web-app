@@ -5,103 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FutureLife Marketplace Vendor invoice and receipt preview" />
   <title>Marketplace Vendor Portal — Invoice / Receipt</title>
+  <link rel="stylesheet" href="vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-statement.css" />
   <style>
-
-    :root { --green:#78be21; --green-dark:#62a719; --ink:#20232b; --muted:#70737a; --line:#e7e7e7; --pale-green:#f8fff1; --pale-grey:#fbfbfb; --white:#fff; }
-    * { box-sizing:border-box; }
-    html { background:var(--white); }
-    body { min-width:320px; margin:0; background:var(--white); color:var(--ink); font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.3; }
-    a { border-radius:0; -webkit-tap-highlight-color:transparent; }
-    a:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
-    .sidebar { position:fixed; z-index:3; top:0; bottom:0; left:0; width:174px; border-right:1px solid var(--line); background:var(--white); }
-    .portal-name { display:block; padding:12px 14px; border-bottom:1px solid var(--line); color:#35383e; font-size:11px; font-weight:700; text-decoration:none; }
-    .account-row { display:grid; grid-template-columns:31px minmax(0,1fr); gap:8px; align-items:center; padding:9px 10px; border-bottom:1px solid var(--line); background:#f7fceb; text-decoration:none; }
-    .avatar { display:grid; width:31px; height:31px; place-items:center; border:1px solid var(--green); background:var(--green); color:var(--white); font-size:10px; font-weight:700; }
-    .account-row strong { display:block; overflow:hidden; color:#2d6136; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
-    .account-row span { display:block; margin-top:2px; color:#60805e; font-size:8px; }
-    .side-section { padding:12px 9px 0; }
-    .side-label { margin:0 0 9px; color:#a7aaaf; font-size:10px; font-weight:700; }
-    .side-menu { display:grid; gap:3px; }
-    .side-menu a { display:flex; min-height:34px; align-items:center; padding:0 8px; color:#3e4147; font-size:11px; text-decoration:none; }
-    .side-menu a:hover,.side-menu a.active { background:#f7fceb; color:#397d13; }
-    .menu-count { min-width:17px; margin-left:auto; padding:2px 4px; background:var(--green); color:var(--white); font-size:8px; font-weight:700; line-height:1; text-align:center; }
-    .side-logout { position:absolute; bottom:26px; left:11px; color:#dd5f5f; font-size:11px; text-decoration:none; }
-    .page-shell { min-height:100vh; margin-left:174px; }
-    .topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }
-    .topbar-label { color:#5c5f65; font-size:11px; }
-    .topbar-label strong { color:var(--green-dark); }
-    .content { width:min(100% - 70px,1058px); margin:35px auto 70px; }
-    .breadcrumb { display:inline-block; margin:0 0 13px; color:#5e6147; font-size:10px; font-weight:700; text-decoration:none; }
-    .breadcrumb:hover { color:var(--green-dark); text-decoration:underline; }
-    .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }
-    h1 { margin:0; color:var(--ink); font-size:23px; font-weight:400; letter-spacing:-.35px; }
-    .page-copy { max-width:650px; margin:6px 0 18px; color:var(--muted); font-size:11px; line-height:1.45; }
-    .statement-header { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; border:1px solid var(--line); border-left:4px solid var(--green); padding:14px; background:var(--pale-grey); }
-    .statement-id { margin:0; color:#30333a; font-size:14px; font-weight:700; }
-    .statement-meta { margin:5px 0 0; color:#74777d; font-size:9.5px; }
-    .status { display:inline-flex; min-height:23px; align-items:center; justify-content:center; border:1px solid #a8d86a; padding:0 8px; background:var(--pale-green); color:#397d13; font-size:9px; font-weight:700; white-space:nowrap; }
-    .summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:14px 0; }
-    .summary-card { min-height:92px; border:1px solid var(--line); padding:13px; background:var(--white); }
-    .summary-card.highlight { border-top:3px solid var(--green); }
-    .summary-card .label { display:block; color:#73767c; font-size:9px; font-weight:700; }
-    .summary-card strong { display:block; overflow:hidden; margin-top:11px; color:#30333a; font-size:14px; text-overflow:ellipsis; white-space:nowrap; }
-    .summary-card small { display:block; margin-top:5px; color:#8a8d93; font-size:8.5px; line-height:1.25; }
-    .layout { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:14px; align-items:start; }
-    .card,.side-card { border:1px solid var(--line); padding:14px; background:var(--white); }
-    .card + .card,.side-card + .side-card { margin-top:13px; }
-    .card h2,.side-card h2 { margin:0; color:#2b2e34; font-size:12px; font-weight:700; }
-    .section-copy { margin:4px 0 12px; color:#777a80; font-size:9.5px; line-height:1.4; }
-    .statement-table { width:100%; border-collapse:collapse; table-layout:fixed; border:1px solid var(--line); }
-    .statement-table col.order { width:24%; }.statement-table col.eligible { width:20%; }.statement-table col.gross { width:19%; }.statement-table col.fee { width:18%; }.statement-table col.net { width:19%; }
-    .statement-table th { height:36px; padding:0 10px; border-bottom:1px solid var(--line); background:var(--pale-grey); color:#777a80; font-size:8.5px; font-weight:700; text-align:left; }
-    .statement-table td { padding:11px 10px; border-bottom:1px solid #ededed; color:#42454c; font-size:9.5px; vertical-align:top; }
-    .statement-table tr:last-child td { border-bottom:0; }
-    .order-id { display:block; overflow:hidden; color:#32353b; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
-    .order-link { color:#32353b; text-decoration:underline; text-decoration-color:#a8d86a; text-underline-offset:2px; }
-    .sub-value { display:block; margin-top:3px; color:#888b91; font-size:8px; }
-    .money { display:block; color:#32353b; font-size:10px; font-weight:700; white-space:nowrap; }
-    .reconciliation { border:1px solid var(--line); }
-    .recon-row { display:flex; align-items:center; justify-content:space-between; gap:18px; min-height:40px; padding:0 12px; border-bottom:1px solid #ededed; color:#54575d; font-size:10px; }
-    .recon-row:last-child { border-bottom:0; }
-    .recon-row .amount { color:#30333a; font-weight:700; white-space:nowrap; }
-    .recon-row.total { min-height:50px; background:var(--pale-green); color:#2e5a1e; font-size:11px; font-weight:700; }
-    .recon-row.total .amount { color:#397d13; font-size:14px; }
-    .summary-list { display:grid; margin-top:9px; border-top:1px solid #ededed; }
-    .summary-row { padding:9px 0; border-bottom:1px solid #ededed; }
-    .summary-row:last-child { border-bottom:0; }
-    .side-label-small { display:block; margin-bottom:4px; color:#7c7f85; font-size:8.5px; }
-    .summary-value { display:block; overflow:hidden; color:#34373d; font-size:10px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
-    .policy-note { margin:12px 0 0; border-left:4px solid var(--green); padding:9px 10px; background:var(--pale-grey); color:#62656b; font-size:9px; line-height:1.45; }
-    .policy-note strong { color:#33363c; }
-    .button { display:inline-flex; width:100%; min-height:35px; align-items:center; justify-content:center; border:1px solid var(--green); padding:0 12px; background:var(--green); color:var(--white); font-size:10px; font-weight:700; text-align:center; text-decoration:none; }
-    .button:hover { border-color:var(--green-dark); background:var(--green-dark); }
-    .button.secondary { margin-top:8px; background:var(--white); color:#397d13; }
-    .button.secondary:hover { background:var(--pale-green); }
-    .support-note { margin:9px 0 0; color:#6d7076; font-size:9px; line-height:1.45; }
-    .mobile-header,.statement-cards { display:none; }
-    @media (max-width:960px) {
-      html,body { max-width:100%; overflow-x:clip; }
-      .sidebar,.topbar { display:none; }
-      .page-shell { margin-left:0; }
-      .mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }
-      .mobile-portal { color:#34373d; font-size:12px; font-weight:700; }.mobile-account { color:#5d6067; font-size:10px; }
-      .content { width:min(100% - 28px,680px); margin:27px auto 34px; }
-      h1 { font-size:22px; }.page-copy { margin-bottom:16px; font-size:10px; }
-      .statement-header { display:block; }.statement-header .status { margin-top:9px; }
-      .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }.summary-card { min-height:90px; padding:12px; }.summary-card strong { font-size:13px; }
-      .content,.layout,.summary-grid,.statement-card,.card,.side-card { min-width:0; }
-      .layout { display:block; }.layout > aside { margin-top:13px; }
-      .statement-table { display:none; }.statement-cards { display:block; }
-      .statement-card { border:1px solid var(--line); padding:12px; background:var(--white); }.statement-card + .statement-card { margin-top:9px; }
-      .statement-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-      .mobile-money-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:10px; border-top:1px solid #ededed; padding-top:10px; }.mobile-money-grid .side-label-small { margin-bottom:3px; }
-      .recon-row { min-height:44px; padding:0 10px; font-size:10px; }.recon-row.total { min-height:54px; }
+    a {
+      border-radius: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-    @media (prefers-reduced-motion:no-preference) { a { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active { transform:scale(.97); } }
-    .status.success { border-color:#a8d86a; background:var(--pale-green); color:#397d13; }
-    .status.warning { border-color:#eedcaa; background:#fffdf5; color:#6f5f2a; }
-    .status.failed { border-color:#ecc6c6; background:#fff8f8; color:#b94747; }
-    .status.neutral { border-color:#d2d2d2; background:#fafafa; color:#5d6067; }
+    a:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 2px;
+    }
+    .mobile-header, .statement-cards {
+      display: none;
+    }
+    @media (max-width:960px) {
+      html, body {
+        max-width: 100%;
+        overflow-x: clip;
+      }
+      .mobile-header {
+        display: flex;
+        min-height: 62px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 0 13px;
+        border-bottom: 2px solid #eee;
+        background: var(--white);
+      }
+      .content, .layout, .summary-grid, .statement-card, .card, .side-card {
+        min-width: 0;
+      }
+      .statement-cards {
+        display: block;
+      }
+    }
   </style>
   <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
@@ -109,7 +48,7 @@
   <aside class="sidebar" aria-label="Vendor portal navigation">
     <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
     <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing-plans.html">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-fees">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
     <a class="side-logout" href="#logout">Logout</a>
   </aside>
   <div class="page-shell">

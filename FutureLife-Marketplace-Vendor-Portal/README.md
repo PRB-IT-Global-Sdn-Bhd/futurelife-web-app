@@ -6,7 +6,15 @@ Open `marketplace-vendor-dashboard.html` in a modern web browser.
 
 ## Included flows
 
-This archive contains the current Marketplace Vendor Portal preview, including listings, orders, messages, notifications, billing, sponsored listings, listing credits, plan changes, Platform Fees, order earnings breakdowns, payout statements, payout account details, fulfilment settings, account security, and related preview routes.
+This archive contains the current Marketplace Vendor Portal preview, including listings, orders, messages, notifications, billing, sponsored listings, listing credits, plan changes, Platform Fees, payout history, payout statements, order earnings breakdowns, payout account details, fulfilment settings, account security, and related preview routes.
+
+Merged pages (one page, several views):
+
+- Billing: `marketplace-vendor-billing.html` shows the current plan (Marketplace Basic is Free), plan comparison with Manage Plan / Upgrade Plan, the sponsored listing fee & credit summary, invoices (billing history), and the billing contact & payment method. The sidebar sub-link Plans & Sponsored Listing Fees opens `marketplace-vendor-billing.html#plans-and-fees`.
+- Platform Fees: `marketplace-vendor-payouts.html` (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
+- Payout statement: `marketplace-vendor-payout-statement.html?payout=` (`?view=breakdown&order=` shows the order earnings breakdown).
+- Sponsored listing: `marketplace-vendor-sponsored-listing.html?step=choose|review` (choose an option, then review the payment).
+- Listing credits: `marketplace-vendor-listing-credits.html?step=choose|review` (choose a package, then review the payment).
 
 Checkout return states for sponsored listings, listing credits and plan changes share one page, `marketplace-vendor-checkout-result.html?flow=sponsored-listing|listing-credits|plan-change&state=processing|success|failed|cancelled|expired`. The payment and review pages open the processing state (awaiting verified payment confirmation); success is only shown after server confirmation.
 
@@ -18,7 +26,7 @@ Additional P0 pages (use `?state=` to preview each state where available):
 - Listings: `marketplace-vendor-listing-details.html`, `marketplace-vendor-create-listing.html?mode=edit` (edit an existing listing), `marketplace-vendor-listing-guidelines.html`
 - Payments: `marketplace-vendor-payment-history.html`, `marketplace-vendor-invoice.html`, `marketplace-vendor-payment-refund-status.html`
 - Disputes: `marketplace-vendor-order-dispute.html`
-- Payouts: `marketplace-vendor-payout-history.html`, `marketplace-vendor-payout-hold.html`, `marketplace-vendor-payout-account.html` (`?state=pending|verified|action-required|edit|failed`)
+- Payouts: `marketplace-vendor-payouts.html?view=history`, `marketplace-vendor-payout-hold.html`, `marketplace-vendor-payout-account.html` (`?state=pending|verified|action-required|edit|failed`)
 - Orders: `marketplace-vendor-order-details.html` (`?state=new|processing|ready-for-dispatch|dispatched|delivered|ready-for-collection|collected|completed|cancelled&method=delivery|collection`)
 - Credits: `marketplace-vendor-credit-history.html`
 
@@ -26,7 +34,9 @@ Sign in is `marketplace-vendor-signin.html` (`?loggedout=1` after logout). Retir
 
 On screens up to 960px wide the portal navigation opens as a hamburger drawer instead of a bottom tab bar.
 
-`vendor-portal-navigation.js`, `vendor-portal-navigation.css` and `marketplace-vendor-sponsored-listing-flow.css` must remain in the same folder as the HTML files because the linked pages use them.
+Shared styles: `vendor-portal.css` (shell and components used by every portal page), the page-group files `vendor-portal-ledger.css`, `vendor-portal-statement.css`, `vendor-portal-case.css`, `vendor-portal-listings.css`, `vendor-portal-flow.css` (payment-review and checkout flows) and `vendor-portal-auth.css` (sign-in and account-access pages), then `vendor-portal-navigation.css` (sidebar, hamburger drawer). Each page keeps only its own unique rules inline.
+
+`vendor-portal-navigation.js` and the `vendor-portal*.css` files must remain in the same folder as the HTML files because the linked pages use them.
 
 ## Preview-only notice
 

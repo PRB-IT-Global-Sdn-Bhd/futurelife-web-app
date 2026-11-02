@@ -5,7 +5,7 @@
     orders: 'marketplace-vendor-orders.html',
     payouts: 'marketplace-vendor-payouts.html',
     billing: 'marketplace-vendor-billing.html',
-    billingPlans: 'marketplace-vendor-billing-plans.html',
+    billingPlans: 'marketplace-vendor-billing.html#plans-and-fees',
     messages: 'marketplace-vendor-messages.html',
     notifications: 'marketplace-vendor-notifications.html',
     profile: 'marketplace-vendor-profile.html',
