@@ -174,6 +174,7 @@
       a, button, .earning-card { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
       a:active, button:active, .earning-card:active { transform: scale(.97); }
     }
+    .heading-actions { display: flex; flex-wrap: wrap; gap: 8px; }
   </style>
   <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
@@ -215,7 +216,7 @@
       <div class="payout-layout">
         <section>
           <section class="card" aria-labelledby="payout-account-heading">
-            <div class="card-heading"><div><h2 id="payout-account-heading">Payout account</h2><p>Use the account details on file for future vendor payouts.</p></div><a class="link-button" href="marketplace-vendor-manage-payout-details.html">Manage details</a></div>
+            <div class="card-heading"><div><h2 id="payout-account-heading">Payout account</h2><p>Use the account details on file for future vendor payouts.</p></div><div class="heading-actions"><a class="link-button" href="marketplace-vendor-payout-account-setup.html">Account status</a><a class="link-button" href="marketplace-vendor-manage-payout-details.html">Manage details</a></div></div>
             <div class="account-grid">
               <div class="account-field"><span class="field-label">Payout method</span><span class="field-value">{{PAYOUT METHOD}}</span></div>
               <div class="account-field"><span class="field-label">Account holder</span><span class="field-value">{{ACCOUNT HOLDER NAME}}</span></div>
@@ -252,7 +253,7 @@
           </section>
 
           <section class="card" aria-labelledby="payout-history-heading">
-            <div class="card-heading"><div><h2 id="payout-history-heading">Payout statements</h2><p>Settlement records show the orders, automatic fee deductions, and net amount for each vendor payout.</p></div></div>
+            <div class="card-heading"><div><h2 id="payout-history-heading">Payout statements</h2><p>Settlement records show the orders, automatic fee deductions, and net amount for each vendor payout.</p></div><a class="link-button" href="marketplace-vendor-payout-history.html">Payout History</a></div>
             <div class="history-list">
               <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount paid</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View statement</a></div></article>
               <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View details</a></div></article>

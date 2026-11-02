@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor listing details preview" />
+  <title>Marketplace Vendor Portal — Listing Details</title>
+  <style>
+
+    :root {
+      --green: #78be21;
+      --green-dark: #62a719;
+      --ink: #20232b;
+      --muted: #6d7077;
+      --line: #e7e7e7;
+      --pale-green: #f8fff1;
+      --pale-grey: #fbfbfb;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--white); }
+    body { min-width: 320px; margin: 0; background: var(--white); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.3; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { border-radius: 0; font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .desktop-sidebar { position: fixed; z-index: 3; top: 0; bottom: 0; left: 0; width: 174px; border-right: 1px solid var(--line); background: var(--white); }
+    .side-brand { display: block; padding: 11px 0 12px 20px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .2px; text-decoration: none; }
+    .account-row { display: grid; grid-template-columns: 31px minmax(0, 1fr) 12px; align-items: center; gap: 7px; padding: 9px 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f7fceb; color: #397d13; text-decoration: none; }
+    .monogram { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 0; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .account-row strong { display: block; color: #2d6136; font-size: 10px; }
+    .account-row span { display: block; margin-top: 2px; color: #60805e; font-size: 8px; }
+    .account-row .arrow { color: #4e8d1c; font-size: 15px; }
+    .side-section { padding: 12px 9px 0; }
+    .side-label { margin: 0 0 9px; color: #a7aaaf; font-size: 10px; font-weight: 700; }
+    .side-menu { display: grid; gap: 3px; }
+    .side-menu a { display: flex; min-height: 34px; align-items: center; padding: 0 8px; color: #3e4147; font-size: 11px; text-decoration: none; }
+    .side-menu a:hover, .side-menu a.active { background: #f7fceb; color: #397d13; }
+    .menu-count { margin-left: auto; min-width: 17px; padding: 2px 4px; background: var(--green); color: var(--white); font-size: 8px; font-weight: 700; line-height: 1; text-align: center; }
+    .side-logout { position: absolute; bottom: 26px; left: 11px; color: #dd5f5f; font-size: 11px; text-decoration: none; }
+
+    .page-shell { min-height: 100vh; margin-left: 174px; }
+    .desktop-topbar { display: flex; min-height: 46px; align-items: center; justify-content: flex-end; padding: 0 33px; border-bottom: 1px solid var(--line); }
+    .portal-label { color: #55585d; font-size: 11px; }
+    .portal-label strong { color: var(--green-dark); }
+
+    .content { width: min(100% - 70px, 1058px); margin: 35px auto 70px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+    h1 { margin: 0; color: var(--ink); font-size: 23px; font-weight: 400; letter-spacing: -.35px; }
+    .heading-row { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 19px; }
+    .heading-copy { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .button { display: inline-flex; min-height: 35px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 14px; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
+    .button:hover { border-color: var(--green-dark); background: var(--green-dark); }
+    .button.secondary { background: var(--white); color: #397d13; }
+    .button.secondary:hover { background: var(--pale-green); }
+
+    .filter-bar { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .filter-label { color: #6c6f75; font-size: 10px; font-weight: 700; }
+    .filter-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .filter {
+      min-height: 28px;
+      border: 1px solid var(--line);
+      padding: 0 10px;
+      background: var(--white);
+      color: #50535a;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .filter:hover, .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+    .filter-count { margin-left: auto; color: #7b7e84; font-size: 10px; }
+
+    .listing-shell { border: 1px solid var(--line); background: var(--white); }
+    .listing-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .listing-table col.title { width: 39%; }
+    .listing-table col.type { width: 15%; }
+    .listing-table col.status { width: 16%; }
+    .listing-table col.views { width: 10%; }
+    .listing-table col.updated { width: 14%; }
+    .listing-table col.action { width: 6%; }
+    .listing-table th { height: 38px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--pale-grey); color: #777a80; font-size: 9px; font-weight: 700; text-align: left; }
+    .listing-table td { padding: 13px 14px; border-bottom: 1px solid #ededed; color: #3c3f45; font-size: 10px; vertical-align: middle; }
+    .listing-table tr:last-child td { border-bottom: 0; }
+    .listing-table tr[hidden] { display: none; }
+    .listing-title { display: block; overflow: hidden; color: #2a2d33; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .listing-subtitle { display: block; margin-top: 3px; color: #898c92; font-size: 9px; }
+    .type-label { color: #5d6067; }
+    .status { display: inline-flex; min-height: 20px; align-items: center; justify-content: center; border: 1px solid var(--line); padding: 0 7px; font-size: 9px; font-weight: 700; white-space: nowrap; }
+    .status.live { border-color: #a8d86a; background: var(--pale-green); color: #397d13; }
+    .status.pending { border-color: #d2d2d2; background: #fafafa; color: #62656b; }
+    .status.draft { border-color: #dadada; background: #ffffff; color: #777a80; }
+    .status.paused { border-color: #bcbcbc; background: #f5f5f5; color: #55585d; }
+    .muted { color: #85888e; }
+    .manage-link { color: #356d1c; font-size: 10px; font-weight: 700; text-decoration: underline; }
+
+    .mobile-cards { display: none; }
+    .empty-state { display: none; padding: 23px 14px; color: #777a80; font-size: 10px; text-align: center; }
+    .empty-state.visible { display: block; }
+
+    .listing-tip { display: flex; gap: 9px; margin-top: 13px; border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 11px 12px; background: var(--pale-grey); color: #53565c; font-size: 10px; line-height: 1.4; }
+    .tip-number { display: grid; width: 18px; height: 18px; flex: 0 0 18px; place-items: center; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
+    .listing-tip strong { display: block; margin-bottom: 2px; color: #32353b; }
+
+    /* Order-details components (marketplace-vendor-order-details.html) */
+    .breadcrumb { display: inline-block; margin: 0 0 13px; color: #5e6147; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .breadcrumb:hover { color: var(--green-dark); text-decoration: underline; }
+    .order-hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; border: 1px solid var(--line); padding: 17px; background: var(--white); }
+    .order-date { margin: 6px 0 0; color: var(--muted); font-size: 10px; }
+    .order-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 25px; margin-top: 16px; align-items: start; }
+    .card, .sidebar-card { border: 1px solid var(--line); padding: 14px; background: var(--white); }
+    .card + .card { margin-top: 12px; }
+    .card-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .card h2, .sidebar-card h2 { margin: 0; color: #2b2e34; font-size: 12px; font-weight: 700; }
+    .card-title-row a { color: #356d1c; font-size: 10px; font-weight: 700; text-decoration: underline; }
+    .field-list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #ededed; }
+    .field { min-width: 0; padding: 10px 12px 10px 0; border-bottom: 1px solid #ededed; }
+    .field:nth-child(even) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 12px; }
+    .field-label { display: block; margin-bottom: 4px; color: #777a80; font-size: 9px; }
+    .field-value { display: block; overflow: hidden; color: #292c33; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .timeline { display: grid; }
+    .timeline-entry { display: grid; grid-template-columns: 21px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 10px 0; border-top: 1px solid #ededed; }
+    .timeline-entry:first-child { padding-top: 0; border-top: 0; }
+    .timeline-number { display: grid; width: 21px; height: 21px; place-items: center; border: 1px solid #9dcc60; background: var(--pale-green); color: #397d13; font-size: 10px; font-weight: 700; }
+    .timeline-entry strong { display: block; margin-bottom: 3px; color: #33363c; font-size: 10px; }
+    .timeline-entry p { margin: 0; color: #6c6f75; font-size: 9px; line-height: 1.35; }
+    .timeline-entry time { color: #8a8d93; font-size: 8px; white-space: nowrap; }
+    .action-card { border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 13px; background: var(--pale-grey); }
+    .action-card h2 { margin: 0 0 5px; color: #2d3036; font-size: 12px; }
+    .action-card p { margin: 0 0 12px; color: #61646a; font-size: 9.5px; line-height: 1.4; }
+    .sidebar-card { margin-top: 12px; }
+    .sidebar-card h2 { margin-bottom: 10px; }
+    .account-links { display: grid; }
+    .account-links a { display: flex; min-height: 36px; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid #ededed; color: #3c3f45; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .account-links a:hover { color: #397d13; }
+    .account-links span { color: #8d9096; font-size: 15px; font-weight: 400; }
+    .privacy-card { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid var(--green); padding: 11px 12px; background: var(--pale-grey); color: #4b4e54; font-size: 9.5px; line-height: 1.4; }
+    .privacy-card strong { color: #2d3036; }
+    .notice { min-height: 17px; margin: 10px 0 0; color: #397d13; font-size: 9px; font-weight: 700; text-align: center; }
+    .order-hero .status { min-height: 24px; padding: 0 9px; font-size: 10px; }
+    .action-card .button { width: 100%; }
+    .action-card .button.secondary { margin-top: 8px; }
+    .status.warning { border-color: #eedcaa; background: #fffdf5; color: #6f5f2a; }
+    .status.failed { border-color: #ecc6c6; background: #fff8f8; color: #b94747; }
+    .lifecycle-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 0 0 12px; color: #a0a3a9; font-size: 10px; }
+    .lifecycle-legend .status:not(.current) { border-color: #e7e7e7; background: #fff; color: #9a9da3; }
+    .feedback-note { margin-top: 12px; }
+    .empty-feedback { margin: 0; border-top: 1px solid #ededed; padding-top: 10px; color: #777a80; font-size: 10px; }
+    .state-links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .state-links .filter { display: inline-flex; align-items: center; text-decoration: none; }
+    .mobile-header { display: none; }
+    @media (max-width: 960px) {
+      .desktop-sidebar, .desktop-topbar { display: none; }
+      .page-shell { margin-left: 0; }
+      .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
+      .mobile-brand { color: var(--green); font-size: 13px; font-weight: 700; letter-spacing: -.2px; text-decoration: none; }
+      .mobile-portal { color: #5a5d62; font-size: 10px; font-weight: 700; }
+      .content { width: min(100% - 28px, 680px); margin: 27px auto 34px; }
+      .heading-row { display: block; margin-bottom: 17px; }
+      h1 { font-size: 22px; }
+      .heading-copy { font-size: 10px; }
+      .heading-row .button { width: 100%; margin-top: 15px; }
+      .filter-bar { display: block; }
+      .filter-label { display: block; margin-bottom: 8px; }
+      .filter-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+      .filter { min-width: 0; padding: 0 5px; font-size: 9px; }
+      .filter-count { display: block; margin: 11px 0 0; }
+      .listing-table { display: none; }
+      .listing-shell { border: 0; background: transparent; }
+      .mobile-cards { display: grid; gap: 10px; }
+      .listing-card { border: 1px solid var(--line); padding: 13px; background: var(--white); }
+      .listing-card[hidden] { display: none; }
+      .listing-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+      .listing-card .listing-title { max-width: 210px; font-size: 11px; white-space: normal; }
+      .listing-card .listing-subtitle { font-size: 9px; }
+      .listing-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 12px; border-top: 1px solid #ededed; padding-top: 10px; }
+      .meta-label { display: block; margin-bottom: 3px; color: #85888e; font-size: 8px; }
+      .meta-value { display: block; color: #3e4147; font-size: 10px; font-weight: 700; }
+      .listing-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; border-top: 1px solid #ededed; padding-top: 10px; }
+      .listing-actions .manage-link { font-size: 10px; }
+      .listing-tip { margin-top: 12px; }
+      .order-hero { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+      .status { justify-self: start; }
+      .order-layout { display: block; margin-top: 15px; }
+      .order-layout aside { margin-top: 16px; }
+      .field-list { grid-template-columns: 1fr; }
+      .field, .field:nth-child(even) { border-left: 0; padding: 9px 0; }
+      .timeline-entry { grid-template-columns: 21px minmax(0, 1fr); }
+      .timeline-entry time { grid-column: 2; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+      a:active, button:active { transform: scale(.97); }
+    }
+  </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <aside class="desktop-sidebar" aria-label="Vendor portal navigation">
+    <a class="side-brand" href="marketplace-vendor-dashboard.html">FUTURE LIFE</a>
+    <a class="account-row" href="marketplace-vendor-profile.html"><span class="monogram">KE</span><span><strong>Vendor Profile</strong><span>Store and contact details</span></span><span class="arrow">›</span></a>
+    <section class="side-section">
+      <p class="side-label">Vendor portal</p>
+      <nav class="side-menu" aria-label="Vendor portal pages">
+        <a href="marketplace-vendor-dashboard.html">Dashboard</a>
+        <a class="active" href="marketplace-vendor-listings.html" aria-current="page">Listings</a>
+        <a href="marketplace-vendor-orders.html">Orders</a>
+        <a href="marketplace-vendor-payouts.html">Payouts</a>
+        <a href="marketplace-vendor-messages.html">Messages <span class="menu-count">3</span></a>
+        <a href="marketplace-vendor-profile.html">Profile</a>
+      </nav>
+    </section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="desktop-topbar"><div class="portal-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><a class="mobile-brand" href="marketplace-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-portal">Vendor Portal</span></header>
+    <main class="content" id="listing-details">
+      <a class="breadcrumb" href="marketplace-vendor-listings.html">← Back to Listings</a>
+      <section class="order-hero" aria-labelledby="listing-heading">
+        <div><p class="eyebrow">Listing {{LISTING_ID}}</p><h1 id="listing-heading">Calculus 1: A Complete Course</h1><p class="order-date">Books · RM28.00 · Last updated {{LISTING_UPDATED_DATE}}</p></div>
+        <span class="status live" id="hero-status">Live</span>
+      </section>
+
+      <div class="order-layout">
+        <div>
+          <section class="card" aria-labelledby="lifecycle-heading">
+            <div class="card-title-row"><h2 id="lifecycle-heading">Listing lifecycle</h2></div>
+            <div class="lifecycle-legend" aria-label="Listing lifecycle"><span class="status draft" data-legend="draft">Draft</span><span aria-hidden="true">›</span><span class="status pending" data-legend="submitted">Pending Review</span><span aria-hidden="true">›</span><span class="status warning" data-legend="changes-requested">Changes Requested</span><span aria-hidden="true">›</span><span class="status live" data-legend="approved">Approved</span><span aria-hidden="true">›</span><span class="status failed" data-legend="rejected">Rejected</span><span aria-hidden="true">›</span><span class="status live" data-legend="live">Live</span><span aria-hidden="true">›</span><span class="status paused" data-legend="paused">Paused</span><span aria-hidden="true">›</span><span class="status failed" data-legend="suspended">Suspended</span><span aria-hidden="true">›</span><span class="status paused" data-legend="expired">Expired</span></div>
+            <div class="timeline">
+              <div class="timeline-entry"><span class="timeline-number">1</span><div><strong>Draft created</strong><p>Listing details saved by Kampus Essentials.</p></div><time>{{LISTING_CREATED_DATE}}</time></div>
+              <div class="timeline-entry" id="step-submitted"><span class="timeline-number">2</span><div><strong>Submitted for review</strong><p>Version {{LISTING_VERSION}} sent to FutureLife Marketplace review.</p></div><time>{{LISTING_SUBMITTED_DATE}}</time></div>
+              <div class="timeline-entry" id="step-review"><span class="timeline-number">3</span><div><strong id="review-title">Review approved</strong><p id="review-copy">FutureLife approved this version for the Marketplace.</p></div><time>{{REVIEW_TIMESTAMP}}</time></div>
+              <div class="timeline-entry" id="step-state"><span class="timeline-number">4</span><div><strong id="state-title">Listing live</strong><p id="state-copy">Buyers can view and order this listing.</p></div><time>{{LISTING_STATUS_DATE}}</time></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="feedback-heading">
+            <div class="card-title-row"><h2 id="feedback-heading">Reviewer feedback</h2></div>
+            <div id="feedback-detail"><div class="field-list"><div class="field"><span class="field-label">Decision</span><span class="field-value" id="feedback-decision">Changes requested</span></div><div class="field"><span class="field-label">Reason code</span><span class="field-value">{{REVIEW_REASON_CODE}}</span></div><div class="field"><span class="field-label">Reviewed by</span><span class="field-value">FutureLife Marketplace review</span></div><div class="field"><span class="field-label">Reviewed at</span><span class="field-value">{{REVIEW_TIMESTAMP}}</span></div></div><div class="privacy-card feedback-note"><strong>Reviewer note:</strong> {{REVIEWER_NOTE}}</div></div>
+            <p class="empty-feedback" id="feedback-empty" hidden>No reviewer feedback on the current version.</p>
+          </section>
+
+          <section class="card" aria-labelledby="info-heading">
+            <div class="card-title-row"><h2 id="info-heading">Listing details</h2><a href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}">Edit</a></div>
+            <div class="field-list"><div class="field"><span class="field-label">Category</span><span class="field-value">Books</span></div><div class="field"><span class="field-label">Condition</span><span class="field-value">{{LISTING_CONDITION}}</span></div><div class="field"><span class="field-label">Price</span><span class="field-value">RM28.00</span></div><div class="field"><span class="field-label">Location</span><span class="field-value">Subang Jaya, Selangor</span></div><div class="field"><span class="field-label">Fulfilment</span><span class="field-value">{{FULFILMENT_METHODS}}</span></div><div class="field"><span class="field-label">Views</span><span class="field-value">84</span></div></div>
+          </section>
+
+          <section class="card" aria-labelledby="stock-heading">
+            <div class="card-title-row"><h2 id="stock-heading">Stock</h2><a href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}#quantity">Update quantity</a></div>
+            <div class="field-list"><div class="field"><span class="field-label">Quantity available</span><span class="field-value">{{STOCK_AVAILABLE}}</span></div><div class="field"><span class="field-label">Reserved in open orders</span><span class="field-value">{{STOCK_RESERVED}}</span></div><div class="field"><span class="field-label">Sold</span><span class="field-value">{{STOCK_SOLD}}</span></div><div class="field"><span class="field-label">Stock status</span><span class="field-value">{{STOCK_STATUS}}</span></div></div>
+          </section>
+
+          <section class="card" aria-labelledby="version-heading">
+            <div class="card-title-row"><h2 id="version-heading">Version history</h2></div>
+            <div class="timeline">
+              <div class="timeline-entry"><span class="timeline-number">3</span><div><strong>Version 3 · Current</strong><p>{{VERSION_CHANGE_SUMMARY}}</p></div><span class="status live" id="version-status">Live</span></div>
+              <div class="timeline-entry"><span class="timeline-number">2</span><div><strong>Version 2</strong><p>{{VERSION_CHANGE_SUMMARY}} · Reviewed {{REVIEW_TIMESTAMP}}</p></div><span class="status pending">Replaced</span></div>
+              <div class="timeline-entry"><span class="timeline-number">1</span><div><strong>Version 1</strong><p>First submission · Reviewed {{REVIEW_TIMESTAMP}}</p></div><span class="status pending">Replaced</span></div>
+            </div>
+          </section>
+        </div>
+
+        <aside aria-label="Listing actions">
+          <section class="action-card" aria-labelledby="next-heading"><h2 id="next-heading">Listing is live</h2><p id="next-copy">Buyers can see this listing. Edits are reviewed before they replace the live version.</p><a class="button" id="next-primary" href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}">Edit Listing</a><button class="button secondary" type="button" id="next-secondary">Pause Listing</button></section>
+          <p class="notice" id="listing-notice" aria-live="polite"></p>
+          <section class="sidebar-card" aria-labelledby="links-heading"><h2 id="links-heading">Listing tools</h2><nav class="account-links" aria-label="Listing tools"><a href="marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Sponsor Listing <span>›</span></a><a href="marketplace-vendor-credit-history.html">Listing Credit History <span>›</span></a><a href="marketplace-vendor-orders.html">Orders for this Listing <span>›</span></a><a href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=listing-review">Message FutureLife Support <span>›</span></a></nav></section>
+          <section class="sidebar-card" aria-labelledby="preview-heading"><h2 id="preview-heading">Preview states</h2><div class="state-links"><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=draft" data-state-link="draft">Draft</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=submitted" data-state-link="submitted">Pending Review</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=changes-requested" data-state-link="changes-requested">Changes Requested</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=approved" data-state-link="approved">Approved</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=rejected" data-state-link="rejected">Rejected</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=live" data-state-link="live">Live</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=paused" data-state-link="paused">Paused</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=suspended" data-state-link="suspended">Suspended</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=expired" data-state-link="expired">Expired</a></div></section>
+          <div class="privacy-card"><strong>Live implementation:</strong> show the status and reviewer decision stored on the listing record. The state switcher is for this preview only.</div>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    const listingStates = {
+      draft: ['draft', 'Draft', 'Not submitted', 'This version has not been sent for review.', 'Draft', 'Only you can see this listing.', null, 'Draft not submitted', 'Submit the listing for FutureLife review when the details are complete.', 'Edit Draft', 'Submit for Review'],
+      submitted: ['pending', 'Pending Review', 'Review in progress', 'FutureLife is reviewing this version.', 'Awaiting review', 'The listing is not visible to buyers until it is approved.', null, 'Awaiting review', 'You can view the listing while FutureLife reviews it. Editing now replaces the version under review.', 'Edit Listing', 'Withdraw Submission'],
+      'changes-requested': ['warning', 'Changes Requested', 'Changes requested', 'FutureLife asked for changes before approval.', 'Not live', 'Update the listing and submit it again.', 'Changes requested', 'Update and resubmit', 'Make the changes in the reviewer feedback, then submit the listing again.', 'Edit Listing', 'Message FutureLife Support'],
+      approved: ['live', 'Approved', 'Review approved', 'FutureLife approved this version for the Marketplace.', 'Ready to publish', 'Publish the approved listing to make it visible to buyers.', null, 'Approved', 'This version is approved and ready to go live.', 'Publish Listing', 'Edit Listing'],
+      rejected: ['failed', 'Rejected', 'Review rejected', 'FutureLife did not approve this version.', 'Not live', 'This version cannot be published.', 'Rejected', 'Listing rejected', 'Read the reviewer feedback. You can edit the listing and submit a new version if the reason can be fixed.', 'Edit Listing', 'Message FutureLife Support'],
+      live: ['live', 'Live', 'Review approved', 'FutureLife approved this version for the Marketplace.', 'Listing live', 'Buyers can view and order this listing.', null, 'Listing is live', 'Buyers can see this listing. Edits are reviewed before they replace the live version.', 'Edit Listing', 'Pause Listing'],
+      paused: ['paused', 'Paused', 'Review approved', 'FutureLife approved this version for the Marketplace.', 'Listing paused', 'Paused by Kampus Essentials. Buyers cannot order it.', null, 'Listing paused', 'Resume the listing to make it visible to buyers again.', 'Resume Listing', 'Edit Listing'],
+      suspended: ['failed', 'Suspended', 'Review approved', 'FutureLife approved an earlier version.', 'Suspended by FutureLife', 'Hidden from buyers while FutureLife reviews a policy issue.', 'Suspended', 'Listing suspended', 'Read the reviewer feedback and contact FutureLife Support if you need help resolving it.', 'Message FutureLife Support', 'Edit Listing'],
+      expired: ['paused', 'Expired', 'Review approved', 'FutureLife approved this version for the Marketplace.', 'Listing expired', 'The listing period ended and buyers can no longer see it.', null, 'Listing expired', 'Renew the listing to publish it again. Renewal may use a listing credit under your plan.', 'Renew Listing', 'Edit Listing']
+    };
+    const query = new URLSearchParams(window.location.search);
+    const stateKey = listingStates[query.get('state')] ? query.get('state') : 'live';
+    const [statusClass, statusLabel, reviewTitle, reviewCopy, stateTitle, stateCopy, decision, nextTitle, nextCopy, primary, secondary] = listingStates[stateKey];
+    const setStatus = (element) => { element.className = `status ${statusClass}`; element.textContent = statusLabel; };
+    setStatus(document.getElementById('hero-status'));
+    setStatus(document.getElementById('version-status'));
+    document.querySelector(`[data-legend="${stateKey}"]`).classList.add('current');
+    document.getElementById('review-title').textContent = reviewTitle;
+    document.getElementById('review-copy').textContent = reviewCopy;
+    document.getElementById('state-title').textContent = stateTitle;
+    document.getElementById('state-copy').textContent = stateCopy;
+    if (stateKey === 'draft') { document.getElementById('step-submitted').hidden = true; document.getElementById('step-review').hidden = true; }
+    if (stateKey === 'submitted') document.getElementById('step-review').hidden = true;
+    document.getElementById('feedback-detail').hidden = !decision;
+    document.getElementById('feedback-empty').hidden = Boolean(decision);
+    if (decision) document.getElementById('feedback-decision').textContent = decision;
+    document.getElementById('next-heading').textContent = nextTitle;
+    document.getElementById('next-copy').textContent = nextCopy;
+    const primaryLink = document.getElementById('next-primary');
+    primaryLink.textContent = primary;
+    if (primary.startsWith('Message')) primaryLink.href = 'marketplace-vendor-messages.html?conversation=futurelife-support&compose=1&context=listing-review';
+    else if (!primary.startsWith('Edit')) primaryLink.addEventListener('click', (event) => { event.preventDefault(); document.getElementById('listing-notice').textContent = `Preview only — ${primary.toLowerCase()} would run in the live portal.`; });
+    const secondaryButton = document.getElementById('next-secondary');
+    secondaryButton.textContent = secondary;
+    secondaryButton.addEventListener('click', () => {
+      if (secondary.startsWith('Edit')) { window.location.href = 'marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}'; return; }
+      if (secondary.startsWith('Message')) { window.location.href = 'marketplace-vendor-messages.html?conversation=futurelife-support&compose=1&context=listing-review'; return; }
+      document.getElementById('listing-notice').textContent = `Preview only — ${secondary.toLowerCase()} would run in the live portal.`;
+    });
+    document.querySelectorAll('[data-state-link]').forEach((link) => link.classList.toggle('active', link.dataset.stateLink === stateKey));
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor onboarding business and contact details preview" />
+  <title>Marketplace Vendor Portal — Business & Contact Details</title>
+  <link rel="stylesheet" href="marketplace-vendor-sponsored-listing-flow.css" />
+  <style>
+    .form-field input[type="file"] { padding:8px 10px; }
+    .form-field textarea { width:100%; min-height:86px; border:1px solid #d9d9d9; padding:9px 10px; background:var(--white); color:#363940; font-size:10px; resize:vertical; }
+    .form-field input::placeholder, .form-field textarea::placeholder { color:#a0a3a9; }
+    .form-section-title { margin:18px 0 10px; padding-top:14px; border-top:1px solid var(--line); color:#33363c; font-size:11px; font-weight:700; }
+    .form-section-title:first-child { margin-top:0; padding-top:0; border-top:0; }
+  </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a class="active" href="#profile" aria-current="page">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="onboarding-business-details">
+      <div class="heading"><div><p class="eyebrow">Vendor onboarding · Step 1 of 3</p><h1>Business &amp; Contact Details</h1><p class="page-copy">Tell FutureLife who is selling on the Marketplace. These details are reviewed before your vendor account is approved.</p></div><a class="button secondary back-link" href="marketplace-vendor-profile.html">Back to Profile</a></div>
+      <div class="flow-layout">
+        <section class="card" aria-labelledby="details-heading">
+          <div class="card-heading"><div><h2 id="details-heading">Business information</h2><p>All fields are required unless marked optional.</p></div></div>
+          <form id="business-form" novalidate><div class="form-grid"><h3 class="form-section-title form-field full">Business details</h3><div class="form-field"><label for="business-type">Business type</label><select id="business-type" name="business-type" required><option value="" selected disabled>Select business type</option><option>Individual seller</option><option>Sole proprietorship</option><option>Partnership</option><option>Sdn. Bhd. company</option></select></div><div class="form-field"><label for="store-name">Store / Business Name</label><input id="store-name" name="store-name" type="text" placeholder="Enter store or business name" value="Kampus Essentials" required /></div><div class="form-field"><label for="legal-name">Registered legal name</label><input id="legal-name" name="legal-name" type="text" placeholder="As shown on your SSM or identity document" required /><p class="help">Use the name that matches the documents you will submit for review.</p></div><div class="form-field"><label for="ssm-number">SSM registration number</label><input id="ssm-number" name="ssm-number" type="text" placeholder="e.g. {{SSM_REGISTRATION_NUMBER}}" /><p class="help">Required for registered businesses. Leave blank if you sell as an individual.</p></div><h3 class="form-section-title form-field full">Contact details</h3><div class="form-field"><label for="contact-name">Contact person</label><input id="contact-name" name="contact-name" type="text" placeholder="Enter full name" required autocomplete="name" /></div><div class="form-field"><label for="contact-phone">Phone number</label><input id="contact-phone" name="contact-phone" type="tel" placeholder="+60 {{VENDOR_PHONE}}" required autocomplete="tel" /></div><div class="form-field full"><label for="contact-email">Business email</label><input id="contact-email" name="contact-email" type="email" placeholder="Enter email address" value="{{VENDOR_EMAIL}}" required autocomplete="email" /><p class="help">FutureLife sends onboarding and review updates to this address.</p></div><h3 class="form-section-title form-field full">Business address</h3><div class="form-field full"><label for="address-1">Address line 1</label><input id="address-1" name="address-1" type="text" placeholder="Street address" required autocomplete="address-line1" /></div><div class="form-field full"><label for="address-2">Address line 2</label><input id="address-2" name="address-2" type="text" placeholder="Unit, building or area (optional)" autocomplete="address-line2" /></div><div class="form-field"><label for="city">City</label><input id="city" name="city" type="text" placeholder="Enter city" value="Subang Jaya" required /></div><div class="form-field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" placeholder="5-digit postcode" required inputmode="numeric" maxlength="5" autocomplete="postal-code" /></div><div class="form-field full"><label for="state">State</label><select id="state" name="state" required><option value="" disabled>Select state</option><option>Johor</option><option>Kedah</option><option>Kelantan</option><option>Melaka</option><option>Negeri Sembilan</option><option>Pahang</option><option>Perak</option><option>Perlis</option><option>Pulau Pinang</option><option>Sabah</option><option>Sarawak</option><option selected>Selangor</option><option>Terengganu</option><option>W.P. Kuala Lumpur</option><option>W.P. Labuan</option><option>W.P. Putrajaya</option></select></div></div><label class="confirm-check"><input id="details-confirmation" type="checkbox" required /><span>I confirm these business and contact details are accurate and belong to the business selling on this account.</span></label><div class="action-row"><button class="button secondary" type="button" id="save-draft">Save Draft</button><button class="button" type="submit">Continue to Vendor Terms</button></div><p class="feedback" id="details-feedback" role="alert"></p></form>
+        </section>
+        <aside class="summary-card" aria-labelledby="progress-heading"><h2 id="progress-heading">Onboarding progress</h2><ul class="summary-list"><li><span>1. Business &amp; contact</span><span>In progress</span></li><li><span>2. Vendor Terms</span><span>Not started</span></li><li><span>3. FutureLife review</span><span>Not started</span></li><li class="total"><span>Current step</span><span>Step 1 of 3</span></li></ul></aside>
+      </div>
+      <aside class="notice"><strong>Data rule:</strong> store business details against the vendor account and send them to FutureLife review. Changing the legal name or SSM number after approval should return the account to review.</aside>
+    </main>
+  </div>
+  <script>
+    const businessForm = document.getElementById('business-form');
+    const detailsFeedback = document.getElementById('details-feedback');
+    const showDetailsFeedback = (message) => { detailsFeedback.textContent = message; detailsFeedback.classList.add('visible'); };
+    document.getElementById('save-draft').addEventListener('click', () => showDetailsFeedback('Preview only — the business details would be saved as an onboarding draft.'));
+    businessForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!businessForm.checkValidity()) { showDetailsFeedback('Complete the required business and contact details before continuing.'); businessForm.reportValidity(); return; }
+      window.location.href = 'marketplace-vendor-onboarding-terms.html';
+    });
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>

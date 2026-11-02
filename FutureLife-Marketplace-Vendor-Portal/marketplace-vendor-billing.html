@@ -211,6 +211,7 @@
       a, button, .earning-card { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
       a:active, button:active, .earning-card:active { transform: scale(.97); }
     }
+    .overview-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   </style>
   <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
@@ -247,6 +248,7 @@
           <span class="current-plan-kicker">CURRENT ACTIVE PLAN</span>
           <h2 id="current-plan-heading">Marketplace Basic</h2>
           <p>Your vendor account is currently on the Marketplace Basic plan. Compare plan allowances below or open Plans &amp; Sponsored Listing Fees for listing-credit and invoice details.</p>
+          <div class="overview-links"><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a><a class="link-button" href="marketplace-vendor-credit-history.html">Credit History</a></div>
         </div>
         <div class="current-plan-details">
           <div class="current-plan-detail"><span>Plan price</span><strong>RM {{MARKETPLACE_BASIC_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></div>

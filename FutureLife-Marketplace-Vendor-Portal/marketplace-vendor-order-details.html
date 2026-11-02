@@ -162,7 +162,7 @@
       <div class="order-layout">
         <section>
           <section class="card" aria-labelledby="items-heading">
-            <div class="card-title-row"><h2 id="items-heading">Order items</h2><a href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">View Listing</a></div>
+            <div class="card-title-row"><h2 id="items-heading">Order items</h2><a href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}">View Listing</a></div>
             <article class="item-row"><div class="item-preview">Item photo</div><div><span class="item-title">{{LISTING TITLE}}</span><span class="item-meta">Quantity: {{QUANTITY}}</span></div><span class="item-total">RM {{ITEM TOTAL}}</span></article>
           </section>
 
@@ -209,6 +209,7 @@
             <nav class="account-links" aria-label="Customer and order actions">
               <a href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;context=order">{{CUSTOMER NAME}} <span>›</span></a>
               <a href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Open Conversation <span>›</span></a>
+              <a href="marketplace-vendor-order-dispute.html?order={{ORDER_ID}}">Dispute / Chargeback Case <span>›</span></a>
               <a href="marketplace-vendor-orders.html">Back to Orders <span>›</span></a>
             </nav>
           </section>

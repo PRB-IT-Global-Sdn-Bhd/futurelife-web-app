@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Vendor email-verification preview" />
+  <title>FutureLife Vendor - Verify Email</title>
+  <style>
+
+    :root {
+      --futurelife-green: #78be21;
+      --text: #1c1c1c;
+      --label: #474747;
+      --placeholder: #9f9f9f;
+      --border: #d9d9df;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-width: 320px; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: var(--white);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { border-radius: 0; cursor: pointer; }
+    a { color: inherit; }
+
+    .page {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand {
+      margin-top: 9px;
+      color: var(--futurelife-green);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .signin-area {
+      width: 270px;
+      margin-top: 73px;
+    }
+
+    h1 {
+      margin: 0 0 21px;
+      color: #121212;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .field { margin: 0 0 18px; }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--label);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      height: 29px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      padding: 0 8px;
+      background: var(--white);
+      color: #222222;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+    }
+    input::placeholder { color: var(--placeholder); }
+    input:focus { border-color: var(--futurelife-green); box-shadow: 0 0 0 1px rgba(120, 190, 33, 0.14); }
+
+    .forgot-row {
+      display: flex;
+      justify-content: flex-end;
+      margin: 5px 0 16px;
+    }
+    .forgot-row a {
+      color: #252525;
+      font-size: 10px;
+      line-height: 1.2;
+      text-decoration: none;
+    }
+    .forgot-row a:hover, .signup-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+    .signin-button {
+      display: block;
+      width: 100%;
+      height: 26px;
+      border: 0;
+      border-radius: 0;
+      background: var(--futurelife-green);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 26px;
+      text-align: center;
+      transition: background 160ms ease-out, transform 160ms ease-out;
+    }
+    .signin-button:hover { background: #6fae1e; }
+    .signin-button:active { transform: scale(0.98); }
+
+    .signup-copy {
+      margin: 39px 0 0;
+      color: #252525;
+      font-size: 10px;
+      line-height: 1.25;
+    }
+    .signup-link {
+      margin-left: 7px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--futurelife-green);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .notice {
+      min-height: 14px;
+      margin: 8px 0 -22px;
+      color: var(--futurelife-green);
+      font-size: 9px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .brand { margin-top: 10px; font-size: 10px; }
+      .signin-area { width: calc(100% - 40px); max-width: 335px; margin-top: 61px; }
+      h1 { margin-bottom: 30px; font-size: 26px; }
+      .field { margin-bottom: 18px; }
+      label { margin-bottom: 7px; font-size: 13px; }
+      input { height: 43px; padding-inline: 10px; font-size: 13px; }
+      .forgot-row { margin-top: -1px; margin-bottom: 20px; }
+      .forgot-row a { font-size: 12px; }
+      .signin-button { height: 46px; font-size: 13px; line-height: 46px; }
+      .signup-copy { margin-top: 28px; font-size: 12px; }
+      .notice { font-size: 10px; }
+    }
+
+
+    /* P0 account-access additions: existing signin tokens and sizes only */
+    .auth-copy { margin: -9px 0 21px; color: #252525; font-size: 10px; line-height: 1.45; text-align: center; }
+    .field-help { margin: 5px 0 0; color: #6f6f6f; font-size: 9px; line-height: 1.35; }
+    .auth-details { margin: 0 0 18px; border: 1px solid var(--border); }
+    .auth-details div { display: flex; justify-content: space-between; gap: 10px; padding: 8px 9px; border-bottom: 1px solid var(--border); color: var(--label); font-size: 9px; line-height: 1.3; }
+    .auth-details div:last-child { border-bottom: 0; }
+    .auth-details strong { max-width: 62%; color: var(--text); text-align: right; overflow-wrap: anywhere; }
+    .signin-button.link-button { text-decoration: none; }
+    .signup-copy { text-align: center; }
+    .signup-copy a.signup-link { text-decoration: none; }
+    .preview-routes { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; margin: 34px 0 30px; color: #6f6f6f; font-size: 9px; }
+    .preview-routes a { color: var(--futurelife-green); font-weight: 700; }
+    .preview-routes a[aria-current="page"] { color: #252525; text-decoration: none; }
+    @media (max-width: 560px) {
+      .auth-copy { margin-top: -18px; margin-bottom: 26px; font-size: 12px; }
+      .field-help { font-size: 11px; }
+      .auth-details div { padding: 10px; font-size: 11px; }
+      .preview-routes { font-size: 11px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+
+    <section class="signin-area" aria-label="Verify email address">
+
+      <div data-state="sent">
+        <h1>Verify Your Email</h1>
+        <p class="auth-copy">We sent a verification link to {{VENDOR_EMAIL}}. Open the link to verify your email address before you continue vendor onboarding.</p>
+        <button class="signin-button" type="button" id="resend-verification">Resend Verification Email</button>
+        <p class="notice" aria-live="polite"></p>
+        <p class="signup-copy">Used the wrong email?<a class="signup-link" href="marketplace-vendor-signup.html">Sign Up Again</a></p>
+      </div>
+      <div data-state="verified" hidden>
+        <h1>Email Verified</h1>
+        <p class="auth-copy">{{VENDOR_EMAIL}} has been verified. Log in to continue setting up your Marketplace vendor account.</p>
+        <a class="signin-button link-button" href="marketplace-vendor-signin.html">Continue to Login</a>
+      </div>
+      <div data-state="expired" hidden>
+        <h1>Verification Link Expired</h1>
+        <p class="auth-copy">This verification link has expired or has already been used. Request a new verification email to continue.</p>
+        <button class="signin-button" type="button" data-resend>Send New Verification Email</button>
+        <p class="notice" aria-live="polite"></p>
+        <p class="signup-copy">Back to<a class="signup-link" href="marketplace-vendor-signin.html">Login</a></p>
+      </div>
+      <p class="preview-routes"><span>Preview states:</span><a href="marketplace-vendor-verify-email.html?state=sent" data-state-link="sent">Email sent</a><a href="marketplace-vendor-verify-email.html?state=verified" data-state-link="verified">Verified</a><a href="marketplace-vendor-verify-email.html?state=expired" data-state-link="expired">Link expired</a></p>
+    </section>
+  </main>
+
+  <script>
+    const stateBlocks = document.querySelectorAll('[data-state]');
+    const stateLinks = document.querySelectorAll('[data-state-link]');
+    const stateNames = [...stateBlocks].map((block) => block.dataset.state);
+    const requestedState = new URLSearchParams(window.location.search).get('state');
+    const activeState = stateNames.includes(requestedState) ? requestedState : stateNames[0];
+    stateBlocks.forEach((block) => { block.hidden = block.dataset.state !== activeState; });
+    stateLinks.forEach((link) => { if (link.dataset.stateLink === activeState) link.setAttribute('aria-current', 'page'); });
+
+    document.querySelectorAll('#resend-verification, [data-resend]').forEach((button) => button.addEventListener('click', () => {
+      button.parentElement.querySelector('.notice').textContent = 'Preview only — a new verification email would be sent to {{VENDOR_EMAIL}}.';
+    }));
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor Verified Seller application preview" />
+  <title>Marketplace Vendor Portal — Apply for Verified Seller</title>
+  <link rel="stylesheet" href="marketplace-vendor-sponsored-listing-flow.css" />
+  <style>
+    .form-field input[type="file"] { padding:8px 10px; }
+    .form-field textarea { width:100%; min-height:86px; border:1px solid #d9d9d9; padding:9px 10px; background:var(--white); color:#363940; font-size:10px; resize:vertical; }
+    .form-field input::placeholder, .form-field textarea::placeholder { color:#a0a3a9; }
+    .form-section-title { margin:18px 0 10px; padding-top:14px; border-top:1px solid var(--line); color:#33363c; font-size:11px; font-weight:700; }
+    .form-section-title:first-child { margin-top:0; padding-top:0; border-top:0; }
+    .summary-card .help { margin-top:11px; }
+  </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a class="active" href="#profile" aria-current="page">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="verification-application">
+      <div class="heading"><div><p class="eyebrow">Seller verification</p><h1>Apply for Verified Seller</h1><p class="page-copy">Submit identity or business documents so FutureLife can verify who is selling on this account. The Verified Seller label appears only after FutureLife approves the review.</p></div><a class="button secondary back-link" href="marketplace-vendor-verification-status.html">View Verification Status</a></div>
+      <section class="card" aria-labelledby="current-heading"><div class="card-heading"><div><h2 id="current-heading">Current verification</h2><p>Shown from the FutureLife verification record for this vendor account.</p></div><span class="status neutral">Not verified</span></div><div class="listing-reference"><div><span class="label">Vendor account</span><span class="listing-name">Kampus Essentials</span><span class="listing-meta">Onboarding status: {{ONBOARDING_STATUS}}</span></div><div><span class="label">Last application</span><span class="value">{{VERIFICATION_ID}}</span></div></div></section>
+      <div class="flow-layout">
+        <section class="card" aria-labelledby="documents-heading">
+          <div class="card-heading"><div><h2 id="documents-heading">Verification documents</h2><p>Documents are used only for this review and are not shown to buyers.</p></div></div>
+          <form id="verification-form" novalidate><div class="form-grid"><div class="form-field full"><label>Verification type</label><div class="duration-grid" role="radiogroup" aria-label="Verification type"><label class="duration-option"><input type="radio" name="verification-type" value="individual" data-label="Individual seller" checked /><strong>Individual seller</strong><span>Identity document</span></label><label class="duration-option"><input type="radio" name="verification-type" value="business" data-label="Registered business" /><strong>Registered business</strong><span>SSM registration and representative identity</span></label><label class="duration-option"><input type="radio" name="verification-type" value="renewal" data-label="Renewal" /><strong>Renewal</strong><span>Renew an expired verification</span></label></div></div><div class="form-field"><label for="legal-name">Full legal name</label><input id="legal-name" name="legal-name" type="text" placeholder="As shown on the document" required /><p class="help">Must match the name on the identity or business document.</p></div><div class="form-field"><label for="document-type">Identity document type</label><select id="document-type" name="document-type" required><option value="" selected disabled>Select document type</option><option>MyKad</option><option>Passport</option></select></div><div class="form-field full"><label for="identity-file">Identity document</label><input id="identity-file" name="identity-file" type="file" accept=".jpg,.jpeg,.png,.pdf" required /><p class="help">Upload a clear photo or PDF of the front and back. JPG, PNG or PDF.</p></div><div class="form-field full"><label for="ssm-file">Business registration document (SSM)</label><input id="ssm-file" name="ssm-file" type="file" accept=".jpg,.jpeg,.png,.pdf" /><p class="help">Required for registered businesses. Optional for individual sellers.</p></div><div class="form-field full"><label for="supporting-file">Supporting document (optional)</label><input id="supporting-file" name="supporting-file" type="file" accept=".jpg,.jpeg,.png,.pdf" /><p class="help">For example, a document that shows the business address. FutureLife may ask for more documents during review.</p></div></div><label class="confirm-check"><input id="accurate" type="checkbox" required /><span>I confirm the documents are genuine, belong to me or the business I represent, and are current.</span></label><label class="confirm-check"><input id="pdpa-consent" type="checkbox" required /><span>I consent to FutureLife processing these documents to verify my seller identity, in line with the Personal Data Protection Act 2010 and the FutureLife Privacy Notice.</span></label><div class="action-row"><a class="button secondary" href="marketplace-vendor-profile.html">Cancel</a><button class="button" type="submit">Submit for Verification</button></div><p class="feedback" id="verification-feedback" role="alert"></p></form>
+        </section>
+        <aside class="summary-card" aria-labelledby="meaning-heading"><h2 id="meaning-heading">About Verified Seller</h2><ul class="summary-list"><li><span>Shown to buyers</span><span>Only after approval</span></li><li><span>Review time</span><span>{{VERIFICATION_REVIEW_TIME}}</span></li><li><span>Valid for</span><span>{{VERIFICATION_VALIDITY_PERIOD}}</span></li><li class="total"><span>Type</span><span id="summary-type">Individual seller</span></li></ul><p class="help">Verified Seller confirms that FutureLife checked the submitted documents. It is not a rating, review score, product guarantee or buyer protection.</p></aside>
+      </div>
+      <aside class="notice"><strong>Verification rule:</strong> store uploads privately and restrict access to FutureLife reviewers. Set the Verified Seller status only from a reviewer decision on the server, never from this form or a redirect.</aside>
+    </main>
+  </div>
+  <script>
+    const verificationForm = document.getElementById('verification-form');
+    const verificationFeedback = document.getElementById('verification-feedback');
+    const summaryType = document.getElementById('summary-type');
+    const ssmFile = document.getElementById('ssm-file');
+    const requestedType = new URLSearchParams(window.location.search).get('type');
+    const typeInputs = document.querySelectorAll('input[name="verification-type"]');
+    const syncType = () => {
+      const selected = document.querySelector('input[name="verification-type"]:checked');
+      summaryType.textContent = selected.dataset.label;
+      ssmFile.required = selected.value === 'business';
+    };
+    typeInputs.forEach((input) => { if (input.value === requestedType) input.checked = true; input.addEventListener('change', syncType); });
+    syncType();
+    verificationForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!verificationForm.checkValidity()) { verificationFeedback.textContent = 'Add the required documents and confirm both statements before submitting.'; verificationFeedback.classList.add('visible'); verificationForm.reportValidity(); return; }
+      window.location.href = 'marketplace-vendor-verification-status.html?state=pending';
+    });
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>

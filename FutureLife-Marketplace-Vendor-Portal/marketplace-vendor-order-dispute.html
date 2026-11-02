@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor order dispute and chargeback case preview" />
+  <title>Marketplace Vendor Portal — Order Dispute &amp; Chargeback</title>
+  <style>
+
+    :root { --green:#78be21; --green-dark:#62a719; --ink:#20232b; --muted:#70737a; --line:#e7e7e7; --pale-green:#f8fff1; --pale-grey:#fbfbfb; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { background:var(--white); }
+    body { min-width:320px; margin:0; background:var(--white); color:var(--ink); font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.3; }
+    button,input,select,textarea { border-radius:0; font:inherit; }
+    button { cursor:pointer; }
+    a,button,input,select,textarea { -webkit-tap-highlight-color:transparent; }
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+    .sidebar { position:fixed; z-index:3; top:0; bottom:0; left:0; width:174px; border-right:1px solid var(--line); background:var(--white); }
+    .portal-name { display:block; padding:12px 14px; border-bottom:1px solid var(--line); color:#35383e; font-size:11px; font-weight:700; text-decoration:none; }
+    .account-row { display:grid; grid-template-columns:31px minmax(0,1fr); gap:8px; align-items:center; padding:9px 10px; border-bottom:1px solid var(--line); background:#f7fceb; text-decoration:none; }
+    .avatar { display:grid; width:31px; height:31px; place-items:center; border:1px solid var(--green); background:var(--green); color:var(--white); font-size:10px; font-weight:700; }
+    .account-row strong { display:block; overflow:hidden; color:#2d6136; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+    .account-row span { display:block; margin-top:2px; color:#60805e; font-size:8px; }
+    .side-section { padding:12px 9px 0; }
+    .side-label { margin:0 0 9px; color:#a7aaaf; font-size:10px; font-weight:700; }
+    .side-menu { display:grid; gap:3px; }
+    .side-menu a { display:flex; min-height:34px; align-items:center; padding:0 8px; color:#3e4147; font-size:11px; text-decoration:none; }
+    .side-menu a:hover,.side-menu a.active { background:#f7fceb; color:#397d13; }
+    .menu-count { min-width:17px; margin-left:auto; padding:2px 4px; background:var(--green); color:var(--white); font-size:8px; font-weight:700; line-height:1; text-align:center; }
+    .side-logout { position:absolute; bottom:26px; left:11px; color:#dd5f5f; font-size:11px; text-decoration:none; }
+    .page-shell { min-height:100vh; margin-left:174px; }
+    .topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }
+    .topbar-label { color:#5c5f65; font-size:11px; }.topbar-label strong { color:var(--green-dark); }
+    .content { width:min(100% - 70px,940px); margin:35px auto 70px; }
+    .breadcrumb { display:inline-block; margin:0 0 13px; color:#5e6147; font-size:10px; font-weight:700; text-decoration:none; }.breadcrumb:hover { color:var(--green-dark); text-decoration:underline; }
+    .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }
+    h1 { margin:0; color:var(--ink); font-size:23px; font-weight:400; letter-spacing:-.35px; }
+    .page-copy { max-width:660px; margin:6px 0 18px; color:var(--muted); font-size:11px; line-height:1.45; }
+    .order-banner { display:flex; align-items:center; justify-content:space-between; gap:14px; border:1px solid var(--line); border-left:4px solid var(--green); padding:13px 14px; background:var(--pale-grey); }
+    .order-banner h2 { margin:0; color:#30333a; font-size:13px; }.order-banner p { margin:4px 0 0; color:#74777d; font-size:9.5px; }
+    .status { display:inline-flex; min-height:23px; align-items:center; justify-content:center; border:1px solid #a8d86a; padding:0 8px; background:var(--pale-green); color:#397d13; font-size:9px; font-weight:700; text-align:center; white-space:nowrap; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:14px; align-items:start; margin-top:14px; }
+    .card,.side-card { border:1px solid var(--line); padding:14px; background:var(--white); }.side-card + .side-card { margin-top:13px; }
+    .card h2,.side-card h2 { margin:0; color:#2b2e34; font-size:12px; font-weight:700; }.section-copy { margin:4px 0 13px; color:#777a80; font-size:9.5px; line-height:1.4; }
+    .request-types { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
+    .request-type { display:flex; min-height:56px; align-items:flex-start; gap:7px; border:1px solid #dedede; padding:9px; background:var(--white); color:#4c4f56; font-size:9px; line-height:1.3; }
+    .request-type:has(input:checked) { border-color:var(--green); background:var(--pale-green); color:#356d1c; }
+    .request-type input { width:14px; height:14px; flex:0 0 14px; margin:0; accent-color:var(--green); }
+    .request-type strong { display:block; margin-bottom:3px; color:#35383e; font-size:9.5px; }.request-type:has(input:checked) strong { color:#397d13; }
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { min-width:0; }.field.full { grid-column:1 / -1; }
+    .field label { display:block; margin-bottom:5px; color:#55585e; font-size:9px; font-weight:700; }.field label span { color:#83868c; font-weight:400; }
+    .field select,.field textarea,.file-field { display:block; width:100%; border:1px solid #d8d8d8; padding:0 9px; background:var(--white); color:#2d3036; font-size:10px; }
+    .field select { height:35px; }.field textarea { min-height:104px; padding-top:9px; resize:vertical; line-height:1.4; }
+    .file-field { min-height:36px; padding:7px 9px; color:#74777d; }
+    .file-field input { width:100%; color:#5d6067; font-size:9px; }
+    .field select:focus,.field textarea:focus,.file-field:focus-within { border-color:var(--green); outline:0; box-shadow:0 0 0 2px rgba(120,190,33,.13); }
+    .field-help { margin:5px 0 0; color:#85888e; font-size:8.5px; line-height:1.35; }
+    .confirm-row { display:flex; align-items:flex-start; gap:7px; margin-top:14px; border-top:1px solid #ededed; padding-top:12px; color:#5f6268; font-size:9.5px; line-height:1.4; }
+    .confirm-row input { width:14px; height:14px; flex:0 0 14px; margin:0; accent-color:var(--green); }
+    .form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+    .button { display:inline-flex; min-height:35px; align-items:center; justify-content:center; border:1px solid var(--green); padding:0 14px; background:var(--green); color:var(--white); font-size:10px; font-weight:700; text-align:center; text-decoration:none; white-space:nowrap; }
+    .button:hover { border-color:var(--green-dark); background:var(--green-dark); }.button.secondary { background:var(--white); color:#397d13; }.button.secondary:hover { background:var(--pale-green); }
+    .form-notice { min-height:17px; margin:10px 0 0; color:#397d13; font-size:9px; font-weight:700; text-align:right; }
+    .summary-list { display:grid; margin-top:9px; border-top:1px solid #ededed; }.summary-row { padding:9px 0; border-bottom:1px solid #ededed; }.summary-row:last-child { border-bottom:0; }
+    .summary-label { display:block; margin-bottom:4px; color:#80838a; font-size:8.5px; }.summary-value { display:block; overflow:hidden; color:#34373d; font-size:10px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+    .policy-card { border-left:4px solid var(--green); background:var(--pale-grey); }.policy-card p { margin:8px 0 0; color:#5f6268; font-size:9px; line-height:1.45; }.policy-card strong { color:#30333a; }
+    .support-copy { margin:8px 0 10px; color:#62656b; font-size:9px; line-height:1.45; }
+    .mobile-header { display:none; }
+    @media (max-width:960px) {
+      .sidebar,.topbar { display:none; }.page-shell { margin-left:0; }
+      .mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }.mobile-portal { color:#34373d; font-size:12px; font-weight:700; }.mobile-account { color:#5d6067; font-size:10px; }
+      .content { width:min(100% - 28px,680px); margin:27px auto 34px; }h1 { font-size:22px; }.page-copy { margin-bottom:16px; font-size:10px; }.order-banner { display:block; }.order-banner .status { margin-top:9px; }
+      .layout { display:block; margin-top:13px; }.layout > aside { margin-top:13px; }.request-types { grid-template-columns:1fr; gap:7px; }.request-type { min-height:52px; }.field-grid { grid-template-columns:1fr; gap:11px; }.field.full { grid-column:auto; }.field select { height:41px; font-size:11px; }.field textarea { font-size:11px; }.form-actions { display:grid; grid-template-columns:1fr; }.form-actions .button { width:100%; }.form-notice { min-height:17px; text-align:left; }
+    }
+    @media (prefers-reduced-motion:no-preference) { a,button { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active,button:active { transform:scale(.97); } }
+    .field > input { display:block; width:100%; height:35px; border:1px solid #d8d8d8; padding:0 9px; background:var(--white); color:#2d3036; font-size:10px; }
+    .field > input::placeholder, .field textarea::placeholder { color:#a0a3a9; }
+    .field > input:focus { border-color:var(--green); outline:0; box-shadow:0 0 0 2px rgba(120,190,33,.13); }
+    @media (max-width:960px) { .field > input { height:41px; font-size:11px; } }
+    .timeline { display: grid; }
+    .timeline-entry { display: grid; grid-template-columns: 21px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding: 10px 0; border-top: 1px solid #ededed; }
+    .timeline-entry:first-child { padding-top: 0; border-top: 0; }
+    .timeline-number { display: grid; width: 21px; height: 21px; place-items: center; border: 1px solid #9dcc60; background: var(--pale-green); color: #397d13; font-size: 10px; font-weight: 700; }
+    .timeline-entry strong { display: block; margin-bottom: 3px; color: #33363c; font-size: 10px; }
+    .timeline-entry p { margin: 0; color: #6c6f75; font-size: 9px; line-height: 1.35; }
+    .timeline-entry time { color: #8a8d93; font-size: 8px; white-space: nowrap; }
+    @media (max-width: 960px) { .timeline-entry { grid-template-columns: 21px minmax(0, 1fr); } .timeline-entry time { grid-column: 2; } }
+    .status.success { border-color:#a8d86a; background:var(--pale-green); color:#397d13; }
+    .status.warning { border-color:#eedcaa; background:#fffdf5; color:#6f5f2a; }
+    .status.failed { border-color:#ecc6c6; background:#fff8f8; color:#b94747; }
+    .status.neutral { border-color:#d2d2d2; background:#fafafa; color:#5d6067; }
+    .state-notice { margin:13px 0 0; border:1px solid #dce9ca; border-left:4px solid var(--green); padding:11px; background:var(--pale-green); color:#56634d; font-size:9.5px; line-height:1.45; }
+    .state-notice strong { color:#366a16; }
+    .state-notice.warning { border-color:#eedcaa; border-left-color:#c69718; background:#fffdf5; color:#655d45; }
+    .state-notice.warning strong { color:#4f4730; }
+    .state-notice.failure { border-color:#ecc6c6; border-left-color:#b94747; background:#fff8f8; color:#754c4c; }
+    .state-notice.failure strong { color:#8e3a3a; }
+    .case-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); column-gap:16px; }
+    .case-grid .summary-row:nth-last-child(2):nth-child(odd) { border-bottom:0; }
+    .side-card .button { width:100%; }
+    .side-card .button + .button { margin-top:8px; }
+    .deadline-value { display:block; margin-top:6px; color:#b94747; font-size:15px; font-weight:700; }
+    .state-links { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .state-links a { display:inline-flex; min-height:25px; align-items:center; border:1px solid var(--line); padding:0 8px; color:#60636a; font-size:8.5px; font-weight:700; }
+    .state-links a[aria-current="page"] { border-color:var(--green); background:var(--pale-green); color:#397d13; }
+    @media (max-width:960px) { .case-grid { grid-template-columns:1fr; } .case-grid .summary-row:nth-last-child(2):nth-child(odd) { border-bottom:1px solid #ededed; } }
+  </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a class="active" href="#orders" aria-current="page">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="order-dispute">
+      <a class="breadcrumb" href="marketplace-vendor-order-details.html?order={{ORDER_ID}}">← Back to Order Details</a>
+      <p class="eyebrow">Marketplace order</p>
+      <h1>Order Dispute &amp; Chargeback</h1>
+      <p class="page-copy">Respond to a customer dispute or card chargeback on this order. FutureLife reviews the evidence from both sides and records the outcome.</p>
+      <section class="order-banner" aria-labelledby="order-reference-heading"><div><h2 id="order-reference-heading">{{ORDER ID}}</h2><p>{{LISTING TITLE}} · Case reference: {{DISPUTE CASE ID}}</p></div><span class="status failed" data-show="open">Evidence Needed</span><span class="status warning" data-show="under-review" hidden>Under Review</span><span class="status success" data-show="resolved-vendor" hidden>Resolved: In Your Favour</span><span class="status neutral" data-show="resolved-customer" hidden>Resolved: In Customer’s Favour</span></section>
+      <div class="layout">
+        <section>
+          <section class="card" aria-labelledby="case-heading">
+            <h2 id="case-heading">Case summary</h2><p class="section-copy">Details recorded when the dispute or chargeback was opened.</p>
+            <div class="summary-list case-grid"><div class="summary-row"><span class="summary-label">Case type</span><span class="summary-value">{{DISPUTE CASE TYPE}}</span></div><div class="summary-row"><span class="summary-label">Reason code</span><span class="summary-value">{{DISPUTE REASON CODE}}</span></div><div class="summary-row"><span class="summary-label">Amount disputed</span><span class="summary-value">RM {{DISPUTED AMOUNT}}</span></div><div class="summary-row"><span class="summary-label">Opened on</span><span class="summary-value">{{DISPUTE OPENED DATE}}</span></div><div class="summary-row"><span class="summary-label">Evidence due by</span><span class="summary-value">{{EVIDENCE DEADLINE}}</span></div><div class="summary-row"><span class="summary-label">Customer statement</span><span class="summary-value">{{CUSTOMER STATEMENT SUMMARY}}</span></div></div>
+          </section>
+
+          <form class="card" id="dispute-evidence-form" novalidate data-show="open">
+            <h2>Submit evidence</h2><p class="section-copy">Send evidence before {{EVIDENCE DEADLINE}}. After the deadline, FutureLife reviews the case with the information already on record.</p>
+            <div class="field-grid">
+              <div class="field full"><label for="evidence-response">Your response</label><textarea id="evidence-response" required placeholder="Explain what happened with this order, including fulfilment and any messages with the customer."></textarea><p class="field-help">Keep the response to facts about this order.</p></div>
+              <div class="field full"><label for="evidence-files">Evidence files</label><div class="file-field"><input id="evidence-files" type="file" accept="image/*,application/pdf" multiple required /><p class="field-help" id="evidence-help">For example, proof of delivery or collection, photos of the item, or receipts. File upload is a preview-only control.</p></div></div>
+            </div>
+            <label class="confirm-row"><input id="confirm-evidence" type="checkbox" required /><span>I confirm that the evidence relates to this order and that the information provided is accurate.</span></label>
+            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-order-details.html?order={{ORDER_ID}}">Cancel</a><button class="button" type="submit">Submit Evidence</button></div>
+            <p class="form-notice" id="form-notice" aria-live="polite"></p>
+          </form>
+          <section class="card" aria-labelledby="evidence-record-heading" data-show="under-review resolved-vendor resolved-customer" hidden>
+            <h2 id="evidence-record-heading">Evidence submitted</h2><p class="section-copy">The evidence on record for this case. It can no longer be changed.</p>
+            <div class="summary-list"><div class="summary-row"><span class="summary-label">Submitted on</span><span class="summary-value">{{EVIDENCE SUBMITTED DATE}}</span></div><div class="summary-row"><span class="summary-label">Files</span><span class="summary-value">{{EVIDENCE FILE COUNT}} files</span></div><div class="summary-row"><span class="summary-label">Response</span><span class="summary-value">{{EVIDENCE RESPONSE SUMMARY}}</span></div></div>
+          </section>
+
+          <section class="card" aria-labelledby="timeline-heading">
+            <h2 id="timeline-heading">Case timeline</h2>
+            <div class="timeline">
+              <article class="timeline-entry"><span class="timeline-number">1</span><div><strong>Dispute opened</strong><p>{{DISPUTE CASE TYPE}} opened for RM {{DISPUTED AMOUNT}}.</p></div><time>{{DISPUTE OPENED DATE}}</time></article>
+              <article class="timeline-entry"><span class="timeline-number">2</span><div><strong>Evidence requested</strong><p>Vendor evidence due by {{EVIDENCE DEADLINE}}.</p></div><time>{{EVIDENCE REQUESTED DATE}}</time></article>
+              <article class="timeline-entry" data-show="under-review resolved-vendor resolved-customer" hidden><span class="timeline-number">3</span><div><strong>Evidence submitted</strong><p>FutureLife is reviewing the evidence from both sides.</p></div><time>{{EVIDENCE SUBMITTED DATE}}</time></article>
+              <article class="timeline-entry" data-show="resolved-vendor resolved-customer" hidden><span class="timeline-number">4</span><div><strong>Outcome recorded</strong><p>{{DISPUTE OUTCOME NOTE}}</p></div><time>{{DISPUTE RESOLVED DATE}}</time></article>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="outcome-heading">
+            <h2 id="outcome-heading">Outcome &amp; payout adjustment</h2>
+            <p class="section-copy" data-show="open under-review">No outcome yet. The disputed amount is held from payouts until the case is resolved.</p>
+            <p class="section-copy" data-show="resolved-vendor" hidden>The case was resolved in your favour. The held amount is released to your next payout.</p>
+            <p class="section-copy" data-show="resolved-customer" hidden>The case was resolved in the customer’s favour. The disputed amount is deducted from your payouts.</p>
+            <div class="summary-list case-grid"><div class="summary-row" data-show="open under-review"><span class="summary-label">Outcome</span><span class="summary-value">Pending</span></div><div class="summary-row" data-show="resolved-vendor" hidden><span class="summary-label">Outcome</span><span class="summary-value">In your favour</span></div><div class="summary-row" data-show="resolved-customer" hidden><span class="summary-label">Outcome</span><span class="summary-value">In customer’s favour</span></div><div class="summary-row" data-show="open under-review"><span class="summary-label">Amount held</span><span class="summary-value">RM {{DISPUTED AMOUNT}}</span></div><div class="summary-row" data-show="resolved-vendor" hidden><span class="summary-label">Amount released</span><span class="summary-value">RM {{DISPUTED AMOUNT}}</span></div><div class="summary-row" data-show="resolved-customer" hidden><span class="summary-label">Payout adjustment</span><span class="summary-value">− RM {{PAYOUT ADJUSTMENT}}</span></div><div class="summary-row"><span class="summary-label">Applies to payout</span><span class="summary-value">{{PAYOUT ID}}</span></div><div class="summary-row" data-show="resolved-vendor resolved-customer" hidden><span class="summary-label">Reason code</span><span class="summary-value">{{OUTCOME REASON CODE}}</span></div></div>
+            <p class="state-notice"><a href="marketplace-vendor-payout-hold.html?payout={{PAYOUT_ID}}">View payout hold</a> · <a href="marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View payout statement</a></p>
+          </section>
+        </section>
+        <aside>
+          <section class="side-card" aria-labelledby="deadline-heading" data-show="open"><h2 id="deadline-heading">Evidence deadline</h2><span class="deadline-value">{{EVIDENCE DEADLINE}}</span><p class="support-copy">Submit evidence before this date so FutureLife can include it in the review.</p></section>
+          <section class="side-card" aria-labelledby="order-context-heading"><h2 id="order-context-heading">Order context</h2><div class="summary-list"><div class="summary-row"><span class="summary-label">Order</span><span class="summary-value">{{ORDER ID}}</span></div><div class="summary-row"><span class="summary-label">Customer</span><span class="summary-value">{{CUSTOMER NAME}}</span></div><div class="summary-row"><span class="summary-label">Order total</span><span class="summary-value">RM {{ORDER TOTAL}}</span></div><div class="summary-row"><span class="summary-label">Fulfilment</span><span class="summary-value">{{FULFILMENT METHOD}}</span></div></div></section>
+          <section class="side-card policy-card" aria-labelledby="review-heading"><h2 id="review-heading">Case review</h2><p><strong>FutureLife records the outcome after reviewing the case.</strong> For a card chargeback, the final decision is made by the card holder’s bank.</p></section>
+          <section class="side-card" aria-labelledby="support-heading"><h2 id="support-heading">Need help?</h2><p class="support-copy">Message FutureLife Support and include the case reference.</p><a class="button" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=order-dispute">Message Support</a><a class="button secondary" href="marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Refund Request</a></section>
+          <section class="side-card" aria-labelledby="preview-states-heading"><h2 id="preview-states-heading">Preview states</h2><div class="state-links"><a href="marketplace-vendor-order-dispute.html?state=open" data-state-link="open">Evidence needed</a><a href="marketplace-vendor-order-dispute.html?state=under-review" data-state-link="under-review">Under review</a><a href="marketplace-vendor-order-dispute.html?state=resolved-vendor" data-state-link="resolved-vendor">Vendor favour</a><a href="marketplace-vendor-order-dispute.html?state=resolved-customer" data-state-link="resolved-customer">Customer favour</a></div></section>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    const caseStates = ['open', 'under-review', 'resolved-vendor', 'resolved-customer'];
+    const requestedCase = new URLSearchParams(window.location.search).get('state');
+    const caseState = caseStates.includes(requestedCase) ? requestedCase : 'open';
+    document.querySelectorAll('[data-show]').forEach((element) => { element.hidden = !element.dataset.show.split(' ').includes(caseState); });
+    document.querySelectorAll('[data-state-link]').forEach((link) => { if (link.dataset.stateLink === caseState) link.setAttribute('aria-current', 'page'); });
+
+    const form = document.getElementById('dispute-evidence-form');
+    const notice = document.getElementById('form-notice');
+    const evidenceInput = document.getElementById('evidence-files');
+    const evidenceHelp = document.getElementById('evidence-help');
+    evidenceInput.addEventListener('change', () => {
+      const total = evidenceInput.files.length;
+      evidenceHelp.textContent = total ? `${total} file${total === 1 ? '' : 's'} selected for this preview. Files are not uploaded in this static prototype.` : 'For example, proof of delivery or collection, photos of the item, or receipts. File upload is a preview-only control.';
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        notice.textContent = 'Add your response, at least one evidence file, and the confirmation before submitting.';
+        form.reportValidity();
+        return;
+      }
+      notice.textContent = 'Preview only — the evidence would be sent to FutureLife for review.';
+    });
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>

@@ -171,7 +171,7 @@
       </section>
 
       <section class="card" aria-labelledby="listing-credit-heading">
-        <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing fee &amp; credit summary</h2><p>Use listing credits when you need more active listings. Sponsored listings have a separate paid visibility fee.</p></div></div>
+        <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing fee &amp; credit summary</h2><p>Use listing credits when you need more active listings. Sponsored listings have a separate paid visibility fee.</p></div><a class="link-button" href="marketplace-vendor-credit-history.html">Credit History</a></div>
         <div class="listing-credit-grid">
           <div class="listing-credit-item"><span class="field-label">Listing credits remaining</span><span class="field-value">{{LISTING_CREDITS_REMAINING}}</span></div>
           <div class="listing-credit-item"><span class="field-label">Additional listing fee</span><span class="field-value">RM {{ADDITIONAL_LISTING_FEE}}</span></div>
@@ -181,16 +181,16 @@
       </section>
 
       <section class="card" aria-labelledby="billing-history-heading">
-        <div class="card-heading"><div><h2 id="billing-history-heading">Billing history</h2><p>Invoices record platform charges made to this Marketplace vendor account.</p></div></div>
+        <div class="card-heading"><div><h2 id="billing-history-heading">Billing history</h2><p>Invoices record platform charges made to this Marketplace vendor account.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
         <table class="history-table">
           <colgroup><col class="invoice" /><col class="date" /><col class="description" /><col class="amount" /><col class="status" /><col class="action" /></colgroup>
           <thead><tr><th>Invoice</th><th>Date</th><th>Description</th><th>Amount</th><th>Payment status</th><th></th></tr></thead>
-          <tbody><tr><td><span class="invoice-id">{{INVOICE_ID}}</span></td><td>{{INVOICE_DATE}}</td><td>{{INVOICE_DESCRIPTION}}</td><td>RM {{INVOICE_AMOUNT}}</td><td><span class="status">{{INVOICE_STATUS}}</span></td><td><button class="row-link" type="button" data-billing-action="view-invoice">View Invoice</button></td></tr></tbody>
+          <tbody><tr><td><span class="invoice-id">{{INVOICE_ID}}</span></td><td>{{INVOICE_DATE}}</td><td>{{INVOICE_DESCRIPTION}}</td><td>RM {{INVOICE_AMOUNT}}</td><td><span class="status">{{INVOICE_STATUS}}</span></td><td><a class="row-link" href="marketplace-vendor-invoice.html?invoice={{INVOICE_ID}}">View Invoice</a></td></tr></tbody>
         </table>
         <article class="mobile-invoice-card">
           <div class="mobile-invoice-top"><span class="invoice-id">{{INVOICE_ID}}</span><span class="status">{{INVOICE_STATUS}}</span></div>
           <div class="mobile-invoice-grid"><div><span class="field-label">Date</span><span class="field-value">{{INVOICE_DATE}}</span></div><div><span class="field-label">Amount</span><span class="field-value">RM {{INVOICE_AMOUNT}}</span></div><div><span class="field-label">Description</span><span class="field-value">{{INVOICE_DESCRIPTION}}</span></div></div>
-          <button class="link-button invoice-action" type="button" data-billing-action="view-invoice">View Invoice</button>
+          <a class="link-button invoice-action" href="marketplace-vendor-invoice.html?invoice={{INVOICE_ID}}">View Invoice</a>
         </article>
       </section>
 
@@ -204,7 +204,7 @@
         </div>
       </section>
 
-      <aside class="preview-note"><strong>Preview-only actions:</strong> View Invoice and Update Billing Details should connect to approved Marketplace vendor workflows before production use. Manage Plan, Upgrade Plan, and Listing Credits open their connected purchase-flow previews.</aside>
+      <aside class="preview-note"><strong>Preview-only actions:</strong> Update Billing Details should connect to approved Marketplace vendor workflows before production use. Manage Plan, Upgrade Plan, Listing Credits, View Invoice, Payment History, and Credit History open their connected previews.</aside>
     </main>
   </div>
 

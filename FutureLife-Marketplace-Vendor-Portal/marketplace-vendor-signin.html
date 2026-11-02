@@ -179,7 +179,7 @@
           <label for="vendor-password">Password</label>
           <input id="vendor-password" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required />
         </div>
-        <div class="forgot-row"><a class="forgot-link" href="?reset=1">Forgot password?</a></div>
+        <div class="forgot-row"><a class="forgot-link" href="marketplace-vendor-forgot-password.html">Forgot password?</a></div>
         <button class="signin-button" type="submit">Login</button>
         <p class="notice" aria-live="polite"></p>
       </form>
@@ -198,7 +198,6 @@
     document.querySelector('.signup-link').addEventListener('click', () => {
       window.location.href = 'marketplace-vendor-signup.html';
     });
-    document.querySelector('.forgot-link').addEventListener('click', (event) => { event.preventDefault(); signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.'; });
     const authParams = new URLSearchParams(window.location.search);
     if (authParams.get('loggedout') === '1') signinNotice.textContent = 'Preview only — you have been signed out of the vendor portal.';
     if (authParams.get('reset') === '1') signinNotice.textContent = 'Preview only — the password-recovery flow would open in the live portal.';

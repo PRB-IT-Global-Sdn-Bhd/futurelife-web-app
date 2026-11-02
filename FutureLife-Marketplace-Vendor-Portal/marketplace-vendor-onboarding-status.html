@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Marketplace Vendor onboarding status preview" />
+  <title>Marketplace Vendor Portal — Onboarding Status</title>
+  <link rel="stylesheet" href="marketplace-vendor-sponsored-listing-flow.css" />
+  <style>
+    .result-marker.pending { border-color:#eedcaa; background:#fffdf5; color:#c69718; }
+    .result-marker.neutral { border-color:#cdcdcd; background:#fafafa; color:#5d6067; }
+    .result-marker.processing { padding-bottom:12px; line-height:1; }
+    .preview-routes { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 12px; margin:13px 0 0; }
+    .preview-routes .text-link { margin-top:0; }
+    .preview-routes .text-link[aria-current="page"] { color:#30333a; text-decoration:none; }
+    @media (max-width:960px) { .preview-routes { display:grid; justify-items:center; } }
+  </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Vendor portal navigation">
+    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
+    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a class="active" href="#profile" aria-current="page">Profile</a></nav></section>
+    <a class="side-logout" href="#logout">Logout</a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
+    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
+    <main class="content" id="onboarding-status"><div class="payment-shell"><section class="result-panel" aria-label="Onboarding status"><div data-state="pending"><div class="result-marker pending processing" aria-hidden="true">…</div><p class="eyebrow">Vendor onboarding</p><h1 id="pending-heading">Onboarding Under Review</h1><p class="page-copy" role="status">FutureLife has received your business details and Vendor Terms acceptance. We will email {{VENDOR_EMAIL}} when the review is complete.</p><div class="result-details"><div><span>Business</span><strong>{{LEGAL_BUSINESS_NAME}}</strong></div><div><span>Application reference</span><strong>{{ONBOARDING_ID}}</strong></div><div><span>Submitted</span><strong>{{ONBOARDING_SUBMITTED_DATE}}</strong></div><div><span>Vendor Terms version</span><strong>{{VENDOR_TERMS_VERSION}}</strong></div><div><span>Status</span><strong>Pending review</strong></div></div><div class="action-row"><a class="button secondary" href="marketplace-vendor-profile.html">Back to Profile</a><a class="button" href="marketplace-vendor-onboarding-business-details.html">View Submitted Details</a></div></div><div data-state="needs-info" hidden><div class="result-marker pending" aria-hidden="true">!</div><p class="eyebrow">Vendor onboarding</p><h1 id="needs-info-heading">More Information Needed</h1><p class="page-copy" role="status">FutureLife needs more information before your vendor account can be approved. Update the requested details and submit again.</p><div class="result-details"><div><span>Business</span><strong>{{LEGAL_BUSINESS_NAME}}</strong></div><div><span>Application reference</span><strong>{{ONBOARDING_ID}}</strong></div><div><span>Submitted</span><strong>{{ONBOARDING_SUBMITTED_DATE}}</strong></div><div><span>Vendor Terms version</span><strong>{{VENDOR_TERMS_VERSION}}</strong></div><div><span>Requested by</span><strong>{{REVIEW_REQUEST_DATE}}</strong></div><div><span>Respond by</span><strong>{{REVIEW_RESPONSE_DUE_DATE}}</strong></div><div><span>Status</span><strong>Needs more information</strong></div></div><div class="action-row"><a class="button secondary" href="marketplace-vendor-profile.html">Back to Profile</a><a class="button" href="marketplace-vendor-onboarding-business-details.html">Update Business Details</a></div><aside class="notice warning"><strong>Reviewer request ({{REVIEW_REASON_CODE}}):</strong> {{REVIEWER_NOTE}}</aside></div><div data-state="approved" hidden><div class="result-marker" aria-hidden="true">✓</div><p class="eyebrow">Vendor onboarding</p><h1 id="approved-heading">Onboarding Approved</h1><p class="page-copy" role="status">Your Marketplace vendor account is approved. You can now create listings. Verified Seller is a separate application with its own document review.</p><div class="result-details"><div><span>Business</span><strong>{{LEGAL_BUSINESS_NAME}}</strong></div><div><span>Application reference</span><strong>{{ONBOARDING_ID}}</strong></div><div><span>Submitted</span><strong>{{ONBOARDING_SUBMITTED_DATE}}</strong></div><div><span>Vendor Terms version</span><strong>{{VENDOR_TERMS_VERSION}}</strong></div><div><span>Approved on</span><strong>{{ONBOARDING_APPROVED_DATE}}</strong></div><div><span>Status</span><strong>Approved</strong></div></div><div class="action-row"><a class="button secondary" href="marketplace-vendor-verification-application.html">Apply for Verified Seller</a><a class="button" href="marketplace-vendor-dashboard.html">Go to Dashboard</a></div></div><p class="preview-routes"><span class="preview-tag">Preview states</span><a class="text-link" href="marketplace-vendor-onboarding-status.html?state=pending" data-state-link="pending">Pending review</a><a class="text-link" href="marketplace-vendor-onboarding-status.html?state=needs-info" data-state-link="needs-info">Needs more info</a><a class="text-link" href="marketplace-vendor-onboarding-status.html?state=approved" data-state-link="approved">Approved</a></p><a class="text-link" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=vendor-onboarding">Message FutureLife Support</a></section><aside class="notice warning"><strong>Live implementation:</strong> show the state stored on the FutureLife onboarding review record. A URL parameter is used here for preview only; the live page must never approve an account from the browser.</aside></div></main>
+  </div>
+  <script>
+    const stateBlocks = document.querySelectorAll('[data-state]');
+    const stateLinks = document.querySelectorAll('[data-state-link]');
+    const stateNames = [...stateBlocks].map((block) => block.dataset.state);
+    const requestedState = new URLSearchParams(window.location.search).get('state');
+    const activeState = stateNames.includes(requestedState) ? requestedState : stateNames[0];
+    stateBlocks.forEach((block) => { block.hidden = block.dataset.state !== activeState; });
+    stateLinks.forEach((link) => { if (link.dataset.stateLink === activeState) link.setAttribute('aria-current', 'page'); });
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>
