@@ -25,6 +25,8 @@ These files are visual and interaction prototypes for review. They are intended 
 
 For the Marketplace ZIP, keep all extracted files in the same folder. Its HTML pages share `vendor-portal-navigation.js` and `marketplace-vendor-sponsored-listing-flow.css`.
 
+For the Jobs ZIP, keep all extracted files in the same folder. It has one HTML page per screen (start at `jobs-vendor-dashboard.html` or `jobs-vendor-signin.html`), and the pages share `jobs-vendor-portal.css`, `jobs-vendor-portal.js`, `vendor-portal-navigation.css`, `vendor-portal-navigation.js`, and `vendor-portal-auth.css`. The older `jobs-vendor-portal.html` file now forwards `?view=` links to the matching page.
+
 ## Product and implementation notes
 
 All shown values such as `{{ORDER_ID}}`, `{{PAYOUT_AMOUNT}}`, `{{PLAN_PRICE}}`, and `{{PROPERTY_ID}}` are dynamic-data placeholders. Replace them with the corresponding Bubble dynamic expressions or secure backend data when implementing the real portals.
