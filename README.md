@@ -14,7 +14,7 @@ These files are visual and interaction prototypes for review. They are intended 
 |---|---|---|
 | `FutureLife_Marketplace_Vendor_Portal_Latest.zip` | `marketplace-vendor-dashboard.html` | Dashboard, Listings, Orders, Messages, Billing, Sponsored Listings, Listing Credits, Plan Changes, Platform Fees, Order Earnings Breakdowns, Payout Statements, Notifications, Profile, Security, Fulfilment Settings, and Payout Details. |
 | `FutureLife_Jobs_Vendor_Portal_Latest.zip` | `jobs-vendor-dashboard.html` | Dashboard, job listings, job create/edit flow, applicants, hires and placements, billing, job-posting and placement-fee views, messages, notifications, profile, and settings. |
-| `FutureLife_Rentals_Vendor_Portal_Latest.zip` | `rentals-vendor-portal.html` | Dashboard, properties, applications, tenancies, move-in workflows, messages, billing plans, listing fees, rental commissions, notifications, profile, and related settings. |
+| `FutureLife_Rentals_Vendor_Portal_Latest.zip` | `rentals-vendor-dashboard.html` | Dashboard, properties and property details, create/edit property, availability and viewings, applications, tenancies, move-in and tenancy-end workflows, messages, billing plans, plan changes, listing fees and credits, checkout results, payment history, invoices, rental commissions and disputes, landlord verification, team members, notifications, profile, and settings. |
 
 ## How to view locally
 
@@ -26,6 +26,8 @@ These files are visual and interaction prototypes for review. They are intended 
 For the Marketplace ZIP, keep all extracted files in the same folder. Its HTML pages share `vendor-portal-navigation.js` and `marketplace-vendor-sponsored-listing-flow.css`.
 
 For the Jobs ZIP, keep all extracted files in the same folder. It has one HTML page per screen (start at `jobs-vendor-dashboard.html` or `jobs-vendor-signin.html`), and the pages share `jobs-vendor-portal.css`, `jobs-vendor-portal.js`, `vendor-portal-navigation.css`, `vendor-portal-navigation.js`, and `vendor-portal-auth.css`. The older `jobs-vendor-portal.html` file now forwards `?view=` links to the matching page.
+
+For the Rentals ZIP, keep all extracted files in the same folder. It has one HTML page per screen (start at `rentals-vendor-dashboard.html` or `rentals-vendor-signin.html`), and the pages share `rentals-vendor-portal.css`, `rentals-vendor-portal.js`, `vendor-portal-navigation.css`, `vendor-portal-navigation.js`, and `vendor-portal-auth.css`. The older `rentals-vendor-portal.html` file now forwards `?view=` links to the matching page.
 
 ## Product and implementation notes
 
