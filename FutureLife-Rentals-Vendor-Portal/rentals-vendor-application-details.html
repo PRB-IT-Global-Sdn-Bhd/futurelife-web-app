@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Rentals Vendor Portal preview — application details" />
+  <title>Rentals Vendor Portal — Application Details</title>
+  <link rel="stylesheet" href="rentals-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Rentals Vendor Portal navigation">
+      <a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE<small>Rentals Vendor Portal</small></a>
+      <a class="account" href="rentals-vendor-profile.html"><span class="monogram">RS</span><span><strong>Rental Profile</strong><span class="sub">Owner or agent details</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Rentals management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="rentals-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="rentals-vendor-properties.html">Properties</a>
+        <a class="nav-link" href="rentals-vendor-availability.html">Availability &amp; Viewings</a>
+        <a class="nav-link active" href="rentals-vendor-applications.html" aria-current="page">Applications <span class="count">3</span></a>
+        <a class="nav-link" href="rentals-vendor-tenancies.html">Tenancies</a>
+        <a class="nav-link" href="rentals-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="rentals-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="rentals-vendor-listing-fees.html">Listing Fees</a>
+        <a class="nav-link billing-sub-link" href="rentals-vendor-rental-commissions.html">Rental Commissions</a>
+        <a class="nav-link" href="rentals-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="rentals-vendor-profile.html">Rental Profile</a>
+        <a class="nav-link" href="rentals-vendor-team-members.html">Team Members</a>
+        <a class="nav-link" href="rentals-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="rentals-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Rentals Owner / Agent workspace</header>
+      <header class="mobile-head"><a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Rentals Portal</span></header>
+      <main>
+        <section class="view" data-screen="application-details">
+          <div class="heading"><div><p class="eyebrow">Rental application</p><h1>Application Details</h1><p class="page-copy">Review the selected application and respond through the linked conversation. This screen does not make a tenancy decision or create a rental agreement.</p></div><a class="button secondary" href="rentals-vendor-applications.html">Back to Applications</a></div>
+          <div class="application-layout"><div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>{{APPLICANT_NAME}}</h2><p class="panel-copy">Application for <strong>{{PROPERTY_TITLE}}</strong></p></div><span id="application-status" class="badge new">New</span></div><dl class="detail-grid"><div class="detail"><dt>Preferred move-in</dt><dd>{{MOVE_IN_DATE}}</dd></div><div class="detail"><dt>Rental term</dt><dd>{{PREFERRED_RENTAL_TERM}}</dd></div><div class="detail"><dt>Preferred contact</dt><dd>{{PREFERRED_CONTACT}}</dd></div><div class="detail"><dt>Application submitted</dt><dd>{{APPLICATION_DATE}}</dd></div></dl></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Application note</h2><p class="panel-copy">Information supplied by the applicant.</p></div></div><p class="page-copy" style="margin-top:0">{{APPLICATION_MESSAGE}}</p></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Application activity</h2><p class="panel-copy">Keep application communications in the related message thread.</p></div></div><div class="timeline"><div class="timeline-row"><span class="step">1</span><div><h3>Application received</h3><p class="panel-copy">The application is ready for review.</p></div><time>{{APPLICATION_DATE}}</time></div><div class="timeline-row"><span class="step">2</span><div><h3>Owner / agent review pending</h3><p class="panel-copy">Review the stated move-in and rental-term preferences before replying.</p></div><time>Now</time></div></div></section></div><aside class="stack"><section class="callout"><h2>Next action</h2><p>Contact the applicant if you need to clarify a property or viewing question.</p><a class="button" href="rentals-vendor-messages.html?thread=applicant">Message Applicant</a><div style="height:8px"></div><button id="shortlist-application" class="button secondary" type="button">Shortlist</button><div style="height:8px"></div><button id="decline-application" class="button danger" type="button">Decline</button><p id="application-notice" class="notice"></p></section><section class="panel panel-pad"><h2>Related property</h2><p class="panel-copy">{{PROPERTY_TITLE}}</p><p class="panel-copy">{{PROPERTY_AREA}} · RM {{MONTHLY_RENT}} / month</p><a class="inline-link" href="rentals-vendor-property-details.html?state=live">View property</a></section><section class="panel panel-pad"><h2>Viewing</h2><p class="panel-copy">Propose a viewing time. It is confirmed only after the applicant accepts.</p><nav class="account-links"><a href="rentals-vendor-viewing-details.html?state=awaiting-response">View viewing request <span>›</span></a><a href="rentals-vendor-applicant-data-privacy.html">Applicant data &amp; privacy <span>›</span></a></nav></section></aside></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="rentals-vendor-portal.js"></script>
+</body>
+</html>

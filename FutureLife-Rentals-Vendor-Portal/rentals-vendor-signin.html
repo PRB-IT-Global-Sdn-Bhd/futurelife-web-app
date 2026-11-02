@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Rentals Vendor Portal login preview" />
+  <title>Rentals Vendor Portal — Rentals Vendor Login</title>
+  <link rel="stylesheet" href="vendor-portal-auth.css" />
+  <style>
+    .eyebrow { margin: 0 0 7px; color: #62a719; font-size: 10px; font-weight: 700; letter-spacing: .45px; text-align: center; text-transform: uppercase; }
+    .signin-copy { margin: -9px 0 22px; color: #6d7077; font-size: 10px; line-height: 1.5; text-align: center; }
+    input[type="email"], input[type="password"] { display: block; width: 100%; height: 29px; border: 1px solid var(--border); border-radius: 0; padding: 0 9px; color: var(--text); font: inherit; font-size: 10px; }
+    input:focus-visible, .signin-button:focus-visible { outline: 2px solid var(--futurelife-green); outline-offset: 2px; }
+    .signin-button { margin-top: 6px; }
+    .signup-copy { text-align: center; }
+    .signup-copy a.signup-link { text-decoration: none; }
+    .notice { min-height: 18px; margin: 13px 0 0; color: #62a719; font-size: 10px; font-weight: 700; line-height: 1.45; text-align: center; }
+    @media (max-width: 560px) { input[type="email"], input[type="password"] { height: 43px; font-size: 13px; } .signin-button { height: 43px; line-height: 43px; font-size: 12px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+    <section class="signin-area" aria-label="Rentals vendor login">
+      <p class="eyebrow">Rentals Vendor Portal</p>
+      <h1>Rentals Vendor Login</h1>
+      <p class="signin-copy">Enter your rental account details to open the FutureLife Rentals workspace preview.</p>
+      <form id="login-form" novalidate>
+        <div class="field"><label for="login-email">Email</label><input id="login-email" type="email" autocomplete="email" placeholder="name@example.com" required /></div>
+        <div class="field"><label for="login-password">Password</label><input id="login-password" type="password" autocomplete="current-password" placeholder="Enter password" required /></div>
+        <div class="forgot-row"><a class="forgot-link" href="rentals-vendor-forgot-password.html">Forgot password?</a></div>
+        <button class="signin-button" type="submit">Log In</button>
+        <p id="login-notice" class="notice" aria-live="polite"></p>
+      </form>
+      <p class="signup-copy">New rental owner or agent?<a class="signup-link" href="rentals-vendor-signup.html">Sign Up</a></p>
+    </section>
+  </main>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!form.checkValidity()) {
+        document.getElementById('login-notice').textContent = 'Enter a valid email address and password to continue in this preview.';
+        form.reportValidity();
+        return;
+      }
+      window.location.href = 'rentals-vendor-dashboard.html';
+    });
+  </script>
+</body>
+</html>

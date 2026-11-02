@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Rentals Vendor Portal preview — commission dispute" />
+  <title>Rentals Vendor Portal — Commission Dispute</title>
+  <link rel="stylesheet" href="rentals-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Rentals Vendor Portal navigation">
+      <a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE<small>Rentals Vendor Portal</small></a>
+      <a class="account" href="rentals-vendor-profile.html"><span class="monogram">RS</span><span><strong>Rental Profile</strong><span class="sub">Owner or agent details</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Rentals management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="rentals-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="rentals-vendor-properties.html">Properties</a>
+        <a class="nav-link" href="rentals-vendor-availability.html">Availability &amp; Viewings</a>
+        <a class="nav-link" href="rentals-vendor-applications.html">Applications <span class="count">3</span></a>
+        <a class="nav-link" href="rentals-vendor-tenancies.html">Tenancies</a>
+        <a class="nav-link" href="rentals-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="rentals-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="rentals-vendor-listing-fees.html">Listing Fees</a>
+        <a class="nav-link billing-sub-link active" href="rentals-vendor-rental-commissions.html" aria-current="page">Rental Commissions</a>
+        <a class="nav-link" href="rentals-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="rentals-vendor-profile.html">Rental Profile</a>
+        <a class="nav-link" href="rentals-vendor-team-members.html">Team Members</a>
+        <a class="nav-link" href="rentals-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="rentals-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Rentals Owner / Agent workspace</header>
+      <header class="mobile-head"><a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Rentals Portal</span></header>
+      <main>
+        <section class="view" data-screen="commission-dispute">
+          <div data-state-group="state"><div data-state="form"><div class="heading"><div><p class="eyebrow">Rental Commissions</p><h1>Raise a Commission Dispute</h1><p class="page-copy">Tell FutureLife why this commission record is wrong. Payment for this record is paused while it is reviewed.</p></div><a class="button secondary" href="rentals-vendor-rental-commissions.html">Back to Rental Commissions</a></div><div class="detail-layout"><div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>Commission record</h2></div></div><dl class="detail-grid"><div class="detail"><dt>Tenancy reference</dt><dd>{{TENANCY_REFERENCE}}</dd></div><div class="detail"><dt>Property</dt><dd>{{PROPERTY_TITLE}}</dd></div><div class="detail"><dt>Confirmed milestone</dt><dd>{{COMMISSION_TRIGGER}}</dd></div><div class="detail"><dt>Commission amount</dt><dd>RM {{COMMISSION_AMOUNT}}</dd></div></dl></section><form id="dispute-form" class="panel panel-pad"><div class="fields"><div class="field full"><label>Reason</label><select><option>Tenancy did not reach the milestone</option><option>Tenancy was cancelled</option><option>Amount is incorrect</option><option>Duplicate charge</option><option>Other</option></select></div><div class="field full"><label>Details</label><textarea placeholder="Explain what is wrong and include dates"></textarea></div><div class="field full"><label>Supporting documents</label><input type="file" /></div></div><div class="actions"><a class="button secondary" href="rentals-vendor-rental-commissions.html">Cancel</a><a class="button" href="rentals-vendor-commission-dispute.html?state=submitted">Submit Dispute</a></div></form></div><aside class="stack"><section class="panel panel-pad"><h2>Preview states</h2><p class="panel-copy">Switch the static preview between the states this screen supports.</p><nav class="account-links"><a href="rentals-vendor-commission-dispute.html?state=form" data-state-link="form">Dispute form <span>›</span></a><a href="rentals-vendor-commission-dispute.html?state=submitted" data-state-link="submitted">Submitted <span>›</span></a></nav></section><section class="safeguard"><h2>Live implementation</h2><p>Mark only the selected commission record as Disputed and pause its payment on the server. Do not change the amount from the portal.</p></section></aside></div></div><div data-state="submitted" hidden><div class="heading"><div><p class="eyebrow">Rental Commissions</p><h1>Dispute Submitted</h1><p class="page-copy">FutureLife will review the commission record and reply to {{RENTAL_CONTACT_EMAIL}}.</p></div><a class="button secondary" href="rentals-vendor-rental-commissions.html">Back to Rental Commissions</a></div><div class="detail-layout"><div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>Dispute {{DISPUTE_REFERENCE}}</h2></div><span class="badge pending">Under review</span></div><dl class="detail-grid"><div class="detail"><dt>Tenancy reference</dt><dd>{{TENANCY_REFERENCE}}</dd></div><div class="detail"><dt>Submitted</dt><dd>{{DISPUTE_SUBMITTED_DATE}}</dd></div><div class="detail"><dt>Expected response</dt><dd>{{DISPUTE_SLA}}</dd></div><div class="detail"><dt>Status</dt><dd>Under review</dd></div></dl></section><section class="panel"><div class="actions"><a class="button secondary" href="rentals-vendor-messages.html?thread=support">Message Support</a><a class="button" href="rentals-vendor-rental-commissions.html">Back to Rental Commissions</a></div></section></div><aside class="stack"><section class="panel panel-pad"><h2>Preview states</h2><p class="panel-copy">Switch the static preview between the states this screen supports.</p><nav class="account-links"><a href="rentals-vendor-commission-dispute.html?state=form" data-state-link="form">Dispute form <span>›</span></a><a href="rentals-vendor-commission-dispute.html?state=submitted" data-state-link="submitted">Submitted <span>›</span></a></nav></section><section class="safeguard"><h2>Live implementation</h2><p>Mark only the selected commission record as Disputed and pause its payment on the server. Do not change the amount from the portal.</p></section></aside></div></div></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="rentals-vendor-portal.js"></script>
+</body>
+</html>
