@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Admin Panel sign-in preview" />
+  <meta name="robots" content="noindex" />
+  <title>FutureLife Admin — Staff Sign In</title>
+  <link rel="stylesheet" href="admin-auth.css" />
+  <style>
+    .eyebrow { margin: 0 0 7px; color: #62a719; font-size: 10px; font-weight: 700; letter-spacing: .45px; text-align: center; text-transform: uppercase; }
+    .signin-copy { margin: -9px 0 22px; color: #6d7077; font-size: 10px; line-height: 1.5; text-align: center; }
+    input[type="email"], input[type="password"], input[type="text"] { display: block; width: 100%; height: 29px; border: 1px solid var(--border); border-radius: 0; padding: 0 9px; color: var(--text); font: inherit; font-size: 10px; }
+    input:focus-visible, .signin-button:focus-visible { outline: 2px solid var(--futurelife-green); outline-offset: 2px; }
+    .signin-button { margin-top: 6px; }
+    .signup-copy { text-align: center; }
+    .notice { min-height: 18px; margin: 13px 0 0; color: #62a719; font-size: 10px; font-weight: 700; line-height: 1.45; text-align: center; }
+    .notice.error { color: #c94a4a; }
+    .state-links { margin-top: 26px; color: #6d7077; font-size: 10px; text-align: center; }
+    .state-links a { margin: 0 6px; color: #397d13; font-weight: 700; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+    <section class="signin-area" aria-label="Admin staff sign in">
+      <div data-step="password">
+        <p class="eyebrow">Admin Panel</p>
+        <h1>Staff Sign In</h1>
+        <p class="signin-copy">For FutureLife product, sales, support and finance staff. Accounts are created by invitation only.</p>
+        <form id="login-form" novalidate>
+          <div class="field"><label for="login-email">Work email</label><input id="login-email" type="email" autocomplete="username" placeholder="name@futurelife.com" required /></div>
+          <div class="field"><label for="login-password">Password</label><input id="login-password" type="password" autocomplete="current-password" placeholder="Enter password" required /></div>
+          <button class="signin-button" type="submit">Continue</button>
+          <p id="login-notice" class="notice" aria-live="polite"></p>
+        </form>
+        <p class="signup-copy">Need access? Ask an Admin to invite you from Team &amp; Roles.</p>
+      </div>
+      <div data-step="mfa" hidden>
+        <p class="eyebrow">Admin Panel</p>
+        <h1>2-Step Verification</h1>
+        <p class="signin-copy">Enter the 6-digit code from your authenticator app. 2-step verification is required for every staff account.</p>
+        <form id="mfa-form" novalidate>
+          <div class="field"><label for="mfa-code">Verification code</label><input id="mfa-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456" required /></div>
+          <button class="signin-button" type="submit">Verify &amp; Sign In</button>
+          <p id="mfa-notice" class="notice" aria-live="polite"></p>
+        </form>
+      </div>
+      <div data-step="no-access" hidden>
+        <p class="eyebrow">Admin Panel</p>
+        <h1>No Admin Access</h1>
+        <p class="signin-copy">This account is not assigned an admin role, or its access was removed. Vendors should use their vendor portal.</p>
+        <p class="notice error">Access attempts are recorded in the audit log.</p>
+      </div>
+      <p class="state-links">Preview states: <a href="admin-signin.html">Sign in</a><a href="admin-signin.html?state=mfa">2-step code</a><a href="admin-signin.html?state=no-access">No access</a></p>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var state = new URLSearchParams(location.search).get('state') || 'password';
+      document.querySelectorAll('[data-step]').forEach(function (el) { el.hidden = el.dataset.step !== state; });
+      if (!document.querySelector('[data-step]:not([hidden])')) document.querySelector('[data-step="password"]').hidden = false;
+      document.getElementById('login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!e.currentTarget.checkValidity()) { document.getElementById('login-notice').textContent = 'Enter your work email and password to continue in this preview.'; return; }
+        location.href = 'admin-signin.html?state=mfa';
+      });
+      document.getElementById('mfa-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!e.currentTarget.checkValidity()) { document.getElementById('mfa-notice').textContent = 'Enter the 6-digit code to continue in this preview.'; return; }
+        location.href = 'admin-dashboard.html';
+      });
+    })();
+  </script>
+</body>
+</html>

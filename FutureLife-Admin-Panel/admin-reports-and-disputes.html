@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Admin Panel preview — Reports &amp; Disputes" />
+  <meta name="robots" content="noindex" />
+  <title>FutureLife Admin — Reports &amp; Disputes</title>
+  <link rel="stylesheet" href="admin-panel.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="FutureLife Admin Panel navigation">
+      <a class="brand" href="admin-dashboard.html">FUTURE LIFE<small>Admin Panel</small></a>
+      <a class="account" href="admin-team-and-roles.html?view=my-access"><span class="monogram">FL</span><span><strong>{{STAFF_NAME}}</strong><span class="sub">{{STAFF_ROLE}} · internal staff</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Overview</p>
+      <nav class="nav-list" aria-label="Overview">
+        <a class="nav-link" href="admin-dashboard.html">Dashboard</a>
+      </nav>
+      <p class="side-label">Accounts</p>
+      <nav class="nav-list" aria-label="Accounts">
+        <a class="nav-link" href="admin-vendors.html">Vendors</a>
+        <a class="nav-link" href="admin-users.html">Users</a>
+      </nav>
+      <p class="side-label">Review queues</p>
+      <nav class="nav-list" aria-label="Review queues">
+        <a class="nav-link" href="admin-verification-queue.html">Verification <span class="count">7</span></a>
+        <a class="nav-link" href="admin-moderation-queue.html">Moderation <span class="count">12</span></a>
+        <a class="nav-link active" href="admin-reports-and-disputes.html" aria-current="page">Reports &amp; Disputes <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Content</p>
+      <nav class="nav-list" aria-label="Content">
+        <a class="nav-link" href="admin-marketplace.html">Marketplace</a>
+        <a class="nav-link" href="admin-deals.html">Deals</a>
+        <a class="nav-link" href="admin-jobs.html">Jobs</a>
+        <a class="nav-link" href="admin-rentals.html">Rentals</a>
+        <a class="nav-link" href="admin-community.html">Community</a>
+      </nav>
+      <p class="side-label">Finance</p>
+      <nav class="nav-list" aria-label="Finance">
+        <a class="nav-link" href="admin-orders.html">Orders</a>
+        <a class="nav-link" href="admin-payouts.html">Payouts</a>
+        <a class="nav-link" href="admin-billing-and-revenue.html">Billing &amp; Revenue</a>
+        <a class="nav-link" href="admin-fees-and-commissions.html">Fees &amp; Commissions</a>
+        <a class="nav-link" href="admin-payment-exceptions.html">Payment Exceptions <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Configuration</p>
+      <nav class="nav-list" aria-label="Configuration">
+        <a class="nav-link" href="admin-plans-and-pricing.html">Plans &amp; Pricing</a>
+        <a class="nav-link" href="admin-team-and-roles.html">Team &amp; Roles</a>
+        <a class="nav-link" href="admin-audit-log.html">Audit Log</a>
+        <a class="nav-link" href="admin-settings.html">Settings</a>
+      </nav>
+      <a class="logout" href="admin-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar"><span class="topbar-env">Preview data</span>FutureLife internal admin · Product, Sales, Support &amp; Finance</header>
+      <main>
+        <section class="view" data-screen="reports-and-disputes">
+        <p class="notice global-notice" id="global-notice" hidden aria-live="polite"></p>
+        <div class="heading"><div><p class="eyebrow">Review queues</p><h1>Reports &amp; Disputes</h1><p class="page-copy">Support and finance cases across all verticals: order disputes, placement-fee and commission disputes, and reports about listings, jobs, properties and users.</p></div></div><div class="summary-grid"><a class="summary" href="admin-reports-and-disputes.html?type=order-dispute"><span class="label">Order disputes</span><strong class="ph">{{ORDER_DISPUTES}}</strong><span class="note">Marketplace</span></a><a class="summary" href="admin-reports-and-disputes.html?type=placement-fee"><span class="label">Placement-fee disputes</span><strong class="ph">{{FEE_DISPUTES}}</strong><span class="note">Jobs</span></a><a class="summary" href="admin-reports-and-disputes.html?type=commission"><span class="label">Commission disputes</span><strong class="ph">{{COMMISSION_DISPUTES}}</strong><span class="note">Rentals</span></a><a class="summary pending" href="admin-reports-and-disputes.html?type=listing-report"><span class="label">Reports</span><strong class="ph">{{REPORTS}}</strong><span class="note">Listings, jobs, properties</span></a></div><section class="panel panel-pad"><div class="toolbar"><div class="filters" role="group" aria-label="Case type" data-filter-for="case-table" data-filter-key="type"><button class="filter active" type="button" data-value="all">All cases</button><button class="filter" type="button" data-value="order-dispute">Order disputes</button><button class="filter" type="button" data-value="placement-fee">Placement fees</button><button class="filter" type="button" data-value="commission">Commissions</button><button class="filter" type="button" data-value="listing-report">Reports</button></div><select class="filter-select" aria-label="Status" data-filter-for="case-table" data-filter-key="status"><option value="all">All states</option><option value="open">Open</option><option value="awaiting-evidence">Awaiting evidence</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option></select><input class="search" type="search" placeholder="Search case, order or vendor" aria-label="Search case, order or vendor" data-search-for="case-table" /></div><div class="table-wrap"><table><thead><tr><th>Case</th><th>Type</th><th>Vendor</th><th>Amount</th><th>Status</th><th>Opened</th><th>Assignee</th><th></th></tr></thead><tbody id="case-table"><tr data-type="order-dispute" data-status="open"><td class="primary-cell">{{ORDER_ID}} · Item not as described<span class="secondary">{{CASE_ID}}</span></td><td>Order dispute</td><td>TechNova Campus Store</td><td>RM 89.00</td><td><span class="badge new">Open</span></td><td>{{OPENED_AT}}</td><td>{{ASSIGNEE}}</td><td><a class="inline-link" href="admin-case-details.html?type=order-dispute">Open</a></td></tr><tr data-type="placement-fee" data-status="awaiting-evidence"><td class="primary-cell">{{PLACEMENT_FEE_ID}} · Candidate did not start<span class="secondary">{{CASE_ID}}</span></td><td>Placement-fee dispute</td><td>Brightpath Logistics Sdn Bhd</td><td>RM {{FEE_AMOUNT}}</td><td><span class="badge ending">Awaiting evidence</span></td><td>{{OPENED_AT}}</td><td>{{ASSIGNEE}}</td><td><a class="inline-link" href="admin-case-details.html?type=placement-fee">Open</a></td></tr><tr data-type="commission" data-status="open"><td class="primary-cell">{{COMMISSION_ID}} · Tenancy cancelled before move-in<span class="secondary">{{CASE_ID}}</span></td><td>Commission dispute</td><td>Seri Mutiara Property Management</td><td>RM {{COMMISSION_AMOUNT}}</td><td><span class="badge new">Open</span></td><td>{{OPENED_AT}}</td><td>Unassigned</td><td><a class="inline-link" href="admin-case-details.html?type=commission">Open</a></td></tr><tr data-type="listing-report" data-status="escalated"><td class="primary-cell">“Earn RM500 a day” job · Suspected scam<span class="secondary">{{CASE_ID}}</span></td><td>Listing report</td><td>Northgate Retail</td><td>—</td><td><span class="badge ending">Escalated</span></td><td>{{OPENED_AT}}</td><td>{{ASSIGNEE}}</td><td><a class="inline-link" href="admin-case-details.html?type=listing-report">Open</a></td></tr><tr data-type="listing-report" data-status="resolved"><td class="primary-cell">Penang Island Studio · Photos do not match<span class="secondary">{{CASE_ID}}</span></td><td>Listing report</td><td>Gelugor Rooms</td><td>—</td><td><span class="badge completed">Resolved</span></td><td>{{OPENED_AT}}</td><td>{{ASSIGNEE}}</td><td><a class="inline-link" href="admin-case-details.html?type=listing-report&amp;state=resolved">Open</a></td></tr></tbody></table><p class="empty-row" data-empty-for="case-table" hidden>No records match these filters.</p></div></section>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="admin-panel.js"></script>
+</body>
+</html>

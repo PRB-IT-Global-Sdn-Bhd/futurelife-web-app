@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Admin Panel preview — Settings" />
+  <meta name="robots" content="noindex" />
+  <title>FutureLife Admin — Settings</title>
+  <link rel="stylesheet" href="admin-panel.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="FutureLife Admin Panel navigation">
+      <a class="brand" href="admin-dashboard.html">FUTURE LIFE<small>Admin Panel</small></a>
+      <a class="account" href="admin-team-and-roles.html?view=my-access"><span class="monogram">FL</span><span><strong>{{STAFF_NAME}}</strong><span class="sub">{{STAFF_ROLE}} · internal staff</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Overview</p>
+      <nav class="nav-list" aria-label="Overview">
+        <a class="nav-link" href="admin-dashboard.html">Dashboard</a>
+      </nav>
+      <p class="side-label">Accounts</p>
+      <nav class="nav-list" aria-label="Accounts">
+        <a class="nav-link" href="admin-vendors.html">Vendors</a>
+        <a class="nav-link" href="admin-users.html">Users</a>
+      </nav>
+      <p class="side-label">Review queues</p>
+      <nav class="nav-list" aria-label="Review queues">
+        <a class="nav-link" href="admin-verification-queue.html">Verification <span class="count">7</span></a>
+        <a class="nav-link" href="admin-moderation-queue.html">Moderation <span class="count">12</span></a>
+        <a class="nav-link" href="admin-reports-and-disputes.html">Reports &amp; Disputes <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Content</p>
+      <nav class="nav-list" aria-label="Content">
+        <a class="nav-link" href="admin-marketplace.html">Marketplace</a>
+        <a class="nav-link" href="admin-deals.html">Deals</a>
+        <a class="nav-link" href="admin-jobs.html">Jobs</a>
+        <a class="nav-link" href="admin-rentals.html">Rentals</a>
+        <a class="nav-link" href="admin-community.html">Community</a>
+      </nav>
+      <p class="side-label">Finance</p>
+      <nav class="nav-list" aria-label="Finance">
+        <a class="nav-link" href="admin-orders.html">Orders</a>
+        <a class="nav-link" href="admin-payouts.html">Payouts</a>
+        <a class="nav-link" href="admin-billing-and-revenue.html">Billing &amp; Revenue</a>
+        <a class="nav-link" href="admin-fees-and-commissions.html">Fees &amp; Commissions</a>
+        <a class="nav-link" href="admin-payment-exceptions.html">Payment Exceptions <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Configuration</p>
+      <nav class="nav-list" aria-label="Configuration">
+        <a class="nav-link" href="admin-plans-and-pricing.html">Plans &amp; Pricing</a>
+        <a class="nav-link" href="admin-team-and-roles.html">Team &amp; Roles</a>
+        <a class="nav-link" href="admin-audit-log.html">Audit Log</a>
+        <a class="nav-link active" href="admin-settings.html" aria-current="page">Settings</a>
+      </nav>
+      <a class="logout" href="admin-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar"><span class="topbar-env">Preview data</span>FutureLife internal admin · Product, Sales, Support &amp; Finance</header>
+      <main>
+        <section class="view" data-screen="settings">
+        <p class="notice global-notice" id="global-notice" hidden aria-live="polite"></p>
+        <div class="heading"><div><p class="eyebrow">Configuration</p><h1>Settings</h1><p class="page-copy">Platform settings for the admin panel and vendor portals. Secrets are stored server-side and never shown here.</p></div><div class="heading-actions"><button class="button" type="button" data-preview-notice="Preview only — settings are saved as a new version and logged.">Save Settings</button></div></div><div class="form-layout"><div><section class="form-section"><div class="section-line"><h2>Review rules</h2><p>Applies to the moderation queue</p></div><div class="fields"><div class="field"><label for="s-sla">Review target</label><select id="s-sla"><option>24 hours</option><option>48 hours</option></select></div><div class="field"><label for="s-exp">Verification valid for</label><select id="s-exp"><option>12 months</option><option>24 months</option></select></div><div class="field full"><label for="s-reasons">Rejection reason list</label><textarea id="s-reasons">Misleading or inaccurate details&#10;Prohibited item or service&#10;Discriminatory wording&#10;Missing required disclosure&#10;Duplicate listing&#10;Suspected scam</textarea></div></div></section><section class="form-section"><div class="section-line"><h2>Payments</h2><p>Read-only status</p></div><dl class="detail-grid"><div class="detail"><dt>Stripe mode</dt><dd>{{STRIPE_MODE}}</dd></div><div class="detail"><dt>Webhook endpoint</dt><dd>{{WEBHOOK_URL}}</dd></div><div class="detail"><dt>Signing secret</dt><dd>Stored in server settings</dd></div><div class="detail"><dt>Currency</dt><dd>MYR</dd></div><div class="detail"><dt>Time zone</dt><dd>Asia/Kuala_Lumpur (MYT)</dd></div></dl></section><section class="form-section"><div class="section-line"><h2>Notifications to staff</h2><p>Email alerts</p></div><div class="checklist"><div class="check"><span>☑</span><div><strong>New verification requests</strong><span>To reviewers</span></div></div><div class="check"><span>☑</span><div><strong>Payment exceptions</strong><span>To finance</span></div></div><div class="check"><span>☑</span><div><strong>Reports marked as suspected scam</strong><span>To support and reviewers</span></div></div></div></section></div></div><section class="safeguard"><h2>Environments</h2><p>Development, staging and production use separate Stripe keys and webhook endpoints. Keys are managed in server settings by Admin only.</p></section>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="admin-panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Admin Panel preview — Audit Log" />
+  <meta name="robots" content="noindex" />
+  <title>FutureLife Admin — Audit Log</title>
+  <link rel="stylesheet" href="admin-panel.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="FutureLife Admin Panel navigation">
+      <a class="brand" href="admin-dashboard.html">FUTURE LIFE<small>Admin Panel</small></a>
+      <a class="account" href="admin-team-and-roles.html?view=my-access"><span class="monogram">FL</span><span><strong>{{STAFF_NAME}}</strong><span class="sub">{{STAFF_ROLE}} · internal staff</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Overview</p>
+      <nav class="nav-list" aria-label="Overview">
+        <a class="nav-link" href="admin-dashboard.html">Dashboard</a>
+      </nav>
+      <p class="side-label">Accounts</p>
+      <nav class="nav-list" aria-label="Accounts">
+        <a class="nav-link" href="admin-vendors.html">Vendors</a>
+        <a class="nav-link" href="admin-users.html">Users</a>
+      </nav>
+      <p class="side-label">Review queues</p>
+      <nav class="nav-list" aria-label="Review queues">
+        <a class="nav-link" href="admin-verification-queue.html">Verification <span class="count">7</span></a>
+        <a class="nav-link" href="admin-moderation-queue.html">Moderation <span class="count">12</span></a>
+        <a class="nav-link" href="admin-reports-and-disputes.html">Reports &amp; Disputes <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Content</p>
+      <nav class="nav-list" aria-label="Content">
+        <a class="nav-link" href="admin-marketplace.html">Marketplace</a>
+        <a class="nav-link" href="admin-deals.html">Deals</a>
+        <a class="nav-link" href="admin-jobs.html">Jobs</a>
+        <a class="nav-link" href="admin-rentals.html">Rentals</a>
+        <a class="nav-link" href="admin-community.html">Community</a>
+      </nav>
+      <p class="side-label">Finance</p>
+      <nav class="nav-list" aria-label="Finance">
+        <a class="nav-link" href="admin-orders.html">Orders</a>
+        <a class="nav-link" href="admin-payouts.html">Payouts</a>
+        <a class="nav-link" href="admin-billing-and-revenue.html">Billing &amp; Revenue</a>
+        <a class="nav-link" href="admin-fees-and-commissions.html">Fees &amp; Commissions</a>
+        <a class="nav-link" href="admin-payment-exceptions.html">Payment Exceptions <span class="count">5</span></a>
+      </nav>
+      <p class="side-label">Configuration</p>
+      <nav class="nav-list" aria-label="Configuration">
+        <a class="nav-link" href="admin-plans-and-pricing.html">Plans &amp; Pricing</a>
+        <a class="nav-link" href="admin-team-and-roles.html">Team &amp; Roles</a>
+        <a class="nav-link active" href="admin-audit-log.html" aria-current="page">Audit Log</a>
+        <a class="nav-link" href="admin-settings.html">Settings</a>
+      </nav>
+      <a class="logout" href="admin-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar"><span class="topbar-env">Preview data</span>FutureLife internal admin · Product, Sales, Support &amp; Finance</header>
+      <main>
+        <section class="view" data-screen="audit-log">
+        <p class="notice global-notice" id="global-notice" hidden aria-live="polite"></p>
+        <div class="heading"><div><p class="eyebrow">Governance</p><h1>Audit Log</h1><p class="page-copy">Immutable record of decisions, money movements and sensitive-data access. Entries cannot be edited or deleted.</p></div><div class="heading-actions"><button class="button secondary" type="button" data-preview-notice="Preview only — exports are limited to Admin and logged.">Export CSV</button></div></div><section class="panel panel-pad"><div class="toolbar"><div class="filters" role="group" aria-label="Event type" data-filter-for="audit-table" data-filter-key="type"><button class="filter active" type="button" data-value="all">All</button><button class="filter" type="button" data-value="verification">Verification</button><button class="filter" type="button" data-value="moderation">Moderation</button><button class="filter" type="button" data-value="account">Accounts</button><button class="filter" type="button" data-value="finance">Finance</button><button class="filter" type="button" data-value="access">Data access</button><button class="filter" type="button" data-value="system">System</button></div><input class="search" type="search" placeholder="Search actor, target or ID" aria-label="Search actor, target or ID" data-search-for="audit-table" /></div><div class="table-wrap"><table><thead><tr><th>Time (MYT)</th><th>Actor</th><th>Action</th><th>Target</th><th>Reason / reference</th></tr></thead><tbody id="audit-table"><tr data-type="verification"><td>{{EVENT_TIME}}</td><td>{{REVIEWER}}</td><td class="primary-cell">Approved Verified Employer</td><td>Brightpath Logistics Sdn Bhd · {{VERIFICATION_ID}}</td><td>Evidence v1 reviewed</td></tr><tr data-type="moderation"><td>{{EVENT_TIME}}</td><td>{{REVIEWER}}</td><td class="primary-cell">Requested changes</td><td>Room near SS15 LRT · {{PROPERTY_ID}}</td><td>Missing required disclosure</td></tr><tr data-type="finance"><td>{{EVENT_TIME}}</td><td>{{STAFF_NAME}}</td><td class="primary-cell">Placed payout hold</td><td>{{PAYOUT_ID}}</td><td>Open dispute or chargeback</td></tr><tr data-type="access"><td>{{EVENT_TIME}}</td><td>{{STAFF_NAME}}</td><td class="primary-cell">Viewed rental application</td><td>{{APPLICATION_ID}} via {{CASE_ID}}</td><td>Commission dispute</td></tr><tr data-type="account"><td>{{EVENT_TIME}}</td><td>{{STAFF_NAME}}</td><td class="primary-cell">Suspended vendor</td><td>Gelugor Rooms · {{VENDOR_ID}}</td><td>Repeated listing rejections</td></tr><tr data-type="system"><td>{{EVENT_TIME}}</td><td>Stripe webhook</td><td class="primary-cell">Plan activated</td><td>TechNova Campus Store · Pro</td><td>evt_{{STRIPE_EVENT_ID}} verified</td></tr></tbody></table><p class="empty-row" data-empty-for="audit-table" hidden>No records match these filters.</p></div><div class="pager"><span>Showing 1–6 of {{EVENT_COUNT}}</span><div class="pager-buttons"><button class="button secondary small" type="button" disabled>Previous</button><button class="button secondary small" type="button" data-preview-notice="Preview only — the live admin loads the next page from the server.">Next</button></div></div></section>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="admin-panel.js"></script>
+</body>
+</html>
