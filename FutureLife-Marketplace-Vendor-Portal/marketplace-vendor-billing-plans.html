@@ -37,7 +37,7 @@
     .topbar { display:flex; min-height:46px; align-items:center; justify-content:flex-end; padding:0 33px; border-bottom:1px solid var(--line); }
     .topbar-label { color:#5c5f65; font-size:11px; }
     .topbar-label strong { color:var(--green-dark); }
-    .mobile-header, .mobile-nav { display:none; }
+    .mobile-header { display:none; }
     .content { width:min(100% - 70px, 1058px); margin:35px auto 70px; }
     .heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
     .eyebrow { margin:0 0 5px; color:var(--green-dark); font-size:10px; font-weight:700; }
@@ -95,7 +95,6 @@
 
     @media (max-width:960px) {
       html, body { max-width:100%; overflow-x:clip; }
-      body { padding-bottom:60px; }
       .sidebar, .topbar { display:none; }
       .page-shell { margin-left:0; }
       .mobile-header { display:flex; min-height:62px; align-items:center; justify-content:space-between; gap:10px; padding:0 13px; border-bottom:2px solid #eee; background:var(--white); }
@@ -118,12 +117,10 @@
       .mobile-invoice-card { display:block; }
       .mobile-invoice-grid { grid-template-columns:1fr; }
       .mobile-invoice-grid > div + div { border-top:1px solid #ededed; }
-      .mobile-nav { position:fixed; z-index:5; right:0; bottom:0; left:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); min-height:60px; overflow-x:auto; border-top:1px solid #e4e4e4; background:var(--white); }
-      .mobile-nav a { display:grid; min-width:0; place-items:center; color:#4f5258; font-size:9px; font-weight:700; text-align:center; text-decoration:none; }
-      .mobile-nav a.active { border-top:3px solid var(--green); color:#54751c; }
     }
     @media (prefers-reduced-motion:no-preference) { a,button { transition:background-color 160ms cubic-bezier(.23,1,.32,1),color 160ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1); } a:active,button:active { transform:scale(.97); } }
   </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
 <body>
   <aside class="sidebar" aria-label="Vendor portal navigation">
@@ -211,9 +208,6 @@
     </main>
   </div>
 
-  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
-    <a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a href="#payouts">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a>
-  </nav>
 
   <script>
     document.querySelectorAll('[data-billing-action]').forEach((button) => button.addEventListener('click', () => {

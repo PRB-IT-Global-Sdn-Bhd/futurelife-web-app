@@ -51,7 +51,7 @@
     const messages = [...nav.querySelectorAll('a')].find((link) => labelOf(link) === 'messages');
     const link = document.createElement('a');
     link.href = ROUTES.notifications;
-    link.textContent = nav.classList.contains('mobile-nav') ? 'Alerts' : 'Notifications';
+    link.textContent = 'Notifications';
     if (messages) messages.insertAdjacentElement('afterend', link);
     else nav.appendChild(link);
   }
@@ -73,7 +73,7 @@
   }
 
   function exposeNotifications() {
-    document.querySelectorAll('.side-menu, .mobile-nav').forEach(addNotificationsLink);
+    document.querySelectorAll('.side-menu').forEach(addNotificationsLink);
   }
 
   function addBillingSubpageStyles() {
@@ -136,27 +136,65 @@
     return '';
   }
 
-  function normaliseMobileNavigation() {
-    const items = [
-      ['dashboard', 'Dashboard'],
-      ['listings', 'Listings'],
-      ['orders', 'Orders'],
-      ['payouts', 'Payouts'],
-      ['messages', 'Messages'],
-      ['notifications', 'Alerts'],
-      ['profile', 'Profile']
-    ];
-    const current = activeKeyForPath();
-    document.querySelectorAll('.mobile-nav').forEach((nav) => {
-      nav.innerHTML = items.map(([key, label]) => `<a href="${ROUTES[key]}"${key === current ? ' class="active" aria-current="page"' : ''}>${label}</a>`).join('');
-      nav.style.gridTemplateColumns = 'repeat(7, minmax(0, 1fr))';
-      nav.querySelectorAll('a').forEach((link) => { link.style.minWidth = '0'; });
-    });
+  function setupMobileMenu() {
+    const menu = document.querySelector('aside.sidebar, aside.desktop-sidebar');
+    const header = document.querySelector('.mobile-header');
+    if (!menu || !header || !menu.querySelector('.side-menu') || document.getElementById('menu-toggle')) return;
+    if (!menu.id) menu.id = 'vendor-menu';
+    menu.classList.add('vp-drawer');
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'menu-close';
+    closeButton.id = 'menu-close';
+    closeButton.type = 'button';
+    closeButton.setAttribute('aria-label', 'Close menu');
+    closeButton.textContent = '✕';
+    menu.insertBefore(closeButton, menu.firstElementChild ? menu.firstElementChild.nextSibling : null);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    overlay.id = 'menu-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(overlay);
+
+    const toggle = document.createElement('button');
+    toggle.className = 'menu-toggle';
+    toggle.id = 'menu-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-label', 'Open menu');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', menu.id);
+    toggle.innerHTML = '<span></span><span></span><span></span>';
+    const start = document.createElement('span');
+    start.className = 'mobile-header-start';
+    const first = header.firstElementChild;
+    header.insertBefore(start, first);
+    start.appendChild(toggle);
+    if (first) start.appendChild(first);
+
+    const mobile = window.matchMedia('(max-width: 960px)');
+    function setMenu(open, returnFocus) {
+      menu.classList.toggle('open', open);
+      overlay.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) closeButton.focus();
+      else if (returnFocus) toggle.focus();
+    }
+    toggle.addEventListener('click', () => setMenu(!menu.classList.contains('open'), false));
+    closeButton.addEventListener('click', () => setMenu(false, true));
+    overlay.addEventListener('click', () => setMenu(false, true));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && menu.classList.contains('open')) setMenu(false, true); });
+    menu.addEventListener('click', (event) => { if (event.target.closest('a') && mobile.matches) setMenu(false, false); });
+    const closeOnDesktop = () => { if (!mobile.matches && menu.classList.contains('open')) setMenu(false, false); };
+    if (mobile.addEventListener) mobile.addEventListener('change', closeOnDesktop);
+    else if (mobile.addListener) mobile.addListener(closeOnDesktop);
   }
 
   function indicateCurrentPage() {
     const current = window.location.pathname.split('/').pop();
-    document.querySelectorAll('.side-menu a, .mobile-nav a').forEach((link) => {
+    document.querySelectorAll('.side-menu a').forEach((link) => {
       const href = link.getAttribute('href');
       if (!href || !href.endsWith(current)) return;
       link.classList.add('active');
@@ -170,8 +208,8 @@
     addBillingSubpageStyles();
     groupPlatformFeesUnderBilling();
     addPlansAndListingFeesUnderBilling();
-    normaliseMobileNavigation();
     indicateCurrentPage();
+    setupMobileMenu();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialise);

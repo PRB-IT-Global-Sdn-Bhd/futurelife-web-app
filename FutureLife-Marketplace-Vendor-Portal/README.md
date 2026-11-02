@@ -8,7 +8,11 @@ Open `marketplace-vendor-dashboard.html` in a modern web browser.
 
 This archive contains the current Marketplace Vendor Portal preview, including listings, orders, messages, notifications, billing, sponsored listings, listing credits, plan changes, Platform Fees, order earnings breakdowns, payout statements, payout account details, fulfilment settings, account security, and related preview routes.
 
-`vendor-portal-navigation.js` and `marketplace-vendor-sponsored-listing-flow.css` must remain in the same folder as the HTML files because the linked pages use them.
+Checkout return states for sponsored listings, listing credits and plan changes each have a processing (awaiting verified payment confirmation), cancelled and expired page, for example `marketplace-vendor-sponsored-listing-processing.html`, `-cancelled.html` and `-expired.html`. The payment and review pages now open the processing page; success is only shown after server confirmation.
+
+On screens up to 960px wide the portal navigation opens as a hamburger drawer instead of a bottom tab bar.
+
+`vendor-portal-navigation.js`, `vendor-portal-navigation.css` and `marketplace-vendor-sponsored-listing-flow.css` must remain in the same folder as the HTML files because the linked pages use them.
 
 ## Preview-only notice
 

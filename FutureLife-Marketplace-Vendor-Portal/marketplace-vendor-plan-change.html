@@ -6,6 +6,7 @@
   <meta name="description" content="FutureLife Marketplace Vendor plan-change preview" />
   <title>Marketplace Vendor Portal — Manage Plan</title>
   <link rel="stylesheet" href="marketplace-vendor-sponsored-listing-flow.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
 <body>
   <aside class="sidebar" aria-label="Vendor portal navigation"><a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a><a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a><section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing-plans.html">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section><a class="side-logout" href="#logout">Logout</a></aside>
@@ -16,7 +17,6 @@
       <aside class="notice warning"><strong>Downgrade safeguard:</strong> if <code>{{ACTIVE_LISTINGS}}</code> exceeds the selected plan limit, FutureLife must not immediately reduce the allowance. Require the vendor to resolve the excess listings or schedule the downgrade for a permitted effective date.</aside>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="active" href="#payouts" aria-current="page">Payouts</a><a href="#messages">Messages</a><a href="#notifications">Alerts</a><a href="#profile">Profile</a></nav>
   <script>
     const plans=[...document.querySelectorAll('input[name="target-plan"]')]; const planName=document.getElementById('summary-target-plan'); const planPrice=document.getElementById('summary-target-price'); const planLimit=document.getElementById('summary-target-limit');
     function syncPlan(input){planName.textContent=input.dataset.plan;planPrice.textContent=`RM ${input.dataset.price} / {{BILLING_CYCLE}}`;planLimit.textContent=`${input.dataset.limit} active`;}

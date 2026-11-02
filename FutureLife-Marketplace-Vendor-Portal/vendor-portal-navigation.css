@@ -1,0 +1,22 @@
+/* Mobile hamburger drawer for the Marketplace Vendor Portal.
+   vendor-portal-navigation.js adds the menu button, close button and overlay,
+   and marks the page sidebar with .vp-drawer. Desktop (above 960px) is unchanged. */
+.menu-toggle, .menu-close, .menu-overlay { display:none; }
+@media (max-width:960px) {
+  body.menu-open { overflow:hidden; }
+  aside.vp-drawer { display:block; z-index:7; width:min(280px,86vw); overflow-y:auto; visibility:hidden; transform:translateX(-100%); }
+  aside.vp-drawer.open { visibility:visible; transform:translateX(0); }
+  .vp-drawer > .portal-name, .vp-drawer > .side-brand { display:flex; min-height:46px; align-items:center; padding-right:54px; }
+  .menu-close { position:absolute; top:3px; right:6px; display:grid; width:40px; height:40px; place-items:center; border:1px solid var(--line); padding:0; background:var(--white); color:#34373d; font-size:15px; font-weight:700; line-height:1; }
+  .menu-close:hover { border-color:var(--green); background:var(--pale-green); color:#397d13; }
+  .menu-overlay { position:fixed; z-index:6; inset:0; background:rgba(32,35,43,.45); }
+  .menu-overlay.open { display:block; }
+  .menu-toggle { display:grid; width:40px; height:40px; flex:0 0 40px; align-content:center; justify-items:center; gap:4px; border:1px solid var(--line); padding:0; background:var(--white); }
+  .menu-toggle:hover, .menu-toggle[aria-expanded="true"] { border-color:var(--green); background:var(--pale-green); }
+  .menu-toggle span { display:block; width:18px; height:2px; background:#34373d; }
+  .mobile-header-start { display:flex; min-width:0; align-items:center; gap:10px; }
+}
+@media (max-width:960px) and (prefers-reduced-motion:no-preference) {
+  aside.vp-drawer { transition:transform 200ms cubic-bezier(.23,1,.32,1), visibility 0s linear 200ms; }
+  aside.vp-drawer.open { transition:transform 200ms cubic-bezier(.23,1,.32,1), visibility 0s; }
+}

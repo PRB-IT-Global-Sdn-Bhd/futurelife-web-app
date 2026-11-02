@@ -100,9 +100,8 @@
     .tip-number { display: grid; width: 18px; height: 18px; flex: 0 0 18px; place-items: center; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; }
     .listing-tip strong { display: block; margin-bottom: 2px; color: #32353b; }
 
-    .mobile-header, .mobile-nav { display: none; }
+    .mobile-header { display: none; }
     @media (max-width: 960px) {
-      body { padding-bottom: 60px; }
       .desktop-sidebar, .desktop-topbar { display: none; }
       .page-shell { margin-left: 0; }
       .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
@@ -132,15 +131,13 @@
       .listing-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; border-top: 1px solid #ededed; padding-top: 10px; }
       .listing-actions .manage-link { font-size: 10px; }
       .listing-tip { margin-top: 12px; }
-      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
-      .mobile-nav a { display: grid; min-width: 70px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
-      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
     }
     @media (prefers-reduced-motion: no-preference) {
       a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
       a:active, button:active { transform: scale(.97); }
     }
   </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
 <body>
   <aside class="desktop-sidebar" aria-label="Vendor portal navigation">
@@ -211,14 +208,6 @@
     </main>
   </div>
 
-  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
-    <a href="marketplace-vendor-dashboard.html">Dashboard</a>
-    <a class="active" href="marketplace-vendor-listings.html" aria-current="page">Listings</a>
-    <a href="marketplace-vendor-orders.html">Orders</a>
-    <a href="marketplace-vendor-payouts.html">Payouts</a>
-    <a href="marketplace-vendor-messages.html">Messages</a>
-    <a href="marketplace-vendor-profile.html">Profile</a>
-  </nav>
 
   <script>
     const filters = document.querySelectorAll('.filter');

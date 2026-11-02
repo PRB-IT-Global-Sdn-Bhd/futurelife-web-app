@@ -206,9 +206,8 @@
     .support { margin-top: 12px; border: 1px solid var(--line); padding: 10px; background: var(--white); color: #45484f; font-size: 9.5px; line-height: 1.35; text-align: center; }
     .support a { color: #356d1c; font-weight: 700; text-decoration: underline; }
 
-    .mobile-header, .mobile-nav { display: none; }
+    .mobile-header { display: none; }
     @media (max-width: 960px) {
-      body { padding-bottom: 60px; }
       .desktop-sidebar, .desktop-topbar { display: none; }
       .page-shell { margin-left: 0; }
       .mobile-header { display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 13px; border-bottom: 2px solid #eeeeee; background: var(--white); }
@@ -232,9 +231,6 @@
       .profile-layout aside { margin-top: 16px; }
       .field-list { grid-template-columns: 1fr; }
       .field, .field:nth-child(even) { border-left: 0; padding: 9px 0; }
-      .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); min-height: 60px; overflow-x: auto; border-top: 1px solid #e4e4e4; background: var(--white); }
-      .mobile-nav a { display: grid; min-width: 70px; place-items: center; color: #4f5258; font-size: 9px; font-weight: 700; text-decoration: none; }
-      .mobile-nav a.active { border-top: 3px solid var(--green); color: #54751c; }
     }
     @media (max-width: 390px) { .mobile-brand { font-size: 12px; } }
     @media (prefers-reduced-motion: no-preference) {
@@ -242,6 +238,7 @@
       a:active { transform: scale(.97); }
     }
   </style>
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
 </head>
 <body>
   <aside class="desktop-sidebar" aria-label="Vendor portal navigation">
@@ -341,12 +338,6 @@
     </main>
   </div>
 
-  <nav class="mobile-nav" aria-label="Mobile vendor portal navigation">
-    <a href="#dashboard">Dashboard</a>
-    <a href="#listings">Listings</a>
-    <a href="#messages">Messages</a>
-    <a class="active" href="#vendor-profile" aria-current="page">Profile</a>
-  </nav>
   <script>
     const profileForm = document.getElementById('vendor-profile-form');
     const profileNotice = document.getElementById('profile-notice');
