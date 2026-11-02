@@ -2,11 +2,11 @@
 
 ## Open the portal
 
-Open `jobs-vendor-portal.html` in a modern web browser.
+Open `jobs-vendor-dashboard.html` in a modern web browser (or `jobs-vendor-signin.html` for the employer login). The former single-page file `jobs-vendor-portal.html` now forwards old `?view=` links to the matching page.
 
 ## Included areas
 
-This single-page portal preview includes dashboard, job listings, create and edit job flow, applicants, hires and placements, messaging, billing plans, job-posting fees, placement fees, notifications, profile, and settings views.
+This portal preview has one page per screen and includes dashboard, job listings, create and edit job flow, applicants, hires and placements, messaging, billing plans, job-posting fees, placement fees, notifications, profile, and settings views.
 
 ## Preview-only notice
 

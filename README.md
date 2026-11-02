@@ -13,7 +13,7 @@ These files are visual and interaction prototypes for review. They are intended 
 | Archive | Open this file after extraction | Main areas included |
 |---|---|---|
 | `FutureLife_Marketplace_Vendor_Portal_Latest.zip` | `marketplace-vendor-dashboard.html` | Dashboard, Listings, Orders, Messages, Billing, Sponsored Listings, Listing Credits, Plan Changes, Platform Fees, Order Earnings Breakdowns, Payout Statements, Notifications, Profile, Security, Fulfilment Settings, and Payout Details. |
-| `FutureLife_Jobs_Vendor_Portal_Latest.zip` | `jobs-vendor-portal.html` | Dashboard, job listings, job create/edit flow, applicants, hires and placements, billing, job-posting and placement-fee views, messages, notifications, profile, and settings. |
+| `FutureLife_Jobs_Vendor_Portal_Latest.zip` | `jobs-vendor-dashboard.html` | Dashboard, job listings, job create/edit flow, applicants, hires and placements, billing, job-posting and placement-fee views, messages, notifications, profile, and settings. |
 | `FutureLife_Rentals_Vendor_Portal_Latest.zip` | `rentals-vendor-portal.html` | Dashboard, properties, applications, tenancies, move-in workflows, messages, billing plans, listing fees, rental commissions, notifications, profile, and related settings. |
 
 ## How to view locally

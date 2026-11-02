@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Jobs Vendor Portal preview — Candidate Details" />
+  <title>Jobs Vendor Portal — Candidate Details</title>
+  <link rel="stylesheet" href="jobs-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Jobs Vendor Portal navigation">
+      <a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE<small>Jobs Vendor Portal</small></a>
+      <a class="account" href="jobs-vendor-company-profile.html"><span class="monogram">CO</span><span><strong>Employer Profile</strong><span class="sub">Employer profile</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Hiring management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="jobs-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="jobs-vendor-job-listings.html">Job Listings</a>
+        <a class="nav-link" href="jobs-vendor-candidates.html">Candidates <span class="count">3</span></a>
+        <a class="nav-link" href="jobs-vendor-interviews.html">Interviews</a>
+        <a class="nav-link" href="jobs-vendor-hires.html">Hires &amp; Placements</a>
+        <a class="nav-link" href="jobs-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="jobs-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-billing-plans.html#plans-and-fees">Plans &amp; Job Post Fees</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-placement-fees.html">Placement Fees</a>
+        <a class="nav-link" href="jobs-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="jobs-vendor-company-profile.html">Company Profile</a>
+        <a class="nav-link" href="jobs-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="jobs-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Employer hiring workspace</header>
+      <header class="mobile-head"><a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Jobs Portal</span></header>
+      <main>
+        <section class="view" data-screen="candidate-details">
+          <div class="heading"><div><p class="eyebrow">Candidate application</p><h1>Candidate Details</h1><p class="page-copy">Review the selected application and use the linked conversation to clarify role-related questions.</p></div><a class="button secondary" href="jobs-vendor-candidates.html">Back to Candidates</a></div>
+          <div class="detail-layout"><div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>{{CANDIDATE_NAME}}</h2><p class="panel-copy">Candidate ID: <strong>{{CANDIDATE_ID}}</strong></p></div><span id="candidate-stage" class="badge new">New</span></div><dl class="detail-grid"><div class="detail"><dt>Applied role</dt><dd>{{JOB_TITLE}}</dd></div><div class="detail"><dt>Employment type</dt><dd>{{EMPLOYMENT_TYPE}}</dd></div><div class="detail"><dt>Application date</dt><dd>{{APPLICATION_DATE}}</dd></div><div class="detail"><dt>Preferred contact</dt><dd>{{PREFERRED_CONTACT}}</dd></div></dl></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Candidate note</h2><p class="panel-copy">Information supplied in the application.</p></div></div><p class="page-copy" style="margin-top:0">{{CANDIDATE_APPLICATION_MESSAGE}}</p></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Application activity</h2><p class="panel-copy">Keep candidate communications in the related message thread.</p></div></div><div class="timeline"><div class="timeline-row"><span class="step">1</span><div><h3>Application received</h3><p class="panel-copy">The candidate application is ready for review.</p></div><time>{{APPLICATION_DATE}}</time></div><div class="timeline-row"><span class="step">2</span><div><h3>Employer review pending</h3><p class="panel-copy">Review the application before advancing the candidate.</p></div><time>Now</time></div></div></section></div><aside class="stack"><section class="callout"><h2>Next action</h2><p>Use FutureLife Messages for any role-related follow-up with this candidate.</p><a class="button" href="jobs-vendor-messages.html?thread=candidate">Message Candidate</a><div style="height:8px"></div><button id="shortlist-candidate" class="button secondary" type="button">Shortlist</button><div style="height:8px"></div><button id="not-select-candidate" class="button danger" type="button">Not Select</button><p id="candidate-notice" class="notice"></p></section><section class="panel panel-pad"><h2>Related job</h2><p class="panel-copy">{{JOB_TITLE}}</p><p class="panel-copy">{{JOB_LOCATION}} · {{EMPLOYMENT_TYPE}}</p><a class="inline-link" href="jobs-vendor-job-listings.html">View Job Listings</a></section></aside></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="jobs-vendor-portal.js"></script>
+</body>
+</html>

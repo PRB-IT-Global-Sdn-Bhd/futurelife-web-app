@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Jobs Vendor Portal preview — Placement Details" />
+  <title>Jobs Vendor Portal — Placement Details</title>
+  <link rel="stylesheet" href="jobs-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Jobs Vendor Portal navigation">
+      <a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE<small>Jobs Vendor Portal</small></a>
+      <a class="account" href="jobs-vendor-company-profile.html"><span class="monogram">CO</span><span><strong>Employer Profile</strong><span class="sub">Employer profile</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Hiring management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="jobs-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="jobs-vendor-job-listings.html">Job Listings</a>
+        <a class="nav-link" href="jobs-vendor-candidates.html">Candidates <span class="count">3</span></a>
+        <a class="nav-link" href="jobs-vendor-interviews.html">Interviews</a>
+        <a class="nav-link" href="jobs-vendor-hires.html">Hires &amp; Placements</a>
+        <a class="nav-link" href="jobs-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="jobs-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-billing-plans.html#plans-and-fees">Plans &amp; Job Post Fees</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-placement-fees.html">Placement Fees</a>
+        <a class="nav-link" href="jobs-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="jobs-vendor-company-profile.html">Company Profile</a>
+        <a class="nav-link" href="jobs-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="jobs-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Employer hiring workspace</header>
+      <header class="mobile-head"><a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Jobs Portal</span></header>
+      <main>
+        <section class="view" data-screen="placement-details">
+          <div class="heading"><div><p class="eyebrow">Hires &amp; placements</p><h1>Placement Details</h1><p class="page-copy">Review the selected job placement, then continue to new-hire tasks or the close-placement workflow.</p></div><a class="button secondary" href="jobs-vendor-hires.html">Back to Hires &amp; Placements</a></div>
+          <div class="detail-layout"><div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>{{CANDIDATE_NAME}}</h2><p class="panel-copy">Placement ID: <strong>{{PLACEMENT_ID}}</strong></p></div><span class="badge started">{{PLACEMENT_STATUS}}</span></div><dl class="detail-grid"><div class="detail"><dt>Job listing</dt><dd>{{JOB_TITLE}}</dd></div><div class="detail"><dt>Employment type</dt><dd>{{EMPLOYMENT_TYPE}}</dd></div><div class="detail"><dt>Start date</dt><dd>{{START_DATE}}</dd></div><div class="detail"><dt>Work location</dt><dd>{{JOB_LOCATION}}</dd></div><div class="detail"><dt>Offer status</dt><dd>{{OFFER_STATUS}}</dd></div><div class="detail"><dt>Candidate response</dt><dd>{{CANDIDATE_RESPONSE}}</dd></div></dl></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Placement workflow</h2><p class="panel-copy">Use the appropriate workflow for the selected stage; these controls do not create a contract, payroll item, or platform fee.</p></div></div><nav class="account-links"><a href="jobs-vendor-placement-details.html?view=checklist">New Hire Checklist <span>›</span></a><a href="jobs-vendor-placement-details.html?view=close">End / Close Placement <span>›</span></a><a href="jobs-vendor-messages.html?thread=candidate">Message Candidate <span>›</span></a></nav></section></div><aside class="stack"><section class="callout"><h2>Next action</h2><p>For an upcoming placement, confirm the starting arrangements through FutureLife Messages before recording any new-hire task.</p><a class="button" href="jobs-vendor-placement-details.html?view=checklist">Open New Hire Checklist</a><div style="height:8px"></div><a class="button secondary" href="jobs-vendor-messages.html?thread=candidate">Message Candidate</a></section><section class="panel panel-pad"><h2>Placement timeline</h2><div class="timeline"><div class="timeline-row"><span class="step">1</span><div><h3>Offer stage linked</h3><p class="panel-copy">The placement should remain linked to the candidate and job record.</p></div><time>{{OFFER_DATE}}</time></div><div class="timeline-row"><span class="step">2</span><div><h3>Start date planned</h3><p class="panel-copy">Confirm onboarding arrangements through FutureLife Messages.</p></div><time>{{START_DATE}}</time></div></div></section></aside></div>
+        </section>
+
+        <section class="view" data-screen="new-hire-checklist" hidden>
+          <div class="heading"><div><p class="eyebrow">Hires &amp; placements</p><h1>New Hire Checklist</h1><p class="page-copy">Record practical onboarding steps for the selected placement. These confirmations are preview-only in this prototype.</p></div><a class="button secondary" href="jobs-vendor-placement-details.html">Back to Placement Details</a></div>
+          <div class="detail-layout"><section class="panel panel-pad"><div class="panel-head"><div><h2>{{JOB_TITLE}}</h2><p class="panel-copy">{{CANDIDATE_NAME}} · Planned start: {{START_DATE}}</p></div><span class="badge pending">Upcoming</span></div><form id="new-hire-form"><div class="checklist"><label class="check"><input type="checkbox" name="offer-confirmed" /><span><strong>Offer acceptance confirmed</strong><span>Confirm the candidate acceptance through the approved employer workflow.</span></span></label><label class="check"><input type="checkbox" name="start-arranged" /><span><strong>Starting arrangements shared</strong><span>Coordinate the first-day location, time, or remote-access arrangements.</span></span></label><label class="check"><input type="checkbox" name="contact-arranged" /><span><strong>Employer contact shared</strong><span>Confirm the appropriate work contact and onboarding point of contact.</span></span></label><label class="check"><input type="checkbox" name="onboarding-prepared" /><span><strong>Onboarding process prepared</strong><span>Complete any internal onboarding process through the organisation’s approved tools.</span></span></label></div><div class="actions"><a class="button secondary" href="jobs-vendor-messages.html?thread=candidate">Message Candidate</a><button class="button" type="submit">Save Checklist</button></div><p id="new-hire-notice" class="notice" aria-live="polite"></p></form></section><aside class="stack"><section class="callout"><h2>Before marking complete</h2><p>Confirm each onboarding step with the candidate and retain any employment records in your approved process. This preview checklist is not an employment contract.</p></section><section class="panel panel-pad"><h2>Related placement</h2><p class="panel-copy">{{PLACEMENT_ID}}</p><p class="panel-copy">{{EMPLOYMENT_TYPE}}</p><a class="inline-link" href="jobs-vendor-placement-details.html">View placement details</a></section></aside></div>
+        </section>
+
+        <section class="view" data-screen="close-placement" hidden>
+          <div class="heading"><div><p class="eyebrow">Hires &amp; placements</p><h1>End / Close Placement</h1><p class="page-copy">Prepare the next placement step. Check the relevant employment process and requirements before finalising any decision.</p></div><a class="button secondary" href="jobs-vendor-placement-details.html">Back to Placement Details</a></div>
+          <div class="detail-layout"><section class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>Current placement</h2><p class="panel-copy">Selected placement context and close-out status.</p></div><span class="badge started">Started</span></div><dl class="detail-grid"><div class="detail"><dt>Job listing</dt><dd>{{JOB_TITLE}}</dd></div><div class="detail"><dt>Candidate</dt><dd>{{CANDIDATE_NAME}}</dd></div><div class="detail"><dt>Start date</dt><dd>{{START_DATE}}</dd></div><div class="detail"><dt>Placement status</dt><dd>{{PLACEMENT_STATUS}}</dd></div></dl></section><form id="close-placement-form" class="panel panel-pad"><div class="panel-head"><div><h2>Placement close plan</h2><p class="panel-copy">Record the intended next step for this preview only.</p></div></div><div class="fields"><div class="field"><label for="placement-next-step">Next step</label><select id="placement-next-step"><option>Continue placement</option><option>Prepare placement close</option><option>Awaiting employer review</option></select></div><div class="field"><label for="placement-close-date">Proposed close date</label><input id="placement-close-date" type="date" /></div><div class="field full"><label for="placement-discussion">Placement discussion</label><textarea id="placement-discussion" placeholder="Summarise the candidate discussion, proposed next steps, or follow-up needed."></textarea></div></div><div class="checklist" style="margin-top:18px"><label class="check"><input type="checkbox" /><span><strong>Candidate discussion recorded</strong><span>Record whether the candidate has been contacted about the next placement step.</span></span></label><label class="check"><input type="checkbox" /><span><strong>Employer process reviewed</strong><span>Confirm that the relevant internal process has been reviewed.</span></span></label><label class="check"><input type="checkbox" /><span><strong>Close-out steps prepared</strong><span>Prepare any applicable access, documentation, or handover steps.</span></span></label></div><div class="actions"><a class="button secondary" href="jobs-vendor-messages.html?thread=candidate">Message Candidate</a><button class="button" type="submit">Save Placement Plan</button></div><p id="close-placement-notice" class="notice" aria-live="polite"></p></form></section><aside class="stack"><section class="safeguard"><h2>Placement fee safeguard</h2><p>Changing this placement plan does not create, change, or settle a placement fee. Use Placement Fees only after the agreed commercial milestone has occurred.</p></section><section class="panel panel-pad"><h2>Need assistance?</h2><p class="panel-copy">Use FutureLife Support for a platform or placement-fee record question.</p><div style="height:12px"></div><a class="button secondary" href="jobs-vendor-messages.html?thread=support">Message Support</a></section></aside></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="jobs-vendor-portal.js"></script>
+</body>
+</html>

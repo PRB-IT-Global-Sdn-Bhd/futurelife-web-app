@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Jobs Vendor Portal preview — Hires &amp; Placements" />
+  <title>Jobs Vendor Portal — Hires &amp; Placements</title>
+  <link rel="stylesheet" href="jobs-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Jobs Vendor Portal navigation">
+      <a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE<small>Jobs Vendor Portal</small></a>
+      <a class="account" href="jobs-vendor-company-profile.html"><span class="monogram">CO</span><span><strong>Employer Profile</strong><span class="sub">Employer profile</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Hiring management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="jobs-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="jobs-vendor-job-listings.html">Job Listings</a>
+        <a class="nav-link" href="jobs-vendor-candidates.html">Candidates <span class="count">3</span></a>
+        <a class="nav-link" href="jobs-vendor-interviews.html">Interviews</a>
+        <a class="nav-link active" href="jobs-vendor-hires.html" aria-current="page">Hires &amp; Placements</a>
+        <a class="nav-link" href="jobs-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="jobs-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-billing-plans.html#plans-and-fees">Plans &amp; Job Post Fees</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-placement-fees.html">Placement Fees</a>
+        <a class="nav-link" href="jobs-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="jobs-vendor-company-profile.html">Company Profile</a>
+        <a class="nav-link" href="jobs-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="jobs-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Employer hiring workspace</header>
+      <header class="mobile-head"><a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Jobs Portal</span></header>
+      <main>
+        <section class="view" data-screen="hires">
+          <div class="heading"><div><p class="eyebrow">Hiring management</p><h1>Hires &amp; Placements</h1><p class="page-copy">Track accepted offers and job placements. This list does not create an employment agreement, payroll record, or placement fee.</p></div></div>
+          <section class="panel panel-pad"><div class="toolbar"><div class="filters" role="group" aria-label="Placement status filters"><button class="filter active" type="button" data-placement-filter="all">All</button><button class="filter" type="button" data-placement-filter="upcoming">Upcoming</button><button class="filter" type="button" data-placement-filter="started">Started</button><button class="filter" type="button" data-placement-filter="completed">Completed</button><button class="filter" type="button" data-placement-filter="withdrawn">Withdrawn</button></div><input id="placement-search" class="search" type="search" placeholder="Search candidate, job or placement ID" aria-label="Search hires and placements" /></div><div class="table-wrap jobs-list-table"><table><thead><tr><th>ID</th><th>Candidate</th><th>Job listing</th><th>Start date</th><th>Employment type</th><th>Status</th><th></th></tr></thead><tbody id="placement-table"><tr data-status="upcoming"><td>{{PLACEMENT_ID}}</td><td class="primary-cell">{{CANDIDATE_NAME}}</td><td>{{JOB_TITLE}}</td><td>{{START_DATE}}</td><td>{{EMPLOYMENT_TYPE}}</td><td><span class="badge pending">Upcoming</span></td><td><a class="inline-link" href="jobs-vendor-placement-details.html">View Placement</a></td></tr><tr data-status="started"><td>{{PLACEMENT_ID}}</td><td class="primary-cell">{{CANDIDATE_NAME}}</td><td>{{JOB_TITLE}}</td><td>{{START_DATE}}</td><td>{{EMPLOYMENT_TYPE}}</td><td><span class="badge started">Started</span></td><td><a class="inline-link" href="jobs-vendor-placement-details.html">View Placement</a></td></tr><tr data-status="completed"><td>{{PLACEMENT_ID}}</td><td class="primary-cell">{{CANDIDATE_NAME}}</td><td>{{JOB_TITLE}}</td><td>{{START_DATE}}</td><td>{{EMPLOYMENT_TYPE}}</td><td><span class="badge completed">Completed</span></td><td><a class="inline-link" href="jobs-vendor-placement-details.html">View Placement</a></td></tr><tr data-status="withdrawn"><td>{{PLACEMENT_ID}}</td><td class="primary-cell">{{CANDIDATE_NAME}}</td><td>{{JOB_TITLE}}</td><td>{{START_DATE}}</td><td>{{EMPLOYMENT_TYPE}}</td><td><span class="badge withdrawn">Withdrawn</span></td><td><a class="inline-link" href="jobs-vendor-placement-details.html">View Placement</a></td></tr></tbody></table></div><div class="jobs-mobile-cards" id="placement-cards"><article class="jobs-mobile-card" data-status="upcoming"><div class="jobs-mobile-card-head"><h3>{{CANDIDATE_NAME}}</h3><span class="badge pending">Upcoming</span></div><div class="jobs-mobile-facts"><div class="jobs-mobile-fact"><span>ID</span><strong>{{PLACEMENT_ID}}</strong></div><div class="jobs-mobile-fact"><span>Job listing</span><strong>{{JOB_TITLE}}</strong></div><div class="jobs-mobile-fact"><span>Start date</span><strong>{{START_DATE}}</strong></div><div class="jobs-mobile-fact"><span>Employment type</span><strong>{{EMPLOYMENT_TYPE}}</strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-placement-details.html">View Placement</a></article><article class="jobs-mobile-card" data-status="started"><div class="jobs-mobile-card-head"><h3>{{CANDIDATE_NAME}}</h3><span class="badge started">Started</span></div><div class="jobs-mobile-facts"><div class="jobs-mobile-fact"><span>ID</span><strong>{{PLACEMENT_ID}}</strong></div><div class="jobs-mobile-fact"><span>Job listing</span><strong>{{JOB_TITLE}}</strong></div><div class="jobs-mobile-fact"><span>Start date</span><strong>{{START_DATE}}</strong></div><div class="jobs-mobile-fact"><span>Employment type</span><strong>{{EMPLOYMENT_TYPE}}</strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-placement-details.html">View Placement</a></article><article class="jobs-mobile-card" data-status="completed"><div class="jobs-mobile-card-head"><h3>{{CANDIDATE_NAME}}</h3><span class="badge completed">Completed</span></div><div class="jobs-mobile-facts"><div class="jobs-mobile-fact"><span>ID</span><strong>{{PLACEMENT_ID}}</strong></div><div class="jobs-mobile-fact"><span>Job listing</span><strong>{{JOB_TITLE}}</strong></div><div class="jobs-mobile-fact"><span>Start date</span><strong>{{START_DATE}}</strong></div><div class="jobs-mobile-fact"><span>Employment type</span><strong>{{EMPLOYMENT_TYPE}}</strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-placement-details.html">View Placement</a></article><article class="jobs-mobile-card" data-status="withdrawn"><div class="jobs-mobile-card-head"><h3>{{CANDIDATE_NAME}}</h3><span class="badge withdrawn">Withdrawn</span></div><div class="jobs-mobile-facts"><div class="jobs-mobile-fact"><span>ID</span><strong>{{PLACEMENT_ID}}</strong></div><div class="jobs-mobile-fact"><span>Job listing</span><strong>{{JOB_TITLE}}</strong></div><div class="jobs-mobile-fact"><span>Start date</span><strong>{{START_DATE}}</strong></div><div class="jobs-mobile-fact"><span>Employment type</span><strong>{{EMPLOYMENT_TYPE}}</strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-placement-details.html">View Placement</a></article></div><p class="notice">This is a preview-only placement overview. Manage confirmed platform charges only from Placement Fees.</p></section>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="jobs-vendor-portal.js"></script>
+</body>
+</html>

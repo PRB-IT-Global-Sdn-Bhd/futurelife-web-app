@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Jobs Vendor Portal preview — Schedule Interview" />
+  <title>Jobs Vendor Portal — Schedule Interview</title>
+  <link rel="stylesheet" href="jobs-vendor-portal.css" />
+  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+</head>
+<body>
+  <div class="app"><aside class="sidebar" aria-label="Jobs Vendor Portal navigation">
+      <a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE<small>Jobs Vendor Portal</small></a>
+      <a class="account" href="jobs-vendor-company-profile.html"><span class="monogram">CO</span><span><strong>Employer Profile</strong><span class="sub">Employer profile</span></span><span class="arrow">›</span></a>
+      <p class="side-label">Hiring management</p>
+      <nav class="nav-list">
+        <a class="nav-link" href="jobs-vendor-dashboard.html">Dashboard</a>
+        <a class="nav-link" href="jobs-vendor-job-listings.html">Job Listings</a>
+        <a class="nav-link" href="jobs-vendor-candidates.html">Candidates <span class="count">3</span></a>
+        <a class="nav-link" href="jobs-vendor-interviews.html">Interviews</a>
+        <a class="nav-link" href="jobs-vendor-hires.html">Hires &amp; Placements</a>
+        <a class="nav-link" href="jobs-vendor-messages.html">Messages <span class="count">2</span></a>
+        <a class="nav-link" href="jobs-vendor-billing-plans.html">Billing</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-billing-plans.html#plans-and-fees">Plans &amp; Job Post Fees</a>
+        <a class="nav-link billing-sub-link" href="jobs-vendor-placement-fees.html">Placement Fees</a>
+        <a class="nav-link" href="jobs-vendor-notifications.html">Alerts <span class="count">4</span></a>
+        <a class="nav-link" href="jobs-vendor-company-profile.html">Company Profile</a>
+        <a class="nav-link" href="jobs-vendor-account-security.html">Account &amp; Security</a>
+      </nav>
+      <a class="logout" href="jobs-vendor-signin.html">Logout</a>
+    </aside>
+    <div class="shell"><header class="topbar">Employer hiring workspace</header>
+      <header class="mobile-head"><a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Jobs Portal</span></header>
+      <main>
+        <section class="view" data-screen="interview-details">
+          <div class="heading"><div><p class="eyebrow">Interviews</p><h1>Schedule Interview</h1><p class="page-copy">Propose interview details for the selected candidate. This preview does not send an invitation or create a calendar booking.</p></div><a class="button secondary" href="jobs-vendor-interviews.html">Back to Interviews</a></div>
+          <div class="detail-layout"><form id="interview-form" class="panel panel-pad"><div class="panel-head"><div><h2>{{CANDIDATE_NAME}}</h2><p class="panel-copy">{{JOB_TITLE}} · Candidate ID {{CANDIDATE_ID}}</p></div></div><div class="fields"><div class="field"><label for="interview-date">Proposed date</label><input id="interview-date" type="date" /></div><div class="field"><label for="interview-time">Proposed time</label><input id="interview-time" type="text" placeholder="e.g. 10:30 AM" /></div><div class="field"><label for="interview-mode">Interview mode</label><select id="interview-mode"><option>Online</option><option>On-site</option><option>Phone</option></select></div><div class="field"><label for="interview-location">Location or meeting link</label><input id="interview-location" type="text" placeholder="Add the venue or approved meeting link" /></div><div class="field full"><label for="interview-note">Message to candidate</label><textarea id="interview-note" placeholder="Provide concise interview instructions and the next steps."></textarea></div></div><div class="actions"><a class="button secondary" href="jobs-vendor-messages.html?thread=candidate">Message Candidate</a><button class="button" type="submit">Save Interview Plan</button></div><p id="interview-notice" class="notice" aria-live="polite"></p></form><aside class="stack"><section class="callout"><h2>Scheduling safeguard</h2><p>Verify the candidate’s response before considering an interview confirmed. This preview does not send an invitation or book a calendar event.</p></section><section class="panel panel-pad"><h2>Candidate details</h2><p class="panel-copy">{{CANDIDATE_NAME}}</p><p class="panel-copy">{{PREFERRED_CONTACT}}</p><a class="inline-link" href="jobs-vendor-candidate-details.html">View candidate details</a></section></aside></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="vendor-portal-navigation.js"></script>
+  <script src="jobs-vendor-portal.js"></script>
+</body>
+</html>
