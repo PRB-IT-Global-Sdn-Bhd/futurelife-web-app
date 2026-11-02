@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FutureLife Jobs Vendor Portal employer account suspended preview" />
+  <title>Jobs Vendor Portal — Account Suspended</title>
+  <link rel="stylesheet" href="vendor-portal-auth.css" />
+  <style>
+    button, input {
+      font: inherit;
+    }
+    input {
+      display: block;
+      width: 100%;
+      height: 29px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      outline: none;
+      padding: 0 8px;
+      background: var(--white);
+      color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+    }
+    input:focus {
+      border-color: var(--futurelife-green);
+      box-shadow: 0 0 0 1px rgba(120, 190, 33, 0.14);
+    }
+    @media (max-width:560px) {
+      input {
+        height: 43px;
+        padding-inline: 10px;
+        font-size: 13px;
+      }
+    }
+    .eyebrow { margin: 0 0 7px; color: #62a719; font-size: 10px; font-weight: 700; letter-spacing: .45px; text-align: center; text-transform: uppercase; }
+    .signup-copy {
+      text-align: center;
+    }
+    .signup-copy a.signup-link {
+      text-decoration: none;
+    }
+    .preview-routes a[aria-current="page"] {
+      color: #252525;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand">Future Life</div>
+
+    <section class="signin-area" aria-label="Account suspended">
+      <p class="eyebrow">Jobs Vendor Portal</p>
+      <h1>Account Suspended</h1>
+      <p class="auth-copy">Access to this FutureLife Jobs employer account has been suspended by FutureLife. Job listings are hidden from candidates and new applications are paused while the suspension is active.</p>
+      <div class="auth-details">
+        <div><span>Account</span><strong>{{EMPLOYER_CONTACT_EMAIL}}</strong></div>
+        <div><span>Organisation</span><strong>{{ORGANISATION_NAME}}</strong></div>
+        <div><span>Reason</span><strong>{{SUSPENSION_REASON}}</strong></div>
+        <div><span>Reference</span><strong>{{SUSPENSION_REFERENCE}}</strong></div>
+        <div><span>Suspended on</span><strong>{{SUSPENSION_DATE}}</strong></div>
+      </div>
+      <a class="signin-button link-button" href="mailto:{{FUTURELIFE_SUPPORT_EMAIL}}?subject=Employer%20account%20suspension%20{{SUSPENSION_REFERENCE}}">Contact FutureLife Support</a>
+      <p class="notice" aria-live="polite"></p>
+      <p class="signup-copy">Include the reference above when you contact support. Back to<a class="signup-link" href="jobs-vendor-signin.html">Login</a></p>
+    </section>
+  </main>
+
+  <script>
+    // Live implementation: show this page only from the server-side account status, never from a URL parameter.
+  </script>
+  <script src="vendor-portal-navigation.js"></script>
+</body>
+</html>
