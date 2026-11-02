@@ -6,7 +6,13 @@ Open `jobs-vendor-dashboard.html` in a modern web browser (or `jobs-vendor-signi
 
 ## Included areas
 
-This portal preview has one page per screen and includes dashboard, job listings, create and edit job flow, applicants, hires and placements, messaging, billing plans, job-posting fees, placement fees, notifications, profile, and settings views.
+This portal preview has one page per screen (33 pages). Screens with several states use `?state=`, `?step=`, `?status=`, `?flow=`, `?mode=`, or `?view=` and include a "Preview states" panel.
+
+- Sign-in and account: `jobs-vendor-signin.html`, `jobs-vendor-signup.html`, `jobs-vendor-verify-email.html`, `jobs-vendor-forgot-password.html`, `jobs-vendor-reset-password.html`, `jobs-vendor-account-suspended.html`
+- Onboarding and verification: `jobs-vendor-onboarding.html` (`?step=organisation|contact|terms`), `jobs-vendor-employer-verification.html`
+- Hiring: `jobs-vendor-dashboard.html`, `jobs-vendor-job-listings.html`, `jobs-vendor-job-details.html`, `jobs-vendor-create-job.html` (`?mode=edit`), `jobs-vendor-candidates.html`, `jobs-vendor-candidate-details.html`, `jobs-vendor-interviews.html`, `jobs-vendor-interview-details.html`, `jobs-vendor-hires.html`, `jobs-vendor-offer-and-hire.html`, `jobs-vendor-placement-details.html`, `jobs-vendor-messages.html`
+- Billing: `jobs-vendor-billing-plans.html`, `jobs-vendor-plan-change.html`, `jobs-vendor-job-post-credits.html`, `jobs-vendor-checkout-result.html`, `jobs-vendor-payment-history.html`, `jobs-vendor-invoice.html`, `jobs-vendor-placement-fees.html`, `jobs-vendor-placement-fee-dispute.html`
+- Organisation and settings: `jobs-vendor-company-profile.html`, `jobs-vendor-team-members.html`, `jobs-vendor-candidate-data-privacy.html`, `jobs-vendor-notifications.html` (`?view=preferences`), `jobs-vendor-account-security.html`
 
 ## Preview-only notice
 
