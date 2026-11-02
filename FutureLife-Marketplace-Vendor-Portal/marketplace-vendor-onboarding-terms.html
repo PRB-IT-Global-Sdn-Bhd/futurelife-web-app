@@ -25,23 +25,38 @@
     <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
     <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
     <main class="content" id="onboarding-terms">
-      <div class="heading"><div><p class="eyebrow">Vendor onboarding · Step 2 of 3</p><h1>Vendor Terms</h1><p class="page-copy">Review and accept the current FutureLife Vendor Terms before your business details are submitted for review.</p></div><a class="button secondary back-link" href="marketplace-vendor-onboarding-business-details.html">Back to Business Details</a></div>
-      <section class="card" aria-labelledby="version-heading"><div class="card-heading"><div><h2 id="version-heading">Terms version</h2><p>FutureLife records the exact version you accept.</p></div><span class="status neutral">Not accepted</span></div><div class="listing-reference"><div><span class="label">Document</span><span class="listing-name">FutureLife Vendor Terms</span><span class="listing-meta">Effective {{VENDOR_TERMS_EFFECTIVE_DATE}}</span></div><div><span class="label">Version</span><span class="value">{{VENDOR_TERMS_VERSION}}</span></div></div></section>
+      <div class="heading"><div><p class="eyebrow" id="terms-eyebrow">Vendor onboarding · Step 2 of 3</p><h1>Vendor Terms</h1><p class="page-copy" id="terms-copy">Review and accept the current FutureLife Vendor Terms before your business details are submitted for review.</p></div><a class="button secondary back-link" id="terms-back" href="marketplace-vendor-onboarding-business-details.html">Back to Business Details</a></div>
+      <section class="card" aria-labelledby="version-heading"><div class="card-heading"><div><h2 id="version-heading">Terms version</h2><p>FutureLife records the exact version you accept.</p></div><span class="status neutral" id="terms-status">Not accepted</span></div><div class="listing-reference"><div><span class="label">Document</span><span class="listing-name">FutureLife Vendor Terms</span><span class="listing-meta">Effective {{VENDOR_TERMS_EFFECTIVE_DATE}}</span></div><div><span class="label">Version</span><span class="value">{{VENDOR_TERMS_VERSION}}</span></div></div></section>
       <div class="flow-layout">
         <section class="card" aria-labelledby="terms-heading">
           <div class="card-heading"><div><h2 id="terms-heading">Read the Vendor Terms</h2><p>Show the published terms content for the version above.</p></div><a class="text-link" href="{{VENDOR_TERMS_URL}}">Open full terms</a></div>
           <div class="terms-box" tabindex="0" aria-label="Vendor Terms content"><h3>{{VENDOR_TERMS_SECTION_TITLE}}</h3><p>{{VENDOR_TERMS_CONTENT}}</p><h3>{{VENDOR_TERMS_SECTION_TITLE}}</h3><p>{{VENDOR_TERMS_CONTENT}}</p><h3>{{VENDOR_TERMS_SECTION_TITLE}}</h3><p>{{VENDOR_TERMS_CONTENT}}</p></div>
           <form id="terms-form" novalidate><label class="confirm-check"><input id="accept-terms" type="checkbox" required /><span>I have read and agree to the FutureLife Vendor Terms, version {{VENDOR_TERMS_VERSION}}.</span></label><label class="confirm-check"><input id="authorised" type="checkbox" required /><span>I am authorised to accept these terms for Kampus Essentials.</span></label><div class="action-row"><a class="button secondary" href="marketplace-vendor-onboarding-business-details.html">Back</a><button class="button" type="submit">Accept and Submit for Review</button></div><p class="feedback" id="terms-feedback" role="alert"></p></form>
         </section>
-        <aside class="summary-card" aria-labelledby="record-heading"><h2 id="record-heading">Acceptance record</h2><ul class="summary-list"><li><span>Terms version</span><span>{{VENDOR_TERMS_VERSION}}</span></li><li><span>Accepted by</span><span>{{ACCOUNT_HOLDER_NAME}}</span></li><li><span>Vendor account</span><span>Kampus Essentials</span></li><li class="total"><span>Accepted at</span><span>Recorded on submit</span></li></ul></aside>
+        <aside class="summary-card" aria-labelledby="record-heading"><h2 id="record-heading">Acceptance record</h2><ul class="summary-list"><li><span>Terms version</span><span>{{VENDOR_TERMS_VERSION}}</span></li><li><span>Accepted by</span><span>{{ACCOUNT_HOLDER_NAME}}</span></li><li><span>Vendor account</span><span>Kampus Essentials</span></li><li class="total"><span>Accepted at</span><span id="terms-accepted-at">Recorded on submit</span></li></ul></aside>
       </div>
       <aside class="notice"><strong>Data rule:</strong> save the accepted terms version, account ID and server timestamp when the vendor submits. When FutureLife publishes a new version, ask the vendor to accept it again.</aside>
     </main>
   </div>
   <script>
+    // ?view=accepted: read-only view of the accepted Vendor Terms, opened from Profile after onboarding.
+    if (new URLSearchParams(window.location.search).get('view') === 'accepted') {
+      document.title = 'Marketplace Vendor Portal — Vendor Terms';
+      document.getElementById('terms-eyebrow').textContent = 'Vendor account';
+      document.getElementById('terms-copy').textContent = 'The FutureLife Vendor Terms version accepted for Kampus Essentials.';
+      const back = document.getElementById('terms-back');
+      back.href = 'marketplace-vendor-profile.html';
+      back.textContent = 'Back to Profile';
+      const status = document.getElementById('terms-status');
+      status.className = 'status';
+      status.textContent = 'Accepted';
+      document.getElementById('terms-accepted-at').textContent = '{{VENDOR_TERMS_ACCEPTED_AT}}';
+      document.getElementById('terms-form').remove();
+      document.querySelector('main > .notice').remove();
+    }
     const termsForm = document.getElementById('terms-form');
     const termsFeedback = document.getElementById('terms-feedback');
-    termsForm.addEventListener('submit', (event) => {
+    if (termsForm) termsForm.addEventListener('submit', (event) => {
       event.preventDefault();
       if (!termsForm.checkValidity()) { termsFeedback.textContent = 'Confirm both statements to accept the Vendor Terms.'; termsFeedback.classList.add('visible'); return; }
       window.location.href = 'marketplace-vendor-onboarding-status.html?state=pending';

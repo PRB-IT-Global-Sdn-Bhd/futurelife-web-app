@@ -9,7 +9,8 @@
     messages: 'marketplace-vendor-messages.html',
     notifications: 'marketplace-vendor-notifications.html',
     profile: 'marketplace-vendor-profile.html',
-    login: 'marketplace-vendor-signin-vendor-login.html?loggedout=1'
+    listingGuidelines: 'marketplace-vendor-listing-guidelines.html',
+    login: 'marketplace-vendor-signin.html?loggedout=1'
   };
 
   const hashRoutes = {
@@ -23,6 +24,7 @@
     '#profile': ROUTES.profile,
     '#vendor-profile': ROUTES.profile,
     '#notifications': ROUTES.notifications,
+    '#listing-guidelines': ROUTES.listingGuidelines,
     '#logout': ROUTES.login
   };
 
@@ -59,14 +61,6 @@
   function routeLegacyAnchors() {
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
       const href = link.getAttribute('href');
-      if (href === '#listing-guidelines') {
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-          const notice = document.getElementById('form-notice');
-          if (notice) notice.textContent = 'Preview only — Marketplace Listing Guidelines would open in the live workflow.';
-        });
-        return;
-      }
       const destination = hashRoutes[href] || labelRoutes[labelOf(link)];
       if (destination) link.setAttribute('href', destination);
     });
@@ -127,9 +121,9 @@
   function activeKeyForPath() {
     const page = window.location.pathname.split('/').pop() || '';
     if (page.includes('dashboard')) return 'dashboard';
-    if (page.includes('create-listing') || page.includes('listings') || page.includes('sponsored-listing')) return 'listings';
+    if (page.includes('create-listing') || page.includes('listing-guidelines') || page.includes('listings') || page.includes('sponsored-listing')) return 'listings';
     if (page.includes('order-details') || page.includes('order-issue') || page.includes('orders')) return 'orders';
-    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('manage-payout') || page.includes('payouts') || page.includes('listing-credits') || page.includes('plan-change')) return 'payouts';
+    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('payout-account') || page.includes('payouts') || page.includes('listing-credits') || page.includes('plan-change')) return 'payouts';
     if (page.includes('messages')) return 'messages';
     if (page.includes('notifications')) return 'notifications';
     if (page.includes('profile') || page.includes('fulfilment') || page.includes('account-security')) return 'profile';

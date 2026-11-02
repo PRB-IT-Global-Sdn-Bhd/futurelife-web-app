@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Marketplace Vendor payout account setup preview" />
-  <title>Marketplace Vendor Portal — Payout Account Setup</title>
+  <meta name="description" content="FutureLife Marketplace Vendor payout account preview" />
+  <title>Marketplace Vendor Portal — Payout Account</title>
   <style>
 
     :root {
@@ -146,35 +146,39 @@
   <div class="page-shell">
     <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
     <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
-    <main class="content" id="payout-account-setup">
-      <a class="breadcrumb" href="marketplace-vendor-payouts.html">← Back to Platform Fees</a>
+    <main class="content" id="payout-account">
+      <a class="breadcrumb" id="page-breadcrumb" href="marketplace-vendor-payouts.html">← Back to Platform Fees</a>
       <p class="eyebrow">Marketplace vendor</p>
-      <h1>Payout Account Setup</h1>
-      <p class="page-copy">Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.</p>
+      <h1 id="page-heading">Payout Account Setup</h1>
+      <p class="page-copy" id="page-copy">Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.</p>
 
       <div class="details-layout">
         <section>
-          <section class="card" aria-labelledby="setup-heading-pending" data-state="pending">
+          <section class="card" aria-labelledby="setup-heading-pending" data-states="pending">
             <h2 id="setup-heading-pending">Account submitted</h2>
             <p class="section-copy">Your payout details were submitted on {{PAYOUT ACCOUNT SUBMITTED DATE}}. No action is needed while FutureLife checks them.</p>
             <div class="summary-list"><div class="summary-row"><span class="summary-label">Payout method</span><span class="summary-value">{{PAYOUT METHOD}}</span></div><div class="summary-row"><span class="summary-label">Account</span><span class="summary-value">{{PAYOUT ACCOUNT DISPLAY}}</span></div><div class="summary-row"><span class="summary-label">Submitted on</span><span class="summary-value">{{PAYOUT ACCOUNT SUBMITTED DATE}}</span></div></div>
-            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-manage-payout-details.html">Update Details</a><a class="button" href="marketplace-vendor-payouts.html">Back to Platform Fees</a></div>
+            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-payout-account.html?state=edit">Update Details</a><a class="button" href="marketplace-vendor-payouts.html">Back to Platform Fees</a></div>
           </section>
-          <section class="card" aria-labelledby="setup-heading-verified" data-state="verified" hidden>
+          <section class="card" aria-labelledby="setup-heading-verified" data-states="verified">
             <h2 id="setup-heading-verified">Account verified</h2>
             <p class="section-copy">Eligible payouts are sent to this account on the scheduled payout date.</p>
             <div class="summary-list"><div class="summary-row"><span class="summary-label">Payout method</span><span class="summary-value">{{PAYOUT METHOD}}</span></div><div class="summary-row"><span class="summary-label">Account</span><span class="summary-value">{{PAYOUT ACCOUNT DISPLAY}}</span></div><div class="summary-row"><span class="summary-label">Verified on</span><span class="summary-value">{{PAYOUT ACCOUNT VERIFIED DATE}}</span></div></div>
-            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-manage-payout-details.html">Update Details</a><a class="button" href="marketplace-vendor-payout-history.html">View Payout History</a></div>
+            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-payout-account.html?state=edit">Update Details</a><a class="button" href="marketplace-vendor-payout-history.html">View Payout History</a></div>
           </section>
-          <div data-state="action-required" hidden>
-            <section class="card issue-card" aria-labelledby="action-heading">
-              <h2 id="action-heading">Account details need attention</h2>
-              <p>Payouts are paused until the account is verified.</p>
-              <div class="summary-list"><div class="summary-row"><span class="summary-label">Reason</span><span class="summary-value">{{PAYOUT ACCOUNT REVIEW REASON}}</span></div><div class="summary-row"><span class="summary-label">Reason code</span><span class="summary-value">{{PAYOUT ACCOUNT REASON CODE}}</span></div><div class="summary-row"><span class="summary-label">Reviewed on</span><span class="summary-value">{{PAYOUT ACCOUNT REVIEWED DATE}}</span></div></div>
-            </section>
-            <form class="card" id="payout-details-form" novalidate>
+          <section class="card issue-card" aria-labelledby="action-heading" data-states="action-required">
+            <h2 id="action-heading">Account details need attention</h2>
+            <p>Payouts are paused until the account is verified.</p>
+            <div class="summary-list"><div class="summary-row"><span class="summary-label">Reason</span><span class="summary-value">{{PAYOUT ACCOUNT REVIEW REASON}}</span></div><div class="summary-row"><span class="summary-label">Reason code</span><span class="summary-value">{{PAYOUT ACCOUNT REASON CODE}}</span></div><div class="summary-row"><span class="summary-label">Reviewed on</span><span class="summary-value">{{PAYOUT ACCOUNT REVIEWED DATE}}</span></div></div>
+          </section>
+          <section class="card issue-card" aria-labelledby="failure-heading" data-states="failed">
+            <h2 id="failure-heading">Payout {{PAYOUT ID}} failed</h2>
+            <p>The transfer of RM {{PAYOUT AMOUNT}} could not be completed. The amount has not been paid out.</p>
+            <div class="summary-list"><div class="summary-row"><span class="summary-label">Failure reason</span><span class="summary-value">{{PAYOUT FAILURE REASON}}</span></div><div class="summary-row"><span class="summary-label">Reason code</span><span class="summary-value">{{PAYOUT FAILURE CODE}}</span></div><div class="summary-row"><span class="summary-label">Failed on</span><span class="summary-value">{{PAYOUT FAILED DATE}}</span></div></div>
+          </section>
+          <form class="card" id="payout-details-form" novalidate data-states="action-required edit failed">
             <h2>Payout method</h2>
-            <p class="section-copy">Correct the details below and resubmit them for verification.</p>
+            <p class="section-copy" id="form-copy">Choose the method and provide the account details required to receive a payout.</p>
             <div class="field-grid">
               <div class="field full">
                 <label for="payout-method">Payout method</label>
@@ -206,27 +210,36 @@
               </div>
             </div>
             <label class="checkbox-row"><input id="confirm-account" type="checkbox" required /><span>I confirm that I am authorised to receive Marketplace vendor payouts to this account and that the details are correct.</span></label>
-            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-payout-history.html">Cancel</a><button class="button" type="submit">Resubmit Payout Details</button></div>
+            <div class="form-actions"><a class="button secondary" id="form-cancel" href="marketplace-vendor-payouts.html">Cancel</a><button class="button" type="submit" id="form-submit">Save Payout Details</button></div>
             <p class="form-notice" id="form-notice" aria-live="polite"></p>
           </form>
-          </div>
         </section>
 
         <aside>
-          <section class="side-card status-card" aria-labelledby="status-heading-pending" data-state="pending">
+          <section class="side-card status-card" aria-labelledby="status-heading-pending" data-states="pending">
             <h2 id="status-heading-pending">Payout account status</h2>
             <p><span class="status-badge">Pending verification</span></p>
             <p>FutureLife is checking the payout account. Payouts are sent only after the account is verified.</p>
           </section>
-          <section class="side-card status-card" aria-labelledby="status-heading-verified" data-state="verified" hidden>
+          <section class="side-card status-card" aria-labelledby="status-heading-verified" data-states="verified">
             <h2 id="status-heading-verified">Payout account status</h2>
             <p><span class="status-badge">Verified</span></p>
             <p>This account can receive eligible vendor payouts.</p>
           </section>
-          <section class="side-card status-card warning" aria-labelledby="status-heading-action-required" data-state="action-required" hidden>
+          <section class="side-card status-card warning" aria-labelledby="status-heading-action-required" data-states="action-required">
             <h2 id="status-heading-action-required">Payout account status</h2>
             <p><span class="status-badge warning">Action required</span></p>
             <p>FutureLife could not verify this account. Update the details below.</p>
+          </section>
+          <section class="side-card status-card" aria-labelledby="status-heading-edit" data-states="edit">
+            <h2 id="status-heading-edit">Payout account status</h2>
+            <p><span class="status-badge">{{PAYOUT ACCOUNT STATUS}}</span></p>
+            <p>Changes may require FutureLife review before they can be used for the next eligible vendor payout.</p>
+          </section>
+          <section class="side-card status-card failed" aria-labelledby="status-heading-failed" data-states="failed">
+            <h2 id="status-heading-failed">Payout status</h2>
+            <p><span class="status-badge failed">Failed</span></p>
+            <p>The payout stays failed until the updated account details are verified.</p>
           </section>
           <section class="side-card" aria-labelledby="current-details-heading">
             <h2 id="current-details-heading">Current details</h2>
@@ -242,40 +255,69 @@
           </section>
           <section class="side-card" aria-labelledby="preview-states-heading">
             <h2 id="preview-states-heading">Preview states</h2>
-            <div class="state-links"><a href="marketplace-vendor-payout-account-setup.html?state=pending" data-state-link="pending">Pending</a><a href="marketplace-vendor-payout-account-setup.html?state=verified" data-state-link="verified">Verified</a><a href="marketplace-vendor-payout-account-setup.html?state=action-required" data-state-link="action-required">Action required</a></div>
+            <div class="state-links"><a href="marketplace-vendor-payout-account.html?state=pending" data-state-link="pending">Pending</a><a href="marketplace-vendor-payout-account.html?state=verified" data-state-link="verified">Verified</a><a href="marketplace-vendor-payout-account.html?state=action-required" data-state-link="action-required">Action required</a><a href="marketplace-vendor-payout-account.html?state=edit" data-state-link="edit">Edit details</a><a href="marketplace-vendor-payout-account.html?state=failed" data-state-link="failed">Failed payout</a></div>
           </section>
         </aside>
       </div>
     </main>
   </div>
   <script>
-    const stateBlocks = document.querySelectorAll('[data-state]');
-    const stateLinks = document.querySelectorAll('[data-state-link]');
-    const stateNames = [...stateBlocks].map((block) => block.dataset.state);
+    // Each state matches a former page: pending / verified / action-required (Payout Account Setup),
+    // edit (Manage Payout Details) and failed (Fix Failed Payout). Live status comes from the payout account record.
+    const pageStates = {
+      pending: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
+      verified: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
+      'action-required': { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.', form: ['Correct the details below and resubmit them for verification.', 'marketplace-vendor-payout-history.html', 'Resubmit Payout Details'] },
+      edit: { title: 'Manage Payout Details', description: 'FutureLife Marketplace Vendor Portal manage payout details preview', back: ['marketplace-vendor-payouts.html', '← Back to Payouts'], copy: 'Add or update the account used for eligible FutureLife Marketplace vendor payouts.', form: ['Choose the method and provide the account details required to receive a payout.', 'marketplace-vendor-payouts.html', 'Save Payout Details'] },
+      failed: { title: 'Fix Failed Payout', description: 'FutureLife Marketplace Vendor failed payout preview', back: ['marketplace-vendor-payout-history.html', '← Back to Payout History'], copy: 'A payout could not be sent to your account. Check the reason, then update your payout details.', form: ['Correct the account details. FutureLife will retry the payout after the updated details are verified.', 'marketplace-vendor-payout-history.html', 'Save and Submit for Review'] }
+    };
+    const aliases = { 'setup-pending': 'pending' };
     const requestedState = new URLSearchParams(window.location.search).get('state');
-    const activeState = stateNames.includes(requestedState) ? requestedState : stateNames[0];
-    stateBlocks.forEach((block) => { block.hidden = block.dataset.state !== activeState; });
-    stateLinks.forEach((link) => { if (link.dataset.stateLink === activeState) link.setAttribute('aria-current', 'page'); });
+    const activeState = pageStates[aliases[requestedState] || requestedState] ? (aliases[requestedState] || requestedState) : 'pending';
+    const config = pageStates[activeState];
+    document.getElementById('payout-account').id = { edit: 'manage-payout-details', failed: 'payout-failed' }[activeState] || 'payout-account-setup';
+    document.title = `Marketplace Vendor Portal — ${config.title}`;
+    document.querySelector('meta[name="description"]').setAttribute('content', config.description);
+    document.getElementById('page-heading').textContent = config.title;
+    document.getElementById('page-copy').textContent = config.copy;
+    const breadcrumb = document.getElementById('page-breadcrumb');
+    breadcrumb.href = config.back[0];
+    breadcrumb.textContent = config.back[1];
+    // Blocks for other states are removed. For the three former setup states, blocks the setup page kept as hidden
+    // siblings stay hidden instead, so the card spacing matches the former page exactly.
+    const setupStates = ['pending', 'verified', 'action-required'];
+    document.querySelectorAll('[data-states]').forEach((block) => {
+      const states = block.dataset.states.split(' ');
+      if (states.includes(activeState)) return;
+      const keptHidden = setupStates.includes(activeState) && states.every((name) => setupStates.includes(name))
+        && (block.classList.contains('status-card') || (activeState === 'verified' && states.includes('pending')));
+      if (keptHidden) block.hidden = true; else block.remove();
+    });
+    document.querySelectorAll('[data-state-link]').forEach((link) => { if (link.dataset.stateLink === activeState) link.setAttribute('aria-current', 'page'); });
 
     const form = document.getElementById('payout-details-form');
     const notice = document.getElementById('form-notice');
-    const accountNumber = document.getElementById('account-number');
     const maskedPreview = document.getElementById('masked-account-preview');
-    accountNumber.addEventListener('input', () => {
-      const digits = accountNumber.value.replace(/\D/g, '');
-      accountNumber.value = digits;
-      maskedPreview.textContent = digits ? `•••• ${digits.slice(-4)}` : '{{PAYOUT ACCOUNT DISPLAY}}';
-    });
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        notice.textContent = 'Complete the required payout details and confirmation before saving.';
-        form.reportValidity();
-        return;
-      }
-      notice.textContent = 'Preview only — payout details would be submitted for review and have not been saved or transmitted.';
-    });
-  
+    if (form) {
+      document.getElementById('form-copy').textContent = config.form[0];
+      document.getElementById('form-cancel').href = config.form[1];
+      document.getElementById('form-submit').textContent = config.form[2];
+      const accountNumber = document.getElementById('account-number');
+      accountNumber.addEventListener('input', () => {
+        const digits = accountNumber.value.replace(/\D/g, '');
+        accountNumber.value = digits;
+        maskedPreview.textContent = digits ? `•••• ${digits.slice(-4)}` : '{{PAYOUT ACCOUNT DISPLAY}}';
+      });
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          notice.textContent = 'Complete the required payout details and confirmation before saving.';
+          form.reportValidity();
+          return;
+        }
+        notice.textContent = 'Preview only — payout details would be submitted for review and have not been saved or transmitted.';
+      });
+    }
   </script>
   <script src="vendor-portal-navigation.js"></script>
 </body>

@@ -230,6 +230,7 @@
             <div class="field">
               <label for="quantity">Quantity <span class="required">*</span></label>
               <input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="Enter quantity" required />
+              <p class="location-help" id="current-stock" hidden>Current stock: {{STOCK_AVAILABLE}} available · {{STOCK_RESERVED}} reserved in open orders.</p>
             </div>
             <div class="field">
               <label for="delivery">Delivery (RM)</label>
@@ -267,7 +268,7 @@
           <div class="section-title-row"><h2 id="consent-heading">Review and consent</h2></div>
           <div class="consent-list">
             <label class="consent"><input type="checkbox" required /><span>I confirm that the listing details and photos are accurate.</span></label>
-            <label class="consent"><input type="checkbox" required /><span>I agree to the Marketplace <a href="#listing-guidelines">Listing Guidelines</a>.</span></label>
+            <label class="consent"><input type="checkbox" required /><span>I agree to the Marketplace <a href="marketplace-vendor-listing-guidelines.html" target="_blank" rel="noopener">Listing Guidelines</a>.</span></label>
           </div>
         </section>
 
@@ -291,15 +292,38 @@
     const query = new URLSearchParams(window.location.search);
     const editing = query.get('mode') === 'edit';
 
+    const defaultPhotoHelp = editing ? '{{LISTING_PHOTO_COUNT}} current photos. Choose new photos to replace them.' : 'Add photos that show the item and its condition clearly.';
+    const currentStock = document.getElementById('current-stock');
+
     if (editing) {
+      // ?mode=edit replaces the former marketplace-vendor-edit-listing.html with the current listing values.
+      document.title = 'FutureLife — Edit Listing';
+      document.querySelector('meta[name="description"]').setAttribute('content', 'FutureLife Marketplace Vendor edit listing preview');
+      document.getElementById('create-listing').id = 'edit-listing';
+      const breadcrumb = document.querySelector('.breadcrumb');
+      breadcrumb.href = 'marketplace-vendor-listing-details.html?listing={{LISTING_ID}}';
+      breadcrumb.textContent = '← Back to Listing Details';
       document.getElementById('listing-form-heading').textContent = 'Edit Listing';
-      document.getElementById('listing-form-copy').textContent = 'Update the selected Marketplace listing, then save it as a draft or submit the change for review.';
+      document.getElementById('listing-form-copy').textContent = 'Update the selected Marketplace listing, then save it as a draft or submit the change for review. The current version stays as it is until FutureLife approves the change.';
+      document.getElementById('title').value = 'Calculus 1: A Complete Course';
+      document.getElementById('category').value = 'Books';
+      document.getElementById('condition').value = 'Good';
+      document.getElementById('description').value = '{{LISTING_DESCRIPTION}}';
+      document.getElementById('price').value = '28.00';
+      currentStock.hidden = false;
+      document.querySelector('.photo-preview').textContent = 'Current photo';
+      photoHelp.textContent = defaultPhotoHelp;
+      form.querySelector('input[name="fulfilment"][value="delivery"]').checked = true;
+      saveDraft.textContent = 'Save Changes as Draft';
+      form.querySelector('button[type="submit"]').textContent = 'Submit Changes for Review';
+    } else {
+      currentStock.remove();
     }
 
     choosePhotos.addEventListener('click', () => photoInput.click());
     photoInput.addEventListener('change', () => {
       const total = photoInput.files.length;
-      photoHelp.textContent = total ? `${total} photo${total === 1 ? '' : 's'} selected for this preview. Images are not uploaded in this static prototype.` : 'Add photos that show the item and its condition clearly.';
+      photoHelp.textContent = total ? `${total} photo${total === 1 ? '' : 's'} selected for this preview. Images are not uploaded in this static prototype.` : defaultPhotoHelp;
     });
 
     saveDraft.addEventListener('click', () => {
@@ -319,6 +343,7 @@
         return;
       }
       notice.textContent = editing ? 'Preview only — listing changes would be submitted for review.' : 'Preview only — listing would be submitted for review.';
+      if (editing) window.setTimeout(() => { window.location.href = 'marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&state=submitted'; }, 900);
     });
   </script>
   <script src="vendor-portal-navigation.js"></script>

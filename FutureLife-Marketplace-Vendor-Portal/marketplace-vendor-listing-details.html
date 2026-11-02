@@ -241,12 +241,12 @@
           </section>
 
           <section class="card" aria-labelledby="info-heading">
-            <div class="card-title-row"><h2 id="info-heading">Listing details</h2><a href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}">Edit</a></div>
+            <div class="card-title-row"><h2 id="info-heading">Listing details</h2><a href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">Edit</a></div>
             <div class="field-list"><div class="field"><span class="field-label">Category</span><span class="field-value">Books</span></div><div class="field"><span class="field-label">Condition</span><span class="field-value">{{LISTING_CONDITION}}</span></div><div class="field"><span class="field-label">Price</span><span class="field-value">RM28.00</span></div><div class="field"><span class="field-label">Location</span><span class="field-value">Subang Jaya, Selangor</span></div><div class="field"><span class="field-label">Fulfilment</span><span class="field-value">{{FULFILMENT_METHODS}}</span></div><div class="field"><span class="field-label">Views</span><span class="field-value">84</span></div></div>
           </section>
 
           <section class="card" aria-labelledby="stock-heading">
-            <div class="card-title-row"><h2 id="stock-heading">Stock</h2><a href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}#quantity">Update quantity</a></div>
+            <div class="card-title-row"><h2 id="stock-heading">Stock</h2><a href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}#quantity">Update quantity</a></div>
             <div class="field-list"><div class="field"><span class="field-label">Quantity available</span><span class="field-value">{{STOCK_AVAILABLE}}</span></div><div class="field"><span class="field-label">Reserved in open orders</span><span class="field-value">{{STOCK_RESERVED}}</span></div><div class="field"><span class="field-label">Sold</span><span class="field-value">{{STOCK_SOLD}}</span></div><div class="field"><span class="field-label">Stock status</span><span class="field-value">{{STOCK_STATUS}}</span></div></div>
           </section>
 
@@ -261,7 +261,7 @@
         </div>
 
         <aside aria-label="Listing actions">
-          <section class="action-card" aria-labelledby="next-heading"><h2 id="next-heading">Listing is live</h2><p id="next-copy">Buyers can see this listing. Edits are reviewed before they replace the live version.</p><a class="button" id="next-primary" href="marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}">Edit Listing</a><button class="button secondary" type="button" id="next-secondary">Pause Listing</button></section>
+          <section class="action-card" aria-labelledby="next-heading"><h2 id="next-heading">Listing is live</h2><p id="next-copy">Buyers can see this listing. Edits are reviewed before they replace the live version.</p><a class="button" id="next-primary" href="marketplace-vendor-create-listing.html?mode=edit&amp;listing={{LISTING_ID}}">Edit Listing</a><button class="button secondary" type="button" id="next-secondary">Pause Listing</button></section>
           <p class="notice" id="listing-notice" aria-live="polite"></p>
           <section class="sidebar-card" aria-labelledby="links-heading"><h2 id="links-heading">Listing tools</h2><nav class="account-links" aria-label="Listing tools"><a href="marketplace-vendor-sponsored-listing.html?listing={{LISTING_ID}}">Sponsor Listing <span>›</span></a><a href="marketplace-vendor-credit-history.html">Listing Credit History <span>›</span></a><a href="marketplace-vendor-orders.html">Orders for this Listing <span>›</span></a><a href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=listing-review">Message FutureLife Support <span>›</span></a></nav></section>
           <section class="sidebar-card" aria-labelledby="preview-heading"><h2 id="preview-heading">Preview states</h2><div class="state-links"><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=draft" data-state-link="draft">Draft</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=submitted" data-state-link="submitted">Pending Review</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=changes-requested" data-state-link="changes-requested">Changes Requested</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=approved" data-state-link="approved">Approved</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=rejected" data-state-link="rejected">Rejected</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=live" data-state-link="live">Live</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=paused" data-state-link="paused">Paused</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=suspended" data-state-link="suspended">Suspended</a><a class="filter" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}&amp;state=expired" data-state-link="expired">Expired</a></div></section>
@@ -307,7 +307,7 @@
     const secondaryButton = document.getElementById('next-secondary');
     secondaryButton.textContent = secondary;
     secondaryButton.addEventListener('click', () => {
-      if (secondary.startsWith('Edit')) { window.location.href = 'marketplace-vendor-edit-listing.html?listing={{LISTING_ID}}'; return; }
+      if (secondary.startsWith('Edit')) { window.location.href = 'marketplace-vendor-create-listing.html?mode=edit&listing={{LISTING_ID}}'; return; }
       if (secondary.startsWith('Message')) { window.location.href = 'marketplace-vendor-messages.html?conversation=futurelife-support&compose=1&context=listing-review'; return; }
       document.getElementById('listing-notice').textContent = `Preview only — ${secondary.toLowerCase()} would run in the live portal.`;
     });

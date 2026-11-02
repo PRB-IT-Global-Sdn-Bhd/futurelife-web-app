@@ -102,6 +102,36 @@
     .privacy-card strong { color: #2d3036; }
     .notice { min-height: 17px; margin: 10px 0 0; color: #397d13; font-size: 9px; font-weight: 700; text-align: center; }
 
+    .status.warning { border-color: #eedcaa; background: #fffdf5; color: #6f5f2a; }
+    .status.failed { border-color: #ecc6c6; background: #fff8f8; color: #b94747; }
+    .status.neutral { border-color: #d2d2d2; background: #fafafa; color: #5d6067; }
+    .lifecycle-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 0 0 12px; color: #a0a3a9; font-size: 10px; }
+    .lifecycle-legend .status:not(.current) { border-color: #e7e7e7; background: #fff; color: #9a9da3; }
+    .lifecycle-legend:last-child { margin-bottom: 0; }
+    .timeline-entry.upcoming .timeline-number { border-color: #e7e7e7; background: #fff; color: #9a9da3; }
+    .timeline-entry.upcoming strong { color: #8a8d93; }
+    .timeline-entry.cancelled .timeline-number { border-color: #ecc6c6; background: #fff8f8; color: #b94747; }
+    .empty-note { margin: 0; border-top: 1px solid #ededed; padding-top: 10px; color: #777a80; font-size: 10px; line-height: 1.4; }
+    .fulfilment-form { display: grid; gap: 10px; margin: 0 0 12px; }
+    .fulfilment-form label, .fulfilment-form .field-label { display: block; margin-bottom: 5px; color: #45484f; font-size: 10px; font-weight: 700; }
+    .fulfilment-form input[type="text"] { display: block; width: 100%; height: 34px; border: 1px solid #d8d8d8; border-radius: 0; padding: 0 9px; background: var(--white); color: #272a30; font: inherit; font-size: 10px; }
+    .fulfilment-form input::placeholder { color: #9da0a6; }
+    .fulfilment-form input:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(120, 190, 33, .13); outline: 0; }
+    .proof-options { display: grid; gap: 7px; }
+    .fulfilment-form .choice { display: inline-flex; align-items: center; gap: 7px; margin: 0; color: #4f5258; font-size: 10px; font-weight: 400; cursor: pointer; }
+    .fulfilment-form .choice input { width: 14px; height: 14px; margin: 0; border-radius: 0; accent-color: var(--green-dark); }
+    .upload-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #777a80; font-size: 9px; }
+    .upload-button { display: inline-flex; min-height: 29px; align-items: center; justify-content: center; border: 1px solid var(--green); padding: 0 10px; background: var(--white); color: #397d13; font-size: 9px; font-weight: 700; }
+    .upload-button:hover { background: var(--pale-green); }
+    .upload-row[hidden] { display: none; }
+    .state-links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .state-links .filter { display: inline-flex; min-height: 28px; align-items: center; border: 1px solid var(--line); padding: 0 10px; background: var(--white); color: #50535a; font-size: 10px; font-weight: 700; text-decoration: none; }
+    .state-links .filter:hover, .state-links .filter.active { border-color: var(--green); background: var(--pale-green); color: #397d13; }
+    .state-group-label { width: 100%; margin: 4px 0 0; color: #777a80; font-size: 9px; font-weight: 700; }
+    .state-group-label:first-child { margin-top: 0; }
+    .server-note { margin-top: 12px; border: 1px solid var(--line); border-left: 4px solid #c69718; padding: 11px 12px; background: #fffdf5; color: #655d45; font-size: 9.5px; line-height: 1.4; }
+    .server-note strong { color: #4f4730; }
+
     .mobile-header { display: none; }
     @media (max-width: 960px) {
       .sidebar, .topbar { display: none; }
@@ -122,6 +152,11 @@
       .item-total { grid-column: 2; }
       .timeline-entry { grid-template-columns: 21px minmax(0, 1fr); }
       .timeline-entry time { grid-column: 2; }
+      .fulfilment-form label, .fulfilment-form .field-label { margin-bottom: 7px; font-size: 12px; }
+      .fulfilment-form input[type="text"] { height: 43px; padding-inline: 10px; font-size: 13px; }
+      .fulfilment-form .choice { font-size: 12px; }
+      .fulfilment-form .choice input { width: 15px; height: 15px; }
+      .state-links .filter { min-height: 32px; }
     }
     @media (prefers-reduced-motion: no-preference) {
       a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
@@ -156,7 +191,7 @@
       <a class="breadcrumb" href="marketplace-vendor-orders.html">← Back to Orders</a>
       <section class="order-hero" aria-labelledby="order-heading">
         <div><p class="eyebrow">Marketplace order</p><h1 id="order-heading">{{ORDER ID}}</h1><p class="order-date">Placed on {{ORDER DATE}}</p></div>
-        <span class="status">New</span>
+        <span class="status" id="hero-status">New</span>
       </section>
 
       <div class="order-layout">
@@ -178,30 +213,62 @@
 
           <section class="card" aria-labelledby="fulfilment-heading">
             <div class="card-title-row"><h2 id="fulfilment-heading">Fulfilment</h2></div>
+            <div class="lifecycle-legend" id="lifecycle-legend" aria-label="Fulfilment lifecycle"></div>
             <div class="field-list">
-              <div class="field"><span class="field-label">Method</span><span class="field-value">{{FULFILMENT METHOD}}</span></div>
-              <div class="field"><span class="field-label">Current status</span><span class="field-value">New</span></div>
+              <div class="field"><span class="field-label">Method</span><span class="field-value" id="fulfilment-method">{{FULFILMENT METHOD}}</span></div>
+              <div class="field"><span class="field-label">Current status</span><span class="field-value" id="fulfilment-status">New</span></div>
               <div class="field"><span class="field-label">Collection / delivery area</span><span class="field-value">{{FULFILMENT AREA}}</span></div>
               <div class="field"><span class="field-label">Customer contact</span><span class="field-value">{{CUSTOMER CONTACT}}</span></div>
             </div>
           </section>
 
+          <section class="card" aria-labelledby="tracking-heading" id="tracking-card">
+            <div class="card-title-row"><h2 id="tracking-heading">Delivery tracking</h2></div>
+            <div class="field-list" id="tracking-fields">
+              <div class="field"><span class="field-label">Courier</span><span class="field-value">{{COURIER_NAME}}</span></div>
+              <div class="field"><span class="field-label">Tracking number</span><span class="field-value">{{TRACKING_NUMBER}}</span></div>
+              <div class="field"><span class="field-label">Tracking link</span><span class="field-value">{{TRACKING_URL}}</span></div>
+              <div class="field"><span class="field-label">Dispatched at</span><span class="field-value">{{DISPATCHED_AT}}</span></div>
+            </div>
+            <p class="empty-note" id="tracking-empty">Courier and tracking number are added when the order is marked as dispatched.</p>
+          </section>
+
+          <section class="card" aria-labelledby="proof-heading" id="proof-card">
+            <div class="card-title-row"><h2 id="proof-heading">Proof of delivery</h2></div>
+            <div class="field-list" id="proof-fields">
+              <div class="field"><span class="field-label">Proof type</span><span class="field-value">{{PROOF_TYPE}}</span></div>
+              <div class="field"><span class="field-label">Recorded at</span><span class="field-value" id="proof-time">{{DELIVERED_AT}}</span></div>
+              <div class="field"><span class="field-label">Photo</span><span class="field-value">{{PROOF_PHOTO}}</span></div>
+              <div class="field"><span class="field-label">Buyer confirmation</span><span class="field-value">{{BUYER_CONFIRMED_AT}}</span></div>
+            </div>
+            <p class="empty-note" id="proof-empty">A delivery photo or buyer confirmation is recorded with a timestamp when the order is marked as delivered.</p>
+          </section>
+
           <section class="card" aria-labelledby="activity-heading">
             <div class="card-title-row"><h2 id="activity-heading">Order activity</h2></div>
-            <div class="timeline">
-              <article class="timeline-entry"><span class="timeline-number">1</span><div><strong>Order created</strong><p>This order was created and is ready for vendor review.</p></div><time>{{ORDER DATE}}</time></article>
-              <article class="timeline-entry"><span class="timeline-number">2</span><div><strong>Vendor action pending</strong><p>Review the order items and selected fulfilment details before processing.</p></div><time>Now</time></article>
-            </div>
+            <div class="timeline" id="timeline"></div>
           </section>
         </section>
 
         <aside>
           <section class="action-card" aria-labelledby="action-heading">
             <h2 id="action-heading">Next action</h2>
-            <p>Review the order details, then begin the selected fulfilment process.</p>
-            <button class="button" type="button" id="start-processing">Start Processing</button>
-            <a class="button secondary" href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Message Customer</a>
-            <a class="button secondary" href="marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Cancellation / Refund</a>
+            <p id="action-copy">Review the order details, then begin the selected fulfilment process.</p>
+            <form class="fulfilment-form" id="tracking-form" novalidate>
+              <div><label for="courier-name">Courier</label><input id="courier-name" name="courier-name" type="text" placeholder="Enter courier name" required /></div>
+              <div><label for="tracking-number">Tracking number</label><input id="tracking-number" name="tracking-number" type="text" placeholder="Enter tracking number" required /></div>
+            </form>
+            <form class="fulfilment-form" id="proof-form" novalidate>
+              <div class="proof-options" role="radiogroup" aria-labelledby="proof-label">
+                <span class="field-label" id="proof-label">Proof</span>
+                <label class="choice"><input type="radio" name="proof" value="photo" checked /><span id="photo-choice-label">Upload delivery photo</span></label>
+                <label class="choice"><input type="radio" name="proof" value="buyer" /><span id="buyer-choice-label">Buyer confirmed receipt</span></label>
+              </div>
+              <div class="upload-row" id="upload-row"><input id="proof-photo" type="file" accept="image/*" hidden /><button class="upload-button" type="button" id="choose-proof">Choose Photo</button><span id="proof-photo-help">No photo selected</span></div>
+            </form>
+            <button class="button" type="button" id="primary-action">Start Processing</button>
+            <a class="button secondary" id="secondary-action" href="marketplace-vendor-messages.html?conversation={{CUSTOMER_ID}}&amp;compose=1&amp;context=order">Message Customer</a>
+            <a class="button secondary" id="issue-action" href="marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}">Order Issue / Cancellation / Refund</a>
             <p class="notice" id="action-notice" aria-live="polite"></p>
           </section>
           <section class="sidebar-card" aria-labelledby="customer-heading">
@@ -214,6 +281,8 @@
             </nav>
           </section>
           <div class="privacy-card"><strong>Customer information</strong><br />Use customer and fulfilment details only to manage this order and the related conversation.</div>
+          <section class="sidebar-card" aria-labelledby="preview-heading"><h2 id="preview-heading">Preview states</h2><div class="state-links" id="state-links"></div></section>
+          <div class="server-note"><strong>Data rule:</strong> order status, courier, tracking number, proof and every timestamp come from the server order record. Changing the URL only previews a state.</div>
         </aside>
       </div>
     </main>
@@ -221,20 +290,149 @@
 
 
   <script>
+    // Preview states: ?state=new|processing|ready-for-dispatch|dispatched|delivered|ready-for-collection|collected|completed|cancelled
+    // and ?method=delivery|collection (the two fulfilment options used across the portal: Delivery and Collect in-store).
+    const query = new URLSearchParams(window.location.search);
+    const methods = { delivery: 'Delivery', collection: 'Collect in-store' };
+    const paths = {
+      delivery: ['new', 'processing', 'ready-for-dispatch', 'dispatched', 'delivered', 'completed'],
+      collection: ['new', 'processing', 'ready-for-collection', 'collected', 'completed']
+    };
+    const labels = { new: 'New', processing: 'Processing', 'ready-for-dispatch': 'Ready for Dispatch', dispatched: 'Dispatched', delivered: 'Delivered', 'ready-for-collection': 'Ready for Collection', collected: 'Collected', completed: 'Completed', cancelled: 'Cancelled' };
+    const steps = {
+      new: ['Order created', 'This order was created and is ready for vendor review.', '{{ORDER DATE}}'],
+      processing: ['Processing started', 'The vendor is preparing the order items.', '{{PROCESSING_AT}}'],
+      'ready-for-dispatch': ['Ready for dispatch', 'The order is packed and waiting for the courier.', '{{READY_AT}}'],
+      dispatched: ['Dispatched', 'Handed to {{COURIER_NAME}} · Tracking {{TRACKING_NUMBER}}.', '{{DISPATCHED_AT}}'],
+      delivered: ['Delivered', 'Delivery recorded with a photo or buyer confirmation.', '{{DELIVERED_AT}}'],
+      'ready-for-collection': ['Ready for collection', 'The customer can collect the order in-store.', '{{READY_AT}}'],
+      collected: ['Collected', 'Collection recorded with a photo or buyer confirmation.', '{{COLLECTED_AT}}'],
+      completed: ['Order completed', 'Fulfilment is complete. Earnings appear in the earnings breakdown.', '{{COMPLETED_AT}}'],
+      cancelled: ['Order cancelled', 'This order was cancelled. Reason: {{CANCELLATION_REASON}}.', '{{CANCELLED_AT}}']
+    };
+    // [heading, copy, primary label, confirmation copy, form]
+    const actions = {
+      new: ['Next action', 'Review the order details, then begin the selected fulfilment process.', 'Start Processing', 'Confirm only after reviewing the order and selected fulfilment method.', ''],
+      processing: ['Prepare the order', 'Pack the order items, then mark the order as ready.', '', 'Confirm only when the order is packed and ready.', ''],
+      'ready-for-dispatch': ['Add delivery tracking', 'Enter the courier and tracking number given when the parcel is handed over.', 'Mark as Dispatched', 'Confirm the courier and tracking number are correct.', 'tracking'],
+      dispatched: ['Confirm delivery', 'Record a delivery photo or the buyer’s confirmation once the parcel arrives.', 'Mark as Delivered', 'Confirm the order has been delivered.', 'proof'],
+      'ready-for-collection': ['Confirm collection', 'Record a collection photo or the buyer’s confirmation when the customer collects the order.', 'Mark as Collected', 'Confirm the customer has collected the order.', 'proof'],
+      delivered: ['Complete the order', 'Delivery is recorded. Complete the order when fulfilment is finished.', 'Mark as Completed', 'Confirm fulfilment is finished.', ''],
+      collected: ['Complete the order', 'Collection is recorded. Complete the order when fulfilment is finished.', 'Mark as Completed', 'Confirm fulfilment is finished.', ''],
+      completed: ['Order completed', 'This order is complete. Check the platform fee and net amount in the earnings breakdown.', 'View Earnings Breakdown', '', ''],
+      cancelled: ['Order cancelled', 'This order was cancelled. Check the cancellation and any refund in Order Issue / Cancellation / Refund.', 'View Cancellation Details', '', '']
+    };
+
+    const requestedState = query.get('state');
+    const state = labels[requestedState] ? requestedState : 'new';
+    let method = methods[query.get('method')] ? query.get('method') : 'delivery';
+    if (['ready-for-dispatch', 'dispatched', 'delivered'].includes(state)) method = 'delivery';
+    if (['ready-for-collection', 'collected'].includes(state)) method = 'collection';
+    const path = paths[method];
+    const isDelivery = method === 'delivery';
+    const reached = state === 'cancelled' ? 0 : path.indexOf(state);
+    const stateUrl = (key, m) => `marketplace-vendor-order-details.html?order={{ORDER_ID}}&state=${key}&method=${m}`;
+
+    const heroStatus = document.getElementById('hero-status');
+    heroStatus.textContent = labels[state];
+    if (state === 'cancelled') heroStatus.classList.add('failed');
+    else if (!['new', 'completed'].includes(state)) heroStatus.classList.add('warning');
+    if (requestedState) document.getElementById('fulfilment-method').textContent = methods[method];
+    document.getElementById('fulfilment-status').textContent = labels[state];
+
+    const legend = document.getElementById('lifecycle-legend');
+    legend.innerHTML = [...path, 'cancelled'].map((key) => `<span class="status${key === 'cancelled' ? ' failed' : ''}${key === state ? ' current' : ''}">${labels[key]}</span>`).join('<span aria-hidden="true">›</span>').replace('<span aria-hidden="true">›</span><span class="status failed', '<span aria-hidden="true">·</span><span class="status failed');
+
+    const timeline = document.getElementById('timeline');
+    const entries = state === 'cancelled' ? ['new', 'cancelled'] : path;
+    timeline.innerHTML = entries.map((key, index) => {
+      const done = state === 'cancelled' ? true : index < reached;
+      const current = key === state && state !== 'completed';
+      const finished = state === 'completed' && key === 'completed';
+      const cls = key === 'cancelled' ? ' cancelled' : current ? ' current' : (done || finished) ? '' : ' upcoming';
+      const time = current && key !== 'new' && key !== 'cancelled' ? 'Now' : (done || finished || key === 'cancelled' || key === 'new') ? steps[key][2] : 'Pending';
+      const copy = current && key === 'new' ? 'Review the order items and selected fulfilment details before processing.' : steps[key][1];
+      const title = current && key === 'new' ? 'Vendor action pending' : steps[key][0];
+      return `<article class="timeline-entry${cls}"><span class="timeline-number">${index + 1}</span><div><strong>${title}</strong><p>${copy}</p></div><time>${time}</time></article>`;
+    }).join('');
+    if (state === 'new') timeline.innerHTML = '<article class="timeline-entry"><span class="timeline-number">1</span><div><strong>Order created</strong><p>This order was created and is ready for vendor review.</p></div><time>{{ORDER DATE}}</time></article><article class="timeline-entry current"><span class="timeline-number">2</span><div><strong>Vendor action pending</strong><p>Review the order items and selected fulfilment details before processing.</p></div><time>Now</time></article>' + path.slice(1).map((key, index) => `<article class="timeline-entry upcoming"><span class="timeline-number">${index + 3}</span><div><strong>${steps[key][0]}</strong><p>${steps[key][1]}</p></div><time>Pending</time></article>`).join('');
+
+    const trackingCard = document.getElementById('tracking-card');
+    const proofCard = document.getElementById('proof-card');
+    if (!isDelivery || state === 'cancelled') trackingCard.remove();
+    else if (path.indexOf(state) >= path.indexOf('dispatched')) document.getElementById('tracking-empty').remove();
+    else document.getElementById('tracking-fields').remove();
+    if (state === 'cancelled') proofCard.remove();
+    else {
+      const proofStep = isDelivery ? 'delivered' : 'collected';
+      document.getElementById('proof-heading').textContent = isDelivery ? 'Proof of delivery' : 'Proof of collection';
+      document.getElementById('proof-time').textContent = isDelivery ? '{{DELIVERED_AT}}' : '{{COLLECTED_AT}}';
+      document.getElementById('proof-empty').textContent = isDelivery ? 'A delivery photo or buyer confirmation is recorded with a timestamp when the order is marked as delivered.' : 'A collection photo or buyer confirmation is recorded with a timestamp when the order is marked as collected.';
+      if (path.indexOf(state) >= path.indexOf(proofStep)) document.getElementById('proof-empty').remove();
+      else document.getElementById('proof-fields').remove();
+    }
+
+    const [heading, copy, primaryLabel, confirmCopy, form] = actions[state];
+    const readyLabel = isDelivery ? 'Mark Ready for Dispatch' : 'Mark Ready for Collection';
+    const primaryText = primaryLabel || readyLabel;
+    document.getElementById('action-heading').textContent = heading;
+    document.getElementById('action-copy').textContent = copy;
+    if (form !== 'tracking') document.getElementById('tracking-form').remove();
+    if (form !== 'proof') document.getElementById('proof-form').remove();
+    else if (!isDelivery) {
+      document.getElementById('photo-choice-label').textContent = 'Upload collection photo';
+      document.getElementById('buyer-choice-label').textContent = 'Buyer confirmed collection';
+    }
     const notice = document.getElementById('action-notice');
-    const processingButton = document.getElementById('start-processing');
-    let processingConfirmationPending = false;
-    processingButton.addEventListener('click', () => {
-      if (!processingConfirmationPending) {
-        processingConfirmationPending = true;
-        processingButton.textContent = 'Confirm Start Processing';
-        notice.textContent = 'Confirm only after reviewing the order and selected fulfilment method.';
-        return;
-      }
-      processingConfirmationPending = false;
-      processingButton.textContent = 'Start Processing';
-      notice.textContent = 'Preview only — the order status would be updated to Processing after confirmation.';
-    });
+    let primary = document.getElementById('primary-action');
+    if (state === 'completed' || state === 'cancelled') {
+      const link = document.createElement('a');
+      link.className = 'button';
+      link.id = 'primary-action';
+      link.textContent = primaryText;
+      link.href = state === 'completed' ? 'marketplace-vendor-earnings-breakdown.html?order={{ORDER_ID}}' : 'marketplace-vendor-order-issue-resolution.html?order={{ORDER_ID}}';
+      primary.replaceWith(link);
+      primary = link;
+      document.getElementById('issue-action').remove();
+    } else {
+      primary.textContent = primaryText;
+      let confirmationPending = false;
+      primary.addEventListener('click', () => {
+        const activeForm = document.querySelector('.fulfilment-form');
+        if (activeForm && activeForm.id === 'tracking-form' && !activeForm.checkValidity()) {
+          notice.textContent = 'Enter the courier and tracking number before marking the order as dispatched.';
+          activeForm.reportValidity();
+          return;
+        }
+        if (activeForm && activeForm.id === 'proof-form' && activeForm.querySelector('input[name="proof"]:checked').value === 'photo' && !document.getElementById('proof-photo').files.length) {
+          notice.textContent = 'Choose a photo, or select buyer confirmation, before confirming.';
+          return;
+        }
+        if (!confirmationPending) {
+          confirmationPending = true;
+          primary.textContent = `Confirm ${primaryText}`;
+          notice.textContent = confirmCopy;
+          return;
+        }
+        confirmationPending = false;
+        primary.textContent = primaryText;
+        const next = state === 'new' ? 'processing' : path[path.indexOf(state) + 1];
+        notice.textContent = `Preview only — the order status would be updated to ${labels[next]} after confirmation.`;
+      });
+    }
+
+    const proofForm = document.getElementById('proof-form');
+    if (proofForm) {
+      const uploadRow = document.getElementById('upload-row');
+      const photoInput = document.getElementById('proof-photo');
+      document.getElementById('choose-proof').addEventListener('click', () => photoInput.click());
+      photoInput.addEventListener('change', () => { document.getElementById('proof-photo-help').textContent = photoInput.files.length ? `${photoInput.files[0].name} selected for this preview. Images are not uploaded in this static prototype.` : 'No photo selected'; });
+      proofForm.querySelectorAll('input[name="proof"]').forEach((input) => input.addEventListener('change', () => { uploadRow.hidden = input.value !== 'photo' || !input.checked; }));
+    }
+
+    const stateLinks = document.getElementById('state-links');
+    const group = (title, m, keys) => `<span class="state-group-label">${title}</span>` + keys.map((key) => `<a class="filter${key === state && m === method ? ' active' : ''}" href="${stateUrl(key, m)}"${key === state && m === method ? ' aria-current="page"' : ''}>${labels[key]}</a>`).join('');
+    stateLinks.innerHTML = group('Delivery', 'delivery', [...paths.delivery, 'cancelled']) + group('Collect in-store', 'collection', [...paths.collection, 'cancelled']);
   </script>
   <script src="vendor-portal-navigation.js"></script>
 </body>
