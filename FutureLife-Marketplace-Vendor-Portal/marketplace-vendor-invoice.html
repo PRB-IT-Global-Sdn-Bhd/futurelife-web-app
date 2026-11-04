@@ -3,89 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Marketplace Vendor invoice and receipt preview" />
-  <title>Marketplace Vendor Portal — Invoice / Receipt</title>
-  <link rel="stylesheet" href="vendor-portal.css" />
-  <link rel="stylesheet" href="vendor-portal-statement.css" />
-  <style>
-    a {
-      border-radius: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    a:focus-visible {
-      outline: 2px solid var(--green);
-      outline-offset: 2px;
-    }
-    .mobile-header, .statement-cards {
-      display: none;
-    }
-    @media (max-width:960px) {
-      html, body {
-        max-width: 100%;
-        overflow-x: clip;
-      }
-      .mobile-header {
-        display: flex;
-        min-height: 62px;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 0 13px;
-        border-bottom: 2px solid #eee;
-        background: var(--white);
-      }
-      .content, .layout, .summary-grid, .statement-card, .card, .side-card {
-        min-width: 0;
-      }
-      .statement-cards {
-        display: block;
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+  <meta name="robots" content="noindex" />
+  <title>Marketplace Vendor Portal — Redirecting</title>
+  <script>
+    /* marketplace-vendor-invoice.html was folded into Plans & Subscriptions. Old links are forwarded to the matching page and tab;
+       other query parameters and the hash are kept. */
+    (function () {
+      var params = new URLSearchParams(window.location.search), out = new URLSearchParams();
+      var tab = 'invoice', page = 'marketplace-vendor-plans-and-subscriptions.html';
+      if (tab) out.set('tab', tab);
+      params.forEach(function (v, k) { if (k !== 'tab') out.append(k, v); });
+      var query = out.toString();
+      window.location.replace(page + (query ? '?' + query : '') + window.location.hash);
+    })();
+  </script>
 </head>
 <body>
-  <aside class="sidebar" aria-label="Vendor portal navigation">
-    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
-    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-subscription">Plans &amp; Sponsored Listings</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
-    <a class="side-logout" href="#logout">Logout</a>
-  </aside>
-  <div class="page-shell">
-    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
-    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
-    <main class="content" id="invoice">
-      <a class="breadcrumb" href="marketplace-vendor-payment-history.html">← Back to Payment History</a>
-      <p class="eyebrow">Billing</p>
-      <h1>Invoice / Receipt</h1>
-      <p class="page-copy">A record of a confirmed FutureLife payment for a vendor plan or a sponsored listing.</p>
-      <section class="statement-header" aria-labelledby="invoice-reference-heading"><div><h2 class="statement-id" id="invoice-reference-heading">{{INVOICE NUMBER}}</h2><p class="statement-meta">Issued: {{INVOICE DATE}} · Payment reference: {{PAYMENT ID}}</p></div><span class="status">Paid</span></section>
-      <section class="summary-grid" aria-label="Invoice totals"><article class="summary-card"><span class="label">Payment type</span><strong>{{PAYMENT TYPE}}</strong><small>Plan or sponsored listing.</small></article><article class="summary-card"><span class="label">Paid on</span><strong>{{PAYMENT DATE}}</strong><small>Date the payment was confirmed.</small></article><article class="summary-card"><span class="label">Payment method</span><strong>{{PAYMENT METHOD}}</strong><small>Method recorded for this payment.</small></article><article class="summary-card highlight"><span class="label">Amount paid</span><strong>RM {{PAYMENT AMOUNT}}</strong><small>Total recorded for this payment.</small></article></section>
-      <div class="layout">
-        <section>
-          <section class="card" aria-labelledby="line-items-heading"><h2 id="line-items-heading">Items</h2><p class="section-copy">Show only the items recorded on this payment.</p>
-            <table class="statement-table"><colgroup><col class="order" /><col class="eligible" /><col class="gross" /><col class="unit" /><col class="net" /></colgroup><thead><tr><th>Item</th><th>Type</th><th>Quantity</th><th>Unit price</th><th>Amount</th></tr></thead><tbody>
-              <tr><td><span class="order-id">{{ITEM NAME}}</span><span class="sub-value">{{ITEM PERIOD}}</span></td><td>{{PAYMENT TYPE}}</td><td>{{QUANTITY}}</td><td><span class="money">RM {{UNIT PRICE}}</span></td><td><span class="money">RM {{LINE TOTAL}}</span></td></tr>
-            </tbody></table>
-            <div class="statement-cards">
-              <article class="statement-card"><div class="statement-card-top"><div><span class="order-id">{{ITEM NAME}}</span><span class="sub-value">{{PAYMENT TYPE}} · {{ITEM PERIOD}}</span></div></div><div class="mobile-money-grid"><div><span class="side-label-small">Quantity</span><span class="money">{{QUANTITY}}</span></div><div><span class="side-label-small">Unit price</span><span class="money">RM {{UNIT PRICE}}</span></div><div><span class="side-label-small">Amount</span><span class="money">RM {{LINE TOTAL}}</span></div></div></article>
-            </div>
-          </section>
-          <section class="card" aria-labelledby="totals-heading"><h2 id="totals-heading">Payment summary</h2><p class="section-copy">How the item total becomes the amount paid.</p><div class="reconciliation"><div class="recon-row"><span>Subtotal</span><span class="amount">RM {{SUBTOTAL}}</span></div><div class="recon-row"><span>Less: Discount, if any</span><span class="amount">RM {{DISCOUNT}}</span></div><div class="recon-row total"><span>Amount paid</span><span class="amount">RM {{PAYMENT AMOUNT}}</span></div></div><p class="policy-note"><strong>Receipt clarity.</strong> Issue this receipt only after the payment is confirmed on the server. Do not add tax lines, fees or discounts that are not part of the recorded payment.</p></section>
-        </section>
-        <aside>
-          <section class="side-card" aria-labelledby="billed-to-heading"><h2 id="billed-to-heading">Billed to</h2><div class="summary-list"><div class="summary-row"><span class="side-label-small">Store</span><span class="summary-value">Kampus Essentials</span></div><div class="summary-row"><span class="side-label-small">Billing contact</span><span class="summary-value">{{BILLING CONTACT EMAIL}}</span></div><div class="summary-row"><span class="side-label-small">Business address</span><span class="summary-value">{{BUSINESS ADDRESS}}</span></div></div></section>
-          <section class="side-card" aria-labelledby="billed-by-heading"><h2 id="billed-by-heading">Issued by</h2><div class="summary-list"><div class="summary-row"><span class="side-label-small">Company</span><span class="summary-value">{{FUTURELIFE LEGAL NAME}}</span></div><div class="summary-row"><span class="side-label-small">Registration number</span><span class="summary-value">{{FUTURELIFE REGISTRATION NUMBER}}</span></div></div></section>
-          <section class="side-card" aria-labelledby="invoice-actions-heading"><h2 id="invoice-actions-heading">Receipt actions</h2><p class="support-note">Need clarification on this payment? Send FutureLife Support the invoice number.</p><button class="button" type="button" id="download-receipt">Download PDF</button><a class="button secondary" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=payments">Ask about a Payment</a><a class="button secondary" href="marketplace-vendor-payment-history.html">Back to Payment History</a><p class="support-note" id="receipt-notice" aria-live="polite"></p></section>
-        </aside>
-      </div>
-    </main>
-  </div>
-  <script>
-    document.getElementById('download-receipt').addEventListener('click', () => {
-      document.getElementById('receipt-notice').textContent = 'Preview only: the live page downloads the receipt PDF generated by the billing system.';
-    });
-  </script>
-  <script src="vendor-portal-navigation.js"></script>
+  <noscript><p><a href="marketplace-vendor-plans-and-subscriptions.html">Open Plans &amp; Subscriptions</a></p></noscript>
 </body>
 </html>

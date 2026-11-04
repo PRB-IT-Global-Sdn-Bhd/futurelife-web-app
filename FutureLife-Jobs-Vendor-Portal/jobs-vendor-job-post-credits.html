@@ -7,18 +7,18 @@
   <title>Jobs Vendor Portal — Redirecting</title>
   <script>
     /* jobs-vendor-job-post-credits.html was retired: job post credit packs are no longer sold; live job posts come from your plan allowance.
-       Old links are forwarded to jobs-vendor-billing-plans.html; other query parameters and the hash are kept. */
+       Old links are forwarded to jobs-vendor-plans-and-subscriptions.html; other query parameters and the hash are kept. */
     (function () {
       var params = new URLSearchParams(window.location.search), force = {}, dflt = {}, ren = {};
       Object.keys(ren).forEach(function (k) { if (params.has(k)) { params.set(ren[k], params.get(k)); params.delete(k); } });
       Object.keys(force).forEach(function (k) { params.set(k, force[k]); });
       Object.keys(dflt).forEach(function (k) { if (!params.has(k)) params.set(k, dflt[k]); });
       var query = params.toString();
-      window.location.replace('jobs-vendor-billing-plans.html' + (query ? '?' + query : '') + window.location.hash);
+      window.location.replace('jobs-vendor-plans-and-subscriptions.html' + (query ? '?' + query : '') + window.location.hash);
     })();
   </script>
 </head>
 <body>
-  <noscript><p><a href="jobs-vendor-billing-plans.html">Open Plans &amp; Subscription</a></p></noscript>
+  <noscript><p><a href="jobs-vendor-plans-and-subscriptions.html">Open Plans &amp; Subscriptions</a></p></noscript>
 </body>
 </html>

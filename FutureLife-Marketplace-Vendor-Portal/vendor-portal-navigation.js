@@ -4,8 +4,9 @@
     listings: 'marketplace-vendor-listings.html',
     orders: 'marketplace-vendor-orders.html',
     payouts: 'marketplace-vendor-payouts.html',
-    billing: 'marketplace-vendor-billing.html',
-    billingPlans: 'marketplace-vendor-billing.html#plans-and-subscription',
+    billing: 'marketplace-vendor-plans-and-subscriptions.html',
+    billingPlans: 'marketplace-vendor-plans-and-subscriptions.html',
+    sponsoredListings: 'marketplace-vendor-sponsored-listings.html',
     messages: 'marketplace-vendor-messages.html',
     notifications: 'marketplace-vendor-notifications.html',
     profile: 'marketplace-vendor-profile.html',
@@ -34,7 +35,9 @@
     orders: ROUTES.orders,
     payouts: ROUTES.payouts,
     billing: ROUTES.billing,
+    'plans & subscriptions': ROUTES.billingPlans,
     'plans & sponsored listings': ROUTES.billingPlans,
+    'sponsored listings': ROUTES.sponsoredListings,
     messages: ROUTES.messages,
     profile: ROUTES.profile,
     'vendor profile': ROUTES.profile,
@@ -82,47 +85,56 @@
     document.head.appendChild(style);
   }
 
-  function groupPayoutsUnderBilling() {
+  /* Billing holds exactly two pages: Plans & Subscriptions and Sponsored Listings.
+     Payouts are vendor earnings, so they stay a separate top-level item. */
+  function buildBillingGroup() {
+    const page = window.location.pathname.split('/').pop() || '';
+    const activeSub = page === ROUTES.billingPlans ? 'plans' : page === ROUTES.sponsoredListings ? 'sponsored' : '';
     document.querySelectorAll('.side-menu').forEach((nav) => {
       const payoutsLink = [...nav.querySelectorAll('a')].find((link) => link.getAttribute('href') === ROUTES.payouts);
-      if (!payoutsLink) return;
-      payoutsLink.textContent = 'Payouts';
-      payoutsLink.classList.add('billing-sub-link');
+      if (payoutsLink) {
+        payoutsLink.textContent = 'Payouts';
+        payoutsLink.classList.remove('billing-sub-link');
+      }
+      nav.querySelectorAll('a.billing-sub-link').forEach((link) => link.remove());
       let billing = nav.querySelector('.billing-parent');
       if (!billing || billing.tagName !== 'A') {
         const billingLink = document.createElement('a');
         billingLink.className = 'billing-parent';
-        billingLink.href = ROUTES.billing;
-        billingLink.textContent = 'Billing';
         if (billing) billing.replaceWith(billingLink);
-        else payoutsLink.insertAdjacentElement('beforebegin', billingLink);
+        else if (payoutsLink) payoutsLink.insertAdjacentElement('beforebegin', billingLink);
+        else nav.appendChild(billingLink);
         billing = billingLink;
       }
-      billing.href = ROUTES.billing;
-    });
-  }
-
-  function addPlansAndSponsoredListingsUnderBilling() {
-    document.querySelectorAll('.side-menu').forEach((nav) => {
-      const billing = nav.querySelector('.billing-parent');
-      if (!billing) return;
-      let plans = [...nav.querySelectorAll('a')].find((link) => link.getAttribute('href') === ROUTES.billingPlans);
-      if (!plans) {
-        plans = document.createElement('a');
-        plans.href = ROUTES.billingPlans;
-        plans.textContent = 'Plans & Sponsored Listings';
-      }
-      plans.classList.add('billing-sub-link');
-      billing.insertAdjacentElement('afterend', plans);
+      billing.href = ROUTES.billingPlans;
+      billing.textContent = 'Billing';
+      billing.classList.toggle('active', Boolean(activeSub));
+      billing.removeAttribute('aria-current');
+      const items = [['plans', ROUTES.billingPlans, 'Plans & Subscriptions'], ['sponsored', ROUTES.sponsoredListings, 'Sponsored Listings']];
+      let after = billing;
+      items.forEach(([key, href, label]) => {
+        const link = document.createElement('a');
+        link.className = 'billing-sub-link';
+        link.href = href;
+        link.textContent = label;
+        if (key === activeSub) {
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        }
+        after.insertAdjacentElement('afterend', link);
+        after = link;
+      });
+      if (payoutsLink && payoutsLink.previousElementSibling !== after) after.insertAdjacentElement('afterend', payoutsLink);
     });
   }
 
   function activeKeyForPath() {
     const page = window.location.pathname.split('/').pop() || '';
     if (page.includes('dashboard')) return 'dashboard';
-    if (page.includes('create-listing') || page.includes('listing-guidelines') || page.includes('listings') || page.includes('sponsored-listing')) return 'listings';
+    if (page.includes('create-listing') || page.includes('listing-guidelines') || (page.includes('listings') && !page.includes('sponsored-listings'))) return 'listings';
     if (page.includes('order-details') || page.includes('order-issue') || page.includes('orders')) return 'orders';
-    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('payout-account') || page.includes('payouts') || page.includes('plan-change')) return 'payouts';
+    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('payout-account') || page.includes('payout-hold') || page.includes('payouts')) return 'payouts';
+    if (page.includes('plans-and-subscriptions') || page.includes('sponsored-listings')) return 'billing';
     if (page.includes('messages')) return 'messages';
     if (page.includes('notifications')) return 'notifications';
     if (page.includes('profile') || page.includes('fulfilment') || page.includes('account-security')) return 'profile';
@@ -187,7 +199,7 @@
 
   function indicateCurrentPage() {
     const current = window.location.pathname.split('/').pop();
-    document.querySelectorAll('.side-menu a').forEach((link) => {
+    document.querySelectorAll('.side-menu a:not(.billing-parent):not(.billing-sub-link)').forEach((link) => {
       const href = link.getAttribute('href');
       if (!href || !href.endsWith(current)) return;
       link.classList.add('active');
@@ -199,8 +211,7 @@
     routeLegacyAnchors();
     exposeNotifications();
     addBillingSubpageStyles();
-    groupPayoutsUnderBilling();
-    addPlansAndSponsoredListingsUnderBilling();
+    buildBillingGroup();
     indicateCurrentPage();
     setupMobileMenu();
   }

@@ -3,48 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Jobs Vendor Portal preview — Plans &amp; Subscription" />
-  <title>Jobs Vendor Portal — Plans &amp; Subscription</title>
-  <link rel="stylesheet" href="jobs-vendor-portal.css" />
-  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+  <meta name="robots" content="noindex" />
+  <title>Jobs Vendor Portal — Redirecting</title>
+  <script>
+    /* jobs-vendor-billing-plans.html was folded into Plans & Subscriptions. Old links are forwarded to the matching page and tab;
+       other query parameters and the hash are kept. */
+    (function () {
+      var params = new URLSearchParams(window.location.search), out = new URLSearchParams();
+      var tab = null, page = 'jobs-vendor-plans-and-subscriptions.html';
+      if (tab) out.set('tab', tab);
+      params.forEach(function (v, k) { if (k !== 'tab') out.append(k, v); });
+      var query = out.toString();
+      window.location.replace(page + (query ? '?' + query : '') + window.location.hash);
+    })();
+  </script>
 </head>
 <body>
-  <div class="app"><aside class="sidebar" aria-label="Jobs Vendor Portal navigation">
-      <a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE<small>Jobs Vendor Portal</small></a>
-      <a class="account" href="jobs-vendor-company-profile.html"><span class="monogram">CO</span><span><strong>Employer Profile</strong><span class="sub">Employer profile</span></span><span class="arrow">›</span></a>
-      <p class="side-label">Hiring management</p>
-      <nav class="nav-list">
-        <a class="nav-link" href="jobs-vendor-dashboard.html">Dashboard</a>
-        <a class="nav-link" href="jobs-vendor-job-listings.html">Job Listings</a>
-        <a class="nav-link" href="jobs-vendor-candidates.html">Candidates <span class="count">3</span></a>
-        <a class="nav-link" href="jobs-vendor-interviews.html">Interviews</a>
-        <a class="nav-link" href="jobs-vendor-hires.html">Hires &amp; Placements</a>
-        <a class="nav-link" href="jobs-vendor-messages.html">Messages <span class="count">2</span></a>
-        <a class="nav-link active" href="jobs-vendor-billing-plans.html" aria-current="page">Billing</a>
-        <a class="nav-link active billing-sub-link" href="jobs-vendor-billing-plans.html#plans-and-subscription" aria-current="page">Plans &amp; Subscription</a>
-        <a class="nav-link billing-sub-link" href="jobs-vendor-sponsored-listings.html">Sponsored Listings</a>
-        
-        <a class="nav-link" href="jobs-vendor-notifications.html">Alerts <span class="count">4</span></a>
-        <a class="nav-link" href="jobs-vendor-company-profile.html">Company Profile</a>
-        <a class="nav-link" href="jobs-vendor-team-members.html">Team Members</a>
-        <a class="nav-link" href="jobs-vendor-account-security.html">Account &amp; Security</a>
-      </nav>
-      <a class="logout" href="jobs-vendor-signin.html">Logout</a>
-    </aside>
-    <div class="shell"><header class="topbar">Employer hiring workspace</header>
-      <header class="mobile-head"><a class="brand" href="jobs-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Jobs Portal</span></header>
-      <main>
-        <section class="view" data-screen="billing-plans" id="plans-and-subscription">
-          <div class="heading"><div><p class="eyebrow">Billing</p><h1>Plans &amp; Subscription</h1><p class="page-copy">Review your active subscription plan, plan allowances, billing records, and employer billing contact. FutureLife earns from subscription plans and sponsored listings only — there are no job post fees, credit packs, or placement fees.</p></div><a class="button secondary" href="#plan-comparison">Plan comparison</a></div>
-          <div class="stack"><section class="panel panel-pad"><div class="panel-head"><div><h2>Jobs Basic</h2><p class="panel-copy">Your current active employer plan.</p></div><span class="badge">Current plan</span></div><dl class="detail-grid"><div class="detail"><dt>Plan price</dt><dd>Free</dd></div><div class="detail"><dt>Renewal date</dt><dd>{{PLAN_RENEWAL_DATE}}</dd></div><div class="detail"><dt>Live job post allowance</dt><dd>{{BASIC_JOB_POST_LIMIT}}</dd></div><div class="detail"><dt>Sponsored job post allowance</dt><dd>{{JOBS_BASIC_SPONSORED_ALLOWANCE}}</dd></div></dl><div class="actions"><a class="button" href="jobs-vendor-plan-change.html?step=choose">Manage Plan</a></div><p id="plan-notice" class="notice"></p></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Sponsored listings</h2><p class="panel-copy">Promote a live job with a paid sponsored placement. Prices are set by FutureLife.</p></div></div><div class="actions"><a class="button secondary" href="jobs-vendor-sponsored-listings.html">Sponsor a Listing</a></div></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Billing history</h2><p class="panel-copy">Subscription plan records for this account.</p></div><a class="inline-link" href="jobs-vendor-payment-history.html">Payment History</a></div><div class="table-wrap billing-history-table"><table><thead><tr><th>Invoice number</th><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody><tr><td>{{INVOICE_NUMBER}}</td><td>{{INVOICE_DATE}}</td><td>{{INVOICE_DESCRIPTION}}</td><td>RM {{INVOICE_AMOUNT}}</td><td><span class="badge">Paid</span></td><td><a class="inline-link" href="jobs-vendor-invoice.html?state=paid">View Invoice</a></td></tr><tr><td>{{INVOICE_NUMBER}}</td><td>{{INVOICE_DATE}}</td><td>{{INVOICE_DESCRIPTION}}</td><td>RM {{INVOICE_AMOUNT}}</td><td><span class="badge pending">Due</span></td><td><a class="inline-link" href="jobs-vendor-invoice.html?state=due">View Invoice</a></td></tr></tbody></table></div><div class="mobile-billing-cards"><article class="mobile-billing-card"><h3>{{INVOICE_NUMBER}}</h3><div class="mobile-billing-facts"><div class="mobile-billing-fact"><span>Date</span><strong>{{INVOICE_DATE}}</strong></div><div class="mobile-billing-fact"><span>Description</span><strong>{{INVOICE_DESCRIPTION}}</strong></div><div class="mobile-billing-fact"><span>Amount</span><strong>RM {{INVOICE_AMOUNT}}</strong></div><div class="mobile-billing-fact"><span>Status</span><strong><span class="badge">Paid</span></strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-invoice.html?state=paid">View Invoice</a></article><article class="mobile-billing-card"><h3>{{INVOICE_NUMBER}}</h3><div class="mobile-billing-facts"><div class="mobile-billing-fact"><span>Date</span><strong>{{INVOICE_DATE}}</strong></div><div class="mobile-billing-fact"><span>Description</span><strong>{{INVOICE_DESCRIPTION}}</strong></div><div class="mobile-billing-fact"><span>Amount</span><strong>RM {{INVOICE_AMOUNT}}</strong></div><div class="mobile-billing-fact"><span>Status</span><strong><span class="badge pending">Due</span></strong></div></div><a class="button secondary mobile-invoice-action" href="jobs-vendor-invoice.html?state=due">View Invoice</a></article></div></section><section class="panel panel-pad"><div class="panel-head"><div><h2>Billing contact &amp; payment method</h2><p class="panel-copy">Keep employer billing information current.</p></div></div><dl class="detail-grid"><div class="detail"><dt>Billing contact</dt><dd>{{BILLING_CONTACT_NAME}}</dd></div><div class="detail"><dt>Invoice email</dt><dd>{{BILLING_EMAIL}}</dd></div><div class="detail"><dt>Payment method</dt><dd>{{PAYMENT_METHOD_STATUS}}</dd></div><div class="detail"><dt>Organisation</dt><dd>Employer Profile</dd></div></dl><div class="actions"><button class="button secondary billing-action" data-billing-action="update-billing" type="button">Update Billing Details</button></div></section></div>
-        </section>
-        <section class="view" data-screen="billing" id="plan-comparison">
-          <section aria-labelledby="plan-comparison-heading"><div class="plan-comparison-heading"><div><h2 id="plan-comparison-heading">Plan comparison</h2><p>Compare active job-post allowances, sponsored job-post allowances, team access, and support before changing your plan.</p></div></div><div class="plan-comparison-grid"><article class="plan-compare-card current"><span class="plan-compare-badge">CURRENT PLAN</span><h3>Jobs Basic</h3><p class="plan-compare-price">Plan price<strong>Free</strong></p><div class="plan-compare-list"><div><span>Active job post limit</span><strong>{{JOBS_BASIC_POST_LIMIT}}</strong></div><div><span>Sponsored job post allowance</span><strong>{{JOBS_BASIC_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{JOBS_BASIC_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{JOBS_BASIC_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="jobs-vendor-billing-plans.html#plans-and-subscription">View plan details →</a></article><article class="plan-compare-card"><h3>Jobs Pro</h3><p class="plan-compare-price">Plan price<strong>RM {{JOBS_PRO_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active job post limit</span><strong>{{JOBS_PRO_POST_LIMIT}}</strong></div><div><span>Sponsored job post allowance</span><strong>{{JOBS_PRO_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{JOBS_PRO_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{JOBS_PRO_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="jobs-vendor-plan-change.html?step=review&amp;plan=pro">Compare plan details →</a></article><article class="plan-compare-card"><h3>Jobs Agency</h3><p class="plan-compare-price">Plan price<strong>RM {{JOBS_AGENCY_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active job post limit</span><strong>{{JOBS_AGENCY_POST_LIMIT}}</strong></div><div><span>Sponsored job post allowance</span><strong>{{JOBS_AGENCY_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{JOBS_AGENCY_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{JOBS_AGENCY_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="jobs-vendor-plan-change.html?step=review&amp;plan=agency">Compare plan details →</a></article></div></section>
-        </section>
-      </main>
-    </div>
-  </div>
-  <script src="vendor-portal-navigation.js"></script>
-  <script src="jobs-vendor-portal.js"></script>
+  <noscript><p><a href="jobs-vendor-plans-and-subscriptions.html">Open Plans &amp; Subscriptions</a></p></noscript>
 </body>
 </html>

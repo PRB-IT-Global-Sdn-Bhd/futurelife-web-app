@@ -7,18 +7,18 @@
   <title>Marketplace Vendor Portal — Redirecting</title>
   <script>
     /* marketplace-vendor-listing-credits.html was retired: listing credits are no longer sold; active listings come from your plan allowance.
-       Old links are forwarded to marketplace-vendor-billing.html; other query parameters and the hash are kept. */
+       Old links are forwarded to marketplace-vendor-plans-and-subscriptions.html; other query parameters and the hash are kept. */
     (function () {
       var params = new URLSearchParams(window.location.search), force = {}, dflt = {}, ren = {};
       Object.keys(ren).forEach(function (k) { if (params.has(k)) { params.set(ren[k], params.get(k)); params.delete(k); } });
       Object.keys(force).forEach(function (k) { params.set(k, force[k]); });
       Object.keys(dflt).forEach(function (k) { if (!params.has(k)) params.set(k, dflt[k]); });
       var query = params.toString();
-      window.location.replace('marketplace-vendor-billing.html' + (query ? '?' + query : '') + window.location.hash);
+      window.location.replace('marketplace-vendor-plans-and-subscriptions.html' + (query ? '?' + query : '') + window.location.hash);
     })();
   </script>
 </head>
 <body>
-  <noscript><p><a href="marketplace-vendor-billing.html">Open Billing</a></p></noscript>
+  <noscript><p><a href="marketplace-vendor-plans-and-subscriptions.html">Open Billing</a></p></noscript>
 </body>
 </html>
