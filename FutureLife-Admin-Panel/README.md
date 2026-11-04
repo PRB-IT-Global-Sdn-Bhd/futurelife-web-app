@@ -4,7 +4,7 @@ Desktop-only HTML prototype of the internal admin panel for the FutureLife produ
 
 Start at `admin-signin.html` or `admin-dashboard.html`. Preview states are switched with URL parameters such as `?state=`, `?type=`, `?tab=`, `?role=` and `?view=`. Each detail page lists its states in its Preview states panel.
 
-This is the 20-page lean set. FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Billing & Revenue covers subscriptions and upgrades, sponsored listings, invoices, refunds and payment exceptions.
+This is the 20-page lean set. FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Billing & Revenue presents vendor billing for Marketplace, Jobs and Rentals in two areas with the same labels as the vendor portals: Plans & Subscriptions (`?tab=upgrades` for plan subscriptions and upgrades/downgrades, plus `?tab=invoices`, `?tab=refunds` and `?tab=exceptions`) and Sponsored Listings (`?tab=sponsored`, purchases and usage across all three verticals). Marketplace payouts stay separate under Orders & Payouts (buyers pay through FutureLife checkout; payouts are fee-free). Vendor details shows Account, Plans & Subscriptions and Sponsored Listings sections for each vertical, linking to the vendor’s Plans & Subscriptions and Sponsored Listings portal pages.
 
 | Area | Pages |
 |---|---|
