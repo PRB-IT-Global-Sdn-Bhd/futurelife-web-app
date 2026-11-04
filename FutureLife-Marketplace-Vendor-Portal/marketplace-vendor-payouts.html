@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Marketplace Vendor Portal Platform Fees preview" />
-  <title>Marketplace Vendor Portal — Platform Fees</title>
+  <meta name="description" content="FutureLife Marketplace Vendor Portal Payouts preview" />
+  <title>Marketplace Vendor Portal — Payouts</title>
   <script>
     (() => {
       const view = new URLSearchParams(window.location.search).get('view') === 'history' ? 'history' : 'fees';
       if (view === 'history') document.documentElement.dataset.view = 'history';
-      document.title = view === 'history' ? 'Marketplace Vendor Portal — Platform Fees: Payout History' : 'Marketplace Vendor Portal — Platform Fees';
+      document.title = view === 'history' ? 'Marketplace Vendor Portal — Payout History' : 'Marketplace Vendor Portal — Payouts';
     })();
   </script>
   <link rel="stylesheet" href="vendor-portal.css" />
@@ -31,7 +31,7 @@
       flex-wrap: wrap;
       gap: 8px;
     }
-    /* One page, two views: ?view=fees (default) and ?view=history. */
+    /* One page, two views: ?view=payouts (default) and ?view=history. */
     html[data-view="history"] #platform-fees, html:not([data-view="history"]) #payout-history {
       display: none;
     }
@@ -49,7 +49,7 @@
         <a href="#listings">Listings</a>
         <a href="#orders">Orders</a>
         <a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a>
-        <a class="active billing-sub-link" href="#payouts" aria-current="page">Platform Fees</a>
+        <a class="active billing-sub-link" href="#payouts" aria-current="page">Payouts</a>
         <a href="#messages">Messages <span class="menu-count">3</span></a>
         <a href="#profile">Profile</a>
       </nav>
@@ -63,14 +63,14 @@
 
     <main class="content" id="platform-fees">
       <p class="eyebrow">Billing</p>
-      <h1>Platform Fees</h1>
-      <p class="page-copy">Review automatic platform-fee deductions, order earnings, and payout statements. For standard Marketplace orders, the applicable platform fee is deducted before the vendor payout—there is no separate per-order fee payment.</p>
+      <h1>Payouts</h1>
+      <p class="page-copy">Review order earnings and payout statements. Marketplace payouts are fee-free — FutureLife takes no commission or transaction fee from orders, so the full amount the customer paid for your items is paid out to you.</p>
 
-      <section class="summary-grid" aria-label="Platform fees and payout summary">
-        <article class="summary-card available"><span class="label">Net available for payout</span><strong>RM {{AVAILABLE BALANCE}}</strong><small>Eligible vendor earnings after recorded deductions.</small></article>
+      <section class="summary-grid" aria-label="Payout summary">
+        <article class="summary-card available"><span class="label">Net available for payout</span><strong>RM {{AVAILABLE BALANCE}}</strong><small>Eligible vendor earnings ready for payout.</small></article>
         <article class="summary-card"><span class="label">Net pending payout</span><strong>RM {{PENDING BALANCE}}</strong><small>Eligible order earnings awaiting settlement.</small></article>
         <article class="summary-card"><span class="label">Paid to vendor this month</span><strong>RM {{PAID OUT THIS MONTH}}</strong><small>Completed vendor settlements in the current month.</small></article>
-        <article class="summary-card"><span class="label">Platform fees deducted</span><strong>RM {{PLATFORM FEES THIS MONTH}}</strong><small>Automatically deducted from eligible order settlements.</small></article>
+        <article class="summary-card"><span class="label">Orders settled this month</span><strong>{{ORDERS SETTLED THIS MONTH}}</strong><small>Eligible orders paid out in full, with no platform fee.</small></article>
       </section>
 
       <div class="payout-layout">
@@ -87,7 +87,7 @@
           </section>
 
           <section aria-labelledby="earnings-heading">
-            <div class="section-tools"><div><h2 id="earnings-heading">Order earnings breakdowns</h2><p>Each record shows the applicable fee already deducted before the vendor’s settlement amount is calculated.</p></div><label class="search"><span>Search order earnings</span><input id="earning-search" type="search" placeholder="Search order ID or status" aria-label="Search order earnings" /></label></div>
+            <div class="section-tools"><div><h2 id="earnings-heading">Order earnings breakdowns</h2><p>Each record shows the customer payment and the amount paid to you. No platform fee is deducted.</p></div><label class="search"><span>Search order earnings</span><input id="earning-search" type="search" placeholder="Search order ID or status" aria-label="Search order earnings" /></label></div>
             <div class="filters" role="group" aria-label="Settlement status filters">
               <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
               <button class="filter" type="button" data-filter="pending" aria-pressed="false">Pending</button>
@@ -96,24 +96,24 @@
             </div>
             <table class="earnings-table">
               <colgroup><col class="order" /><col class="date" /><col class="gross" /><col class="fee" /><col class="net" /><col class="status" /></colgroup>
-              <thead><tr><th>Order</th><th>Eligible on</th><th>Customer paid</th><th>Fee deducted</th><th>Net to vendor</th><th>Settlement status</th></tr></thead>
+              <thead><tr><th>Order</th><th>Eligible on</th><th>Customer paid</th><th>Platform fee</th><th>Net to vendor</th><th>Settlement status</th></tr></thead>
               <tbody>
-                <tr data-status="pending" data-search="order id pending"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
-                <tr data-status="paid" data-search="order id paid"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
-                <tr data-status="hold" data-search="order id hold"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{PLATFORM FEE}}</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status hold">On hold</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+                <tr data-status="pending" data-search="order id pending"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">None</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+                <tr data-status="paid" data-search="order id paid"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">None</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
+                <tr data-status="hold" data-search="order id hold"><td><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Marketplace order</span></td><td>{{ELIGIBLE DATE}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">None</span></td><td><span class="money">RM {{NET PAYOUT}}</span></td><td><div class="status-action"><span class="status hold">On hold</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></td></tr>
               </tbody>
             </table>
 
             <div class="earning-cards" aria-live="polite">
-              <article class="earning-card" data-status="pending" data-search="order id pending"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status pending">Pending</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
-              <article class="earning-card" data-status="paid" data-search="order id paid"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status paid">Paid</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
-              <article class="earning-card" data-status="hold" data-search="order id hold"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status hold">On hold</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Fee deducted</span><span class="money">RM {{PLATFORM FEE}}</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
+              <article class="earning-card" data-status="pending" data-search="order id pending"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status pending">Pending</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Platform fee</span><span class="money">None</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
+              <article class="earning-card" data-status="paid" data-search="order id paid"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status paid">Paid</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Platform fee</span><span class="money">None</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
+              <article class="earning-card" data-status="hold" data-search="order id hold"><div class="earning-card-top"><div><span class="order-id">{{ORDER ID}}</span><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div><span class="status hold">On hold</span></div><div class="mobile-money-grid"><div><span class="field-label">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="field-label">Platform fee</span><span class="money">None</span></div><div><span class="field-label">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">Marketplace order</span><a class="row-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">View breakdown</a></div></article>
             </div>
             <p class="empty-state" id="empty-state">No order earnings match your search or status filter.</p>
           </section>
 
           <section class="card" aria-labelledby="payout-history-heading">
-            <div class="card-heading"><div><h2 id="payout-history-heading">Payout statements</h2><p>Settlement records show the orders, automatic fee deductions, and net amount for each vendor payout.</p></div><a class="link-button" href="marketplace-vendor-payouts.html?view=history">Payout History</a></div>
+            <div class="card-heading"><div><h2 id="payout-history-heading">Payout statements</h2><p>Settlement records show the orders and amount for each fee-free vendor payout.</p></div><a class="link-button" href="marketplace-vendor-payouts.html?view=history">Payout History</a></div>
             <div class="history-list">
               <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount paid</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status paid">Paid</span><a class="row-link" href="marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View statement</a></div></article>
               <article class="history-row"><div><span class="field-label">Payout reference</span><span class="history-label">{{PAYOUT ID}}</span></div><div class="period"><span class="field-label">Payout period</span><span class="history-label">{{PAYOUT PERIOD}}</span></div><div class="history-amount"><span class="field-label">Amount</span><span class="money">RM {{PAYOUT AMOUNT}}</span></div><div class="status-action"><span class="status pending">Pending</span><a class="row-link" href="marketplace-vendor-payout-statement.html?payout={{PAYOUT_ID}}">View details</a></div></article>
@@ -133,12 +133,11 @@
           <section class="side-card" aria-labelledby="payout-actions-heading">
             <h2 id="payout-actions-heading">Settlement actions</h2>
             <a class="button" href="marketplace-vendor-payout-account.html?state=edit">Manage Payout Details</a>
-            <a class="button secondary" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=platform-fees" aria-label="Ask FutureLife Support about a platform fee">Ask about a Fee</a>
+            <a class="button secondary" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=payouts" aria-label="Ask FutureLife Support about a payout">Ask about a Payout</a>
             <p class="notice" id="payout-notice" aria-live="polite"></p>
           </section>
           <section class="side-card fee-note" aria-labelledby="fee-heading">
-            <h2 id="fee-heading">Platform fee clarity</h2>
-            <p><strong>Net to vendor</strong> is the amount remaining after the applicable platform fee is automatically deducted from an eligible order. Standard Marketplace orders do not require a separate platform-fee payment. Do not add charges that are not part of the actual FutureLife fee policy.</p>
+            <h2 id="fee-heading">Fee-free payouts</h2> <p><strong>Net to vendor</strong> is the full amount the customer paid for an eligible order, less only approved refunds or adjustments. FutureLife earns from subscription plans and sponsored listings, never from orders.</p>
           </section>
         </aside>
       </div>
@@ -195,7 +194,7 @@
           <section class="side-card" aria-labelledby="history-payout-actions-heading">
             <h2 id="history-payout-actions-heading">Payout actions</h2>
             <a class="button" href="marketplace-vendor-payout-account.html?state=pending">Payout Account Status</a>
-            <a class="button secondary" href="marketplace-vendor-payouts.html">Back to Platform Fees</a>
+            <a class="button secondary" href="marketplace-vendor-payouts.html">Back to Payouts</a>
             <a class="button secondary" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=payouts" aria-label="Ask FutureLife Support about a payout">Ask about a Payout</a>
           </section>
           <section class="side-card fee-note" aria-labelledby="payout-status-heading">

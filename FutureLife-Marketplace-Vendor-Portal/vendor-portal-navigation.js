@@ -35,6 +35,7 @@
     payouts: ROUTES.payouts,
     billing: ROUTES.billing,
     'plans & sponsored listing fees': ROUTES.billingPlans,
+    'plans & sponsored listings': ROUTES.billingPlans,
     'platform fees': ROUTES.payouts,
     messages: ROUTES.messages,
     profile: ROUTES.profile,
@@ -87,7 +88,7 @@
     document.querySelectorAll('.side-menu').forEach((nav) => {
       const platformFees = [...nav.querySelectorAll('a')].find((link) => link.getAttribute('href') === ROUTES.payouts);
       if (!platformFees) return;
-      platformFees.textContent = 'Platform Fees';
+      platformFees.textContent = 'Payouts';
       platformFees.classList.add('billing-sub-link');
       let billing = nav.querySelector('.billing-parent');
       if (!billing || billing.tagName !== 'A') {
@@ -111,7 +112,7 @@
       if (!plans) {
         plans = document.createElement('a');
         plans.href = ROUTES.billingPlans;
-        plans.textContent = 'Plans & Sponsored Listing Fees';
+        plans.textContent = 'Plans & Sponsored Listings';
       }
       plans.classList.add('billing-sub-link');
       billing.insertAdjacentElement('afterend', plans);
@@ -123,7 +124,7 @@
     if (page.includes('dashboard')) return 'dashboard';
     if (page.includes('create-listing') || page.includes('listing-guidelines') || page.includes('listings') || page.includes('sponsored-listing')) return 'listings';
     if (page.includes('order-details') || page.includes('order-issue') || page.includes('orders')) return 'orders';
-    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('payout-account') || page.includes('payouts') || page.includes('listing-credits') || page.includes('plan-change')) return 'payouts';
+    if (page.includes('earnings-breakdown') || page.includes('payout-statement') || page.includes('payout-account') || page.includes('payouts') || page.includes('plan-change')) return 'payouts';
     if (page.includes('messages')) return 'messages';
     if (page.includes('notifications')) return 'notifications';
     if (page.includes('profile') || page.includes('fulfilment') || page.includes('account-security')) return 'profile';

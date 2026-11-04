@@ -6,17 +6,16 @@ Open `marketplace-vendor-dashboard.html` in a modern web browser.
 
 ## Included flows
 
-This archive contains the current Marketplace Vendor Portal preview, including listings, orders, messages, notifications, billing, sponsored listings, listing credits, plan changes, Platform Fees, payout history, payout statements, order earnings breakdowns, payout account details, fulfilment settings, account security, and related preview routes.
+This archive contains the current Marketplace Vendor Portal preview, including listings, orders, messages, notifications, billing, sponsored listings, plan changes, Payouts, payout history, payout statements, order earnings breakdowns, payout account details, fulfilment settings, account security, and related preview routes.
 
 Merged pages (one page, several views):
 
-- Billing: `marketplace-vendor-billing.html` shows the current plan (Marketplace Basic is Free), plan comparison with Manage Plan / Upgrade Plan, the sponsored listing fee & credit summary, invoices (billing history), and the billing contact & payment method. The sidebar sub-link Plans & Sponsored Listing Fees opens `marketplace-vendor-billing.html#plans-and-fees`.
-- Platform Fees: `marketplace-vendor-payouts.html` (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
+- Billing: `marketplace-vendor-billing.html` shows the current plan (Marketplace Basic is Free), plan comparison with Manage Plan / Upgrade Plan, the sponsored listing summary, invoices (billing history), and the billing contact & payment method. The sidebar sub-link Plans & Sponsored Listings opens `marketplace-vendor-billing.html#plans-and-fees`.
+- Payouts: `marketplace-vendor-payouts.html` (fee-free: sellers receive the full order amount less refunds) (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
 - Payout statement: `marketplace-vendor-payout-statement.html?payout=` (`?view=breakdown&order=` shows the order earnings breakdown).
 - Sponsored listing: `marketplace-vendor-sponsored-listing.html?step=choose|review` (choose an option, then review the payment).
-- Listing credits: `marketplace-vendor-listing-credits.html?step=choose|review` (choose a package, then review the payment).
 
-Checkout return states for sponsored listings, listing credits and plan changes share one page, `marketplace-vendor-checkout-result.html?flow=sponsored-listing|listing-credits|plan-change&state=processing|success|failed|cancelled|expired`. The payment and review pages open the processing state (awaiting verified payment confirmation); success is only shown after server confirmation.
+Checkout return states for sponsored listings and plan changes share one page, `marketplace-vendor-checkout-result.html?flow=sponsored-listing|plan-change&state=processing|success|failed|cancelled|expired`. The payment and review pages open the processing state (awaiting verified payment confirmation); success is only shown after server confirmation.
 
 Additional P0 pages (use `?state=` to preview each state where available):
 
@@ -28,7 +27,8 @@ Additional P0 pages (use `?state=` to preview each state where available):
 - Disputes: `marketplace-vendor-order-dispute.html`
 - Payouts: `marketplace-vendor-payouts.html?view=history`, `marketplace-vendor-payout-hold.html`, `marketplace-vendor-payout-account.html` (`?state=pending|verified|action-required|edit|failed`)
 - Orders: `marketplace-vendor-order-details.html` (`?state=new|processing|ready-for-dispatch|dispatched|delivered|ready-for-collection|collected|completed|cancelled&method=delivery|collection`)
-- Credits: `marketplace-vendor-credit-history.html`
+
+Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. `marketplace-vendor-listing-credits.html` and `marketplace-vendor-credit-history.html` are retired and redirect to `marketplace-vendor-billing.html`, keeping the query string and hash.
 
 Sign in is `marketplace-vendor-signin.html` (`?loggedout=1` after logout). Retired page URLs are redirected by the site `404.html` to the merged page and state.
 

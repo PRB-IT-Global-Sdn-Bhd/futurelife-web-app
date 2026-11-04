@@ -3,48 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Rentals Vendor Portal preview — rental commissions" />
-  <title>Rentals Vendor Portal — Rental Commissions</title>
-  <link rel="stylesheet" href="rentals-vendor-portal.css" />
-  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+  <meta name="robots" content="noindex" />
+  <title>Rentals Vendor Portal — Redirecting</title>
+  <script>
+    /* rentals-vendor-rental-commissions.html was retired: FutureLife no longer charges rental commissions.
+       Old links are forwarded to rentals-vendor-billing-plans.html; other query parameters and the hash are kept. */
+    (function () {
+      var params = new URLSearchParams(window.location.search), force = {}, dflt = {}, ren = {};
+      Object.keys(ren).forEach(function (k) { if (params.has(k)) { params.set(ren[k], params.get(k)); params.delete(k); } });
+      Object.keys(force).forEach(function (k) { params.set(k, force[k]); });
+      Object.keys(dflt).forEach(function (k) { if (!params.has(k)) params.set(k, dflt[k]); });
+      var query = params.toString();
+      window.location.replace('rentals-vendor-billing-plans.html' + (query ? '?' + query : '') + window.location.hash);
+    })();
+  </script>
 </head>
 <body>
-  <div class="app"><aside class="sidebar" aria-label="Rentals Vendor Portal navigation">
-      <a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE<small>Rentals Vendor Portal</small></a>
-      <a class="account" href="rentals-vendor-profile.html"><span class="monogram">RS</span><span><strong>Rental Profile</strong><span class="sub">Owner or agent details</span></span><span class="arrow">›</span></a>
-      <p class="side-label">Rentals management</p>
-      <nav class="nav-list">
-        <a class="nav-link" href="rentals-vendor-dashboard.html">Dashboard</a>
-        <a class="nav-link" href="rentals-vendor-properties.html">Properties</a>
-        <a class="nav-link" href="rentals-vendor-availability.html">Availability &amp; Viewings</a>
-        <a class="nav-link" href="rentals-vendor-applications.html">Applications <span class="count">3</span></a>
-        <a class="nav-link" href="rentals-vendor-tenancies.html">Tenancies</a>
-        <a class="nav-link" href="rentals-vendor-messages.html">Messages <span class="count">2</span></a>
-        <a class="nav-link" href="rentals-vendor-billing-plans.html">Billing</a>
-        <a class="nav-link billing-sub-link" href="rentals-vendor-listing-fees.html">Listing Fees</a>
-        <a class="nav-link billing-sub-link active" href="rentals-vendor-rental-commissions.html" aria-current="page">Rental Commissions</a>
-        <a class="nav-link" href="rentals-vendor-notifications.html">Alerts <span class="count">4</span></a>
-        <a class="nav-link" href="rentals-vendor-profile.html">Rental Profile</a>
-        <a class="nav-link" href="rentals-vendor-team-members.html">Team Members</a>
-        <a class="nav-link" href="rentals-vendor-account-security.html">Account &amp; Security</a>
-      </nav>
-      <a class="logout" href="rentals-vendor-signin.html">Logout</a>
-    </aside>
-    <div class="shell"><header class="topbar">Rentals Owner / Agent workspace</header>
-      <header class="mobile-head"><a class="brand" href="rentals-vendor-dashboard.html">FUTURE LIFE</a><span class="mobile-label">Rentals Portal</span></header>
-      <main>
-        <section class="view" data-screen="rental-commissions">
-          <div class="heading"><div><p class="eyebrow">Billing</p><h1>Rental Commissions</h1><p class="page-copy">Commission records are created only after a tenancy reaches a confirmed milestone ({{COMMISSION_TRIGGER}}). Applications, shortlists, and viewings never create a commission.</p></div><a class="button secondary" href="rentals-vendor-billing-plans.html">Back to Billing</a></div>
-          <section aria-label="Commission summary"><div class="commission-summary-grid"><article class="commission-summary-card confirmed"><span>Confirmed tenancies</span><strong>{{CONFIRMED_TENANCIES}}</strong><p>Tenancies confirmed for the selected period.</p></article><article class="commission-summary-card payable"><span>Commission payable</span><strong>RM {{COMMISSION_PAYABLE}}</strong><p>Charges due after the agreed milestone.</p></article><article class="commission-summary-card"><span>Next payment due</span><strong>{{NEXT_COMMISSION_DUE_DATE}}</strong><p>For payable commission records.</p></article><article class="commission-summary-card paid"><span>Paid this year</span><strong>RM {{COMMISSION_PAID_YTD}}</strong><p>Commission payments recorded this year.</p></article></div></section>
-          <section class="panel panel-pad"><div class="panel-head"><div><h2>Commission ledger</h2><p class="panel-copy">Each record is keyed to a confirmed tenancy and opens only once its milestone is confirmed.</p></div></div><article class="commission-ledger-record"><div class="commission-ledger-head"><div><span>Tenancy reference</span><strong>{{TENANCY_REFERENCE}}</strong></div><div class="plan-actions"><a class="button secondary small" href="rentals-vendor-tenancy-details.html?state=active">View Tenancy</a><button class="button secondary small commission-preview-action" type="button" data-commission-action="breakdown">View Breakdown</button></div></div><div class="commission-ledger-facts"><div class="commission-ledger-fact"><span>Property</span><strong>{{PROPERTY_TITLE}}</strong></div><div class="commission-ledger-fact"><span>Status</span><strong>{{COMMISSION_STATUS}}</strong></div><div class="commission-ledger-fact"><span>Monthly rent</span><strong>RM {{MONTHLY_RENT}}</strong></div><div class="commission-ledger-fact"><span>Confirmed milestone</span><strong>{{COMMISSION_TRIGGER}}</strong></div><div class="commission-ledger-fact"><span>Milestone confirmed on</span><strong>{{MILESTONE_CONFIRMED_DATE}}</strong></div><div class="commission-ledger-fact"><span>Commission basis</span><strong>{{COMMISSION_BASIS}}</strong></div><div class="commission-ledger-fact"><span>Commission amount</span><strong>RM {{COMMISSION_AMOUNT}}</strong></div></div></article></section>
-          <section class="panel panel-pad"><div class="panel-head"><div><h2>Commission breakdown</h2><p class="panel-copy">Review the selected record before payment or raising a question.</p></div></div><div class="commission-breakdown-grid"><div class="commission-breakdown-item"><span>Rental amount</span><strong>RM {{MONTHLY_RENT}}</strong></div><div class="commission-breakdown-item"><span>Applicable commission rate</span><strong>{{COMMISSION_RATE}}</strong></div><div class="commission-breakdown-item"><span>Calculation formula</span><strong>{{COMMISSION_CALCULATION}}</strong></div><div class="commission-breakdown-item"><span>Tax treatment</span><strong>{{TAX_TREATMENT}}</strong></div><div class="commission-breakdown-item"><span>Payment deadline</span><strong>{{COMMISSION_PAYMENT_DUE_DATE}}</strong></div><div class="commission-breakdown-item"><span>Invoice / receipt reference</span><strong>{{COMMISSION_INVOICE_REFERENCE}}</strong></div></div><div class="actions" style="margin:14px -22px -22px"><a class="button secondary" href="rentals-vendor-invoice.html?state=due">Download invoice / receipt</a><a class="button secondary" href="rentals-vendor-commission-dispute.html">Raise a Dispute</a><a class="button" href="rentals-vendor-checkout-result.html?flow=commission&amp;state=processing">Pay Commission</a></div><p id="commission-notice" class="notice" aria-live="polite"></p></section>
-          <section class="commission-policy-grid" aria-label="Rental commission policy"><article class="commission-policy"><h2>When commission becomes payable</h2><p>A commission record exists only after the tenancy reaches the confirmed milestone: <strong>{{COMMISSION_TRIGGER}}</strong>. Nothing is recorded or estimated while an application, shortlist, or viewing is in progress.</p><ol><li><strong>Confirmed:</strong> the tenancy milestone is confirmed and the record is created.</li><li><strong>Payable:</strong> the invoice is issued and payment is due.</li><li><strong>Paid:</strong> FutureLife has recorded the payment.</li><li><strong>Disputed:</strong> an owner or agent has raised an issue for review.</li></ol></article><article class="commission-policy"><h2>Cancellation, withdrawal &amp; disputes</h2><ul><li>Each record shows the confirmed milestone for its tenancy: {{COMMISSION_TRIGGER}}.</li><li>Apply cancellation or withdrawal handling according to the agreed commercial terms.</li><li>Use <strong>Raise a Dispute</strong> to request a review; the record is marked Disputed while FutureLife reviews it, and payment is paused only for that record.</li></ul></article></section>
-        <section class="safeguard"><h2>Live implementation</h2><p>Create a commission record only from a server event confirming {{COMMISSION_TRIGGER}} for a tenancy; never from an application, shortlist, viewing, or a vendor-entered value. Key each record to the tenancy reference.</p></section>
-        </section>
-      </main>
-    </div>
-  </div>
-  <script src="vendor-portal-navigation.js"></script>
-  <script src="rentals-vendor-portal.js"></script>
+  <noscript><p><a href="rentals-vendor-billing-plans.html">Open Billing</a></p></noscript>
 </body>
 </html>

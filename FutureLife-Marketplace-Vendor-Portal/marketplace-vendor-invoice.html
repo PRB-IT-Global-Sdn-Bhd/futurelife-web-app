@@ -48,7 +48,7 @@
   <aside class="sidebar" aria-label="Vendor portal navigation">
     <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
     <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-fees">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-fees">Plans &amp; Sponsored Listings</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
     <a class="side-logout" href="#logout">Logout</a>
   </aside>
   <div class="page-shell">
@@ -58,9 +58,9 @@
       <a class="breadcrumb" href="marketplace-vendor-payment-history.html">← Back to Payment History</a>
       <p class="eyebrow">Billing</p>
       <h1>Invoice / Receipt</h1>
-      <p class="page-copy">A record of a confirmed FutureLife payment for a vendor plan, listing credits or a sponsored listing.</p>
+      <p class="page-copy">A record of a confirmed FutureLife payment for a vendor plan or a sponsored listing.</p>
       <section class="statement-header" aria-labelledby="invoice-reference-heading"><div><h2 class="statement-id" id="invoice-reference-heading">{{INVOICE NUMBER}}</h2><p class="statement-meta">Issued: {{INVOICE DATE}} · Payment reference: {{PAYMENT ID}}</p></div><span class="status">Paid</span></section>
-      <section class="summary-grid" aria-label="Invoice totals"><article class="summary-card"><span class="label">Payment type</span><strong>{{PAYMENT TYPE}}</strong><small>Plan, listing credits or sponsored listing.</small></article><article class="summary-card"><span class="label">Paid on</span><strong>{{PAYMENT DATE}}</strong><small>Date the payment was confirmed.</small></article><article class="summary-card"><span class="label">Payment method</span><strong>{{PAYMENT METHOD}}</strong><small>Method recorded for this payment.</small></article><article class="summary-card highlight"><span class="label">Amount paid</span><strong>RM {{PAYMENT AMOUNT}}</strong><small>Total recorded for this payment.</small></article></section>
+      <section class="summary-grid" aria-label="Invoice totals"><article class="summary-card"><span class="label">Payment type</span><strong>{{PAYMENT TYPE}}</strong><small>Plan or sponsored listing.</small></article><article class="summary-card"><span class="label">Paid on</span><strong>{{PAYMENT DATE}}</strong><small>Date the payment was confirmed.</small></article><article class="summary-card"><span class="label">Payment method</span><strong>{{PAYMENT METHOD}}</strong><small>Method recorded for this payment.</small></article><article class="summary-card highlight"><span class="label">Amount paid</span><strong>RM {{PAYMENT AMOUNT}}</strong><small>Total recorded for this payment.</small></article></section>
       <div class="layout">
         <section>
           <section class="card" aria-labelledby="line-items-heading"><h2 id="line-items-heading">Items</h2><p class="section-copy">Show only the items recorded on this payment.</p>

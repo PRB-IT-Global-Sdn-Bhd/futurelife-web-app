@@ -3,130 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FutureLife Marketplace Vendor listing credit balance history preview" />
-  <title>Marketplace Vendor Portal — Credit Balance History</title>
-  <link rel="stylesheet" href="vendor-portal.css" />
-  <link rel="stylesheet" href="vendor-portal-ledger.css" />
-  <style>
-    .money.credit {
-      color: #397d13;
-    }
-    .money.debit {
-      color: #b94747;
-    }
-  </style>
-  <link rel="stylesheet" href="vendor-portal-navigation.css" />
+  <meta name="robots" content="noindex" />
+  <title>Marketplace Vendor Portal — Redirecting</title>
+  <script>
+    /* marketplace-vendor-credit-history.html was retired: listing credits are no longer used; active listings come from your plan allowance.
+       Old links are forwarded to marketplace-vendor-billing.html; other query parameters and the hash are kept. */
+    (function () {
+      var params = new URLSearchParams(window.location.search), force = {}, dflt = {}, ren = {};
+      Object.keys(ren).forEach(function (k) { if (params.has(k)) { params.set(ren[k], params.get(k)); params.delete(k); } });
+      Object.keys(force).forEach(function (k) { params.set(k, force[k]); });
+      Object.keys(dflt).forEach(function (k) { if (!params.has(k)) params.set(k, dflt[k]); });
+      var query = params.toString();
+      window.location.replace('marketplace-vendor-billing.html' + (query ? '?' + query : '') + window.location.hash);
+    })();
+  </script>
 </head>
 <body>
-  <aside class="sidebar" aria-label="Vendor portal navigation">
-    <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
-    <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-fees">Plans &amp; Sponsored Listing Fees</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Platform Fees</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
-    <a class="side-logout" href="#logout">Logout</a>
-  </aside>
-  <div class="page-shell">
-    <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
-    <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
-    <main class="content" id="credit-history">
-      <p class="eyebrow">Billing</p>
-      <h1>Credit Balance History</h1>
-      <p class="page-copy">Every change to your listing-credit balance, with the running balance after each entry.</p>
-
-      <section class="summary-grid" aria-label="Summary">
-        <article class="summary-card available"><span class="label">Credits remaining</span><strong>{{LISTING_CREDITS_REMAINING}}</strong><small>Available for future active listings.</small></article>
-        <article class="summary-card"><span class="label">Purchased this month</span><strong>{{CREDITS_PURCHASED_THIS_MONTH}}</strong><small>Added from confirmed credit payments.</small></article>
-        <article class="summary-card"><span class="label">Used this month</span><strong>{{CREDITS_USED_THIS_MONTH}}</strong><small>Applied to active listings.</small></article>
-        <article class="summary-card"><span class="label">Reversed this month</span><strong>{{CREDITS_REVERSED_THIS_MONTH}}</strong><small>Removed after a refund or lost dispute.</small></article>
-      </section>
-
-      <div class="payout-layout">
-        <section>
-          <section aria-labelledby="list-heading">
-            <div class="section-tools"><div><h2 id="list-heading">Ledger</h2><p>Newest entries first. Each row shows the change and the balance after it.</p></div><label class="search"><span>Search ledger</span><input id="list-search" type="search" placeholder="Search entry, listing or payment" aria-label="Search ledger" /></label></div>
-            <div class="filter-group"><span class="filter-group-label">Type</span><div class="filters" role="group" aria-label="Type filters"><button class="filter active" type="button" data-group="type" data-filter="all" aria-pressed="true">All</button><button class="filter" type="button" data-group="type" data-filter="purchase" aria-pressed="false">Purchase</button><button class="filter" type="button" data-group="type" data-filter="used" aria-pressed="false">Used</button><button class="filter" type="button" data-group="type" data-filter="reversed" aria-pressed="false">Reversed</button><button class="filter" type="button" data-group="type" data-filter="adjustment" aria-pressed="false">Adjustment</button></div></div>
-            <table class="earnings-table">
-              <colgroup><col class="order" /><col class="date" /><col class="gross" /><col class="fee" /><col class="net" /><col class="status" /></colgroup>
-              <thead><tr><th>Entry</th><th>Date</th><th>Reference</th><th>Change</th><th>Balance after</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr data-type="used" data-search="credit used used"><td><span class="order-id">Active listing</span><span class="sub-value">{{LEDGER_ENTRY_ID_5}}</span></td><td>{{LEDGER_DATE_5}}</td><td><a class="row-link" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}">{{LISTING_TITLE}}</a></td><td><span class="money debit">− {{CREDITS}}</span></td><td><span class="money">{{BALANCE_5}}</span></td><td><div class="status-action"><span class="status hold">Used</span></div></td></tr>
-                <tr data-type="reversed" data-search="credit reversed reversed"><td><span class="order-id">Payment reversal</span><span class="sub-value">{{LEDGER_ENTRY_ID_4}}</span></td><td>{{LEDGER_DATE_4}}</td><td><a class="row-link" href="marketplace-vendor-payment-refund-status.html?payment={{PAYMENT_ID}}&amp;state=refunded">{{PAYMENT_ID}}</a></td><td><span class="money debit">− {{CREDITS}}</span></td><td><span class="money">{{BALANCE_4}}</span></td><td><div class="status-action"><span class="status failed">Reversed</span></div></td></tr>
-                <tr data-type="purchase" data-search="credit purchase purchase"><td><span class="order-id">Credit purchase</span><span class="sub-value">{{LEDGER_ENTRY_ID_3}}</span></td><td>{{LEDGER_DATE_3}}</td><td><a class="row-link" href="marketplace-vendor-invoice.html?payment={{PAYMENT_ID}}">{{PAYMENT_ID}}</a></td><td><span class="money credit">+ {{CREDITS}}</span></td><td><span class="money">{{BALANCE_3}}</span></td><td><div class="status-action"><span class="status success">Purchase</span></div></td></tr>
-                <tr data-type="adjustment" data-search="credit adjustment adjustment"><td><span class="order-id">FutureLife adjustment</span><span class="sub-value">{{LEDGER_ENTRY_ID_2}}</span></td><td>{{LEDGER_DATE_2}}</td><td>{{REASON_CODE}}</td><td><span class="money ">± {{CREDITS}}</span></td><td><span class="money">{{BALANCE_2}}</span></td><td><div class="status-action"><span class="status neutral">Adjustment</span></div></td></tr>
-                <tr data-type="used" data-search="credit used used"><td><span class="order-id">Active listing</span><span class="sub-value">{{LEDGER_ENTRY_ID_1}}</span></td><td>{{LEDGER_DATE_1}}</td><td><a class="row-link" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}">{{LISTING_TITLE}}</a></td><td><span class="money debit">− {{CREDITS}}</span></td><td><span class="money">{{BALANCE_1}}</span></td><td><div class="status-action"><span class="status hold">Used</span></div></td></tr>
-              </tbody>
-            </table>
-            <div class="earning-cards" aria-live="polite">
-              <article class="earning-card" data-type="used" data-search="credit used used"><div class="earning-card-top"><div><span class="order-id">Active listing</span><span class="sub-value">{{LEDGER_ENTRY_ID_5}}</span></div><span class="status hold">Used</span></div><div class="mobile-money-grid"><div><span class="field-label">Change</span><span class="money debit">− {{CREDITS}}</span></div><div><span class="field-label">Balance after</span><span class="money">{{BALANCE_5}}</span></div><div><span class="field-label">Date</span><span class="money">{{LEDGER_DATE_5}}</span></div></div><div class="mobile-card-footer"><span class="sub-value"><a class="row-link" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}">{{LISTING_TITLE}}</a></span></div></article>
-              <article class="earning-card" data-type="reversed" data-search="credit reversed reversed"><div class="earning-card-top"><div><span class="order-id">Payment reversal</span><span class="sub-value">{{LEDGER_ENTRY_ID_4}}</span></div><span class="status failed">Reversed</span></div><div class="mobile-money-grid"><div><span class="field-label">Change</span><span class="money debit">− {{CREDITS}}</span></div><div><span class="field-label">Balance after</span><span class="money">{{BALANCE_4}}</span></div><div><span class="field-label">Date</span><span class="money">{{LEDGER_DATE_4}}</span></div></div><div class="mobile-card-footer"><span class="sub-value"><a class="row-link" href="marketplace-vendor-payment-refund-status.html?payment={{PAYMENT_ID}}&amp;state=refunded">{{PAYMENT_ID}}</a></span></div></article>
-              <article class="earning-card" data-type="purchase" data-search="credit purchase purchase"><div class="earning-card-top"><div><span class="order-id">Credit purchase</span><span class="sub-value">{{LEDGER_ENTRY_ID_3}}</span></div><span class="status success">Purchase</span></div><div class="mobile-money-grid"><div><span class="field-label">Change</span><span class="money credit">+ {{CREDITS}}</span></div><div><span class="field-label">Balance after</span><span class="money">{{BALANCE_3}}</span></div><div><span class="field-label">Date</span><span class="money">{{LEDGER_DATE_3}}</span></div></div><div class="mobile-card-footer"><span class="sub-value"><a class="row-link" href="marketplace-vendor-invoice.html?payment={{PAYMENT_ID}}">{{PAYMENT_ID}}</a></span></div></article>
-              <article class="earning-card" data-type="adjustment" data-search="credit adjustment adjustment"><div class="earning-card-top"><div><span class="order-id">FutureLife adjustment</span><span class="sub-value">{{LEDGER_ENTRY_ID_2}}</span></div><span class="status neutral">Adjustment</span></div><div class="mobile-money-grid"><div><span class="field-label">Change</span><span class="money ">± {{CREDITS}}</span></div><div><span class="field-label">Balance after</span><span class="money">{{BALANCE_2}}</span></div><div><span class="field-label">Date</span><span class="money">{{LEDGER_DATE_2}}</span></div></div><div class="mobile-card-footer"><span class="sub-value">{{REASON_CODE}}</span></div></article>
-              <article class="earning-card" data-type="used" data-search="credit used used"><div class="earning-card-top"><div><span class="order-id">Active listing</span><span class="sub-value">{{LEDGER_ENTRY_ID_1}}</span></div><span class="status hold">Used</span></div><div class="mobile-money-grid"><div><span class="field-label">Change</span><span class="money debit">− {{CREDITS}}</span></div><div><span class="field-label">Balance after</span><span class="money">{{BALANCE_1}}</span></div><div><span class="field-label">Date</span><span class="money">{{LEDGER_DATE_1}}</span></div></div><div class="mobile-card-footer"><span class="sub-value"><a class="row-link" href="marketplace-vendor-listing-details.html?listing={{LISTING_ID}}">{{LISTING_TITLE}}</a></span></div></article>
-            </div>
-            <p class="empty-state" id="empty-state">No ledger entries match your search or type filter.</p>
-          </section>
-        </section>
-
-        <aside>
-          <section class="side-card next-payout" aria-labelledby="credit-balance-heading">
-            <h2 id="credit-balance-heading">Current balance</h2>
-            <span class="field-label">Credits remaining</span>
-            <span class="field-value">{{LISTING_CREDITS_REMAINING}}</span>
-            <span class="field-label">Credits in use</span>
-            <span class="field-value">{{LISTING_CREDITS_IN_USE}}</span>
-            <p>The running balance is calculated from the confirmed ledger entries, newest first.</p>
-          </section>
-          <section class="side-card" aria-labelledby="credit-actions-heading">
-            <h2 id="credit-actions-heading">Credit actions</h2>
-            <a class="button" href="marketplace-vendor-listing-credits.html">Buy Listing Credits</a>
-            <a class="button secondary" href="marketplace-vendor-payment-history.html?type=credits">Credit Payments</a>
-            <a class="button secondary" href="marketplace-vendor-messages.html?conversation=futurelife-support&amp;compose=1&amp;context=listing-credits" aria-label="Ask FutureLife Support about listing credits">Ask about Credits</a>
-          </section>
-          <section class="side-card fee-note" aria-labelledby="credit-rule-heading">
-            <h2 id="credit-rule-heading">Ledger rule</h2>
-            <p><strong>Payment rule:</strong> purchased credits appear only after FutureLife validates the completed Stripe payment through its webhook. Refunds and lost disputes reverse the credits they added.</p>
-          </section>
-        </aside>
-      </div>
-    </main>
-  </div>
-  <script>
-    const filterButtons = document.querySelectorAll('.filter');
-    const entries = document.querySelectorAll('.earnings-table tbody tr, .earning-card');
-    const cards = document.querySelectorAll('.earning-card');
-    const search = document.getElementById('list-search');
-    const emptyState = document.getElementById('empty-state');
-    const validFilters = {"type": ["all", "purchase", "used", "reversed", "adjustment"]};
-    const activeFilters = {};
-    const requested = new URLSearchParams(window.location.search);
-    Object.keys(validFilters).forEach((group) => { const value = requested.get(group); activeFilters[group] = validFilters[group].includes(value) ? value : 'all'; });
-    search.value = requested.get('q') || '';
-
-    function updateEntries() {
-      const query = search.value.trim().toLowerCase();
-      entries.forEach((entry) => {
-        const groupMatch = Object.keys(activeFilters).every((group) => activeFilters[group] === 'all' || entry.dataset[group] === activeFilters[group]);
-        entry.hidden = !(groupMatch && entry.dataset.search.includes(query));
-      });
-      emptyState.classList.toggle('visible', [...cards].every((card) => card.hidden));
-      filterButtons.forEach((button) => {
-        const selected = activeFilters[button.dataset.group] === button.dataset.filter;
-        button.classList.toggle('active', selected);
-        button.setAttribute('aria-pressed', String(selected));
-      });
-    }
-
-    function syncUrl() {
-      const url = new URL(window.location.href);
-      Object.keys(activeFilters).forEach((group) => { if (activeFilters[group] === 'all') url.searchParams.delete(group); else url.searchParams.set(group, activeFilters[group]); });
-      if (search.value.trim()) url.searchParams.set('q', search.value.trim());
-      else url.searchParams.delete('q');
-      window.history.replaceState({}, '', `${url.pathname}${url.search}`);
-    }
-
-    filterButtons.forEach((button) => button.addEventListener('click', () => { activeFilters[button.dataset.group] = button.dataset.filter; updateEntries(); syncUrl(); }));
-    search.addEventListener('input', () => { updateEntries(); syncUrl(); });
-    updateEntries();
-  </script>
-  <script src="vendor-portal-navigation.js"></script>
+  <noscript><p><a href="marketplace-vendor-billing.html">Open Billing</a></p></noscript>
 </body>
 </html>

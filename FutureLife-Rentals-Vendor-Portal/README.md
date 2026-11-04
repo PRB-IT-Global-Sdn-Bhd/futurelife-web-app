@@ -6,13 +6,15 @@ Open `rentals-vendor-dashboard.html` in a modern web browser (or `rentals-vendor
 
 ## Included areas
 
-This portal preview has one page per screen (35 pages). Screens with several states use `?state=`, `?step=`, `?status=`, `?flow=`, `?mode=`, or `?view=` and include a "Preview states" panel.
+This portal preview has one page per screen (31 pages). Screens with several states use `?state=`, `?step=`, `?status=`, `?flow=`, `?mode=`, or `?view=` and include a "Preview states" panel.
 
 - Sign-in and account: `rentals-vendor-signin.html`, `rentals-vendor-signup.html`, `rentals-vendor-verify-email.html`, `rentals-vendor-forgot-password.html`, `rentals-vendor-reset-password.html`, `rentals-vendor-account-suspended.html`
 - Onboarding and verification: `rentals-vendor-onboarding.html` (`?step=profile|contact|terms`), `rentals-vendor-landlord-verification.html`
 - Properties and viewings: `rentals-vendor-dashboard.html`, `rentals-vendor-properties.html`, `rentals-vendor-property-details.html`, `rentals-vendor-create-property.html` (`?mode=edit`), `rentals-vendor-availability.html`, `rentals-vendor-viewing-details.html`
 - Applications and tenancies: `rentals-vendor-applications.html`, `rentals-vendor-application-details.html`, `rentals-vendor-tenancies.html`, `rentals-vendor-tenancy-details.html`, `rentals-vendor-move-in-checklist.html`, `rentals-vendor-tenancy-end-renewal.html`, `rentals-vendor-messages.html`
-- Billing: `rentals-vendor-billing-plans.html`, `rentals-vendor-plan-change.html`, `rentals-vendor-listing-fees.html`, `rentals-vendor-listing-credits.html`, `rentals-vendor-checkout-result.html`, `rentals-vendor-payment-history.html`, `rentals-vendor-invoice.html`, `rentals-vendor-rental-commissions.html`, `rentals-vendor-commission-dispute.html`
+- Billing: `rentals-vendor-billing-plans.html`, `rentals-vendor-plan-change.html`, `rentals-vendor-checkout-result.html`, `rentals-vendor-payment-history.html`, `rentals-vendor-invoice.html`
+- Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Property listings and featured placements come from the plan allowance.
+- Retired pages (redirect to `rentals-vendor-billing-plans.html`, keeping the query string and hash): `rentals-vendor-listing-fees.html`, `rentals-vendor-listing-credits.html`, `rentals-vendor-rental-commissions.html`, `rentals-vendor-commission-dispute.html`
 - Profile and settings: `rentals-vendor-profile.html`, `rentals-vendor-team-members.html`, `rentals-vendor-applicant-data-privacy.html`, `rentals-vendor-notifications.html` (`?view=preferences`), `rentals-vendor-account-security.html`
 
 Shared files: `rentals-vendor-portal.css`, `rentals-vendor-portal.js`, `vendor-portal-navigation.css`, `vendor-portal-navigation.js` (hamburger drawer below 960px), and `vendor-portal-auth.css` (sign-in pages).

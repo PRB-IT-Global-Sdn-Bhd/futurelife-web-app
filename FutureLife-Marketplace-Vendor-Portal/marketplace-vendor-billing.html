@@ -675,7 +675,7 @@
         <a href="#listings">Listings</a>
         <a href="#orders">Orders</a>
         <a class="billing-parent active" href="marketplace-vendor-billing.html" aria-current="page">Billing</a>
-        <a class="billing-sub-link" href="#payouts">Platform Fees</a>
+        <a class="billing-sub-link" href="#payouts">Payouts</a>
         <a href="#messages">Messages <span class="menu-count">3</span></a>
         <a href="#profile">Profile</a>
       </nav>
@@ -690,14 +690,14 @@
     <main class="content" id="billing">
       <p class="eyebrow">Marketplace vendor</p>
       <h1>Billing</h1>
-      <p class="page-copy">Review your active Marketplace plan, compare listing plans, and track listing credits, sponsored listing fees, and invoices payable to FutureLife.</p>
+      <p class="page-copy">Review your active Marketplace plan, compare listing plans, and track sponsored listings and invoices payable to FutureLife. FutureLife earns from subscription plans and sponsored listings only.</p>
 
       <section class="current-plan-overview" aria-labelledby="current-plan-heading">
         <div>
           <span class="current-plan-kicker">CURRENT ACTIVE PLAN</span>
           <h2 id="current-plan-heading">Marketplace Basic</h2>
-          <p>Your vendor account is currently on the Marketplace Basic plan. Compare plan allowances below, then review listing credits, sponsored listing fees, and invoices on this page.</p>
-          <div class="overview-links"><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a><a class="link-button" href="marketplace-vendor-credit-history.html">Credit History</a></div>
+          <p>Your vendor account is currently on the Marketplace Basic plan. Compare plan allowances below, then review sponsored listings and invoices on this page. There are no listing credits, listing fees, or order fees.</p>
+          <div class="overview-links"><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
         </div>
         <div class="current-plan-details">
           <div class="current-plan-detail"><span>Plan price</span><strong>Free</strong></div>
@@ -717,16 +717,16 @@
 
       <div class="billing-plans-sections">
         <section class="card" aria-labelledby="listing-credit-heading">
-          <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing fee &amp; credit summary</h2><p>Use listing credits when you need more active listings. Sponsored listings have a separate paid visibility fee.</p></div><a class="link-button" href="marketplace-vendor-credit-history.html">Credit History</a></div>
+          <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing summary</h2><p>Active listings come from your plan allowance. Sponsored listings are the only paid add-on.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
           <div class="listing-credit-grid">
-            <div class="listing-credit-item"><span class="field-label">Listing credits remaining</span><span class="field-value">{{LISTING_CREDITS_REMAINING}}</span></div>
-            <div class="listing-credit-item"><span class="field-label">Additional listing fee</span><span class="field-value">RM {{ADDITIONAL_LISTING_FEE}}</span></div>
-            <div class="listing-credit-item"><span class="field-label">Sponsored listing fee</span><span class="field-value">RM {{SPONSORED_LISTING_FEE}}</span></div>
-            <div class="listing-credit-action"><a class="link-button" href="marketplace-vendor-listing-credits.html">Buy Listing Credits</a></div>
+            <div class="listing-credit-item"><span class="field-label">Sponsored listing allowance remaining</span><span class="field-value">{{SPONSORED_ALLOWANCE_REMAINING}}</span></div>
+            <div class="listing-credit-item"><span class="field-label">Active listings</span><span class="field-value">{{ACTIVE_LISTINGS}} of {{PLAN_LISTING_LIMIT}}</span></div>
+            <div class="listing-credit-item"><span class="field-label">Sponsored listing price</span><span class="field-value">RM {{SPONSORED_LISTING_PRICE}}</span></div>
+            <div class="listing-credit-action"><a class="link-button" href="marketplace-vendor-listings.html">Sponsor a Listing</a></div>
           </div>
         </section>
         <section class="card" aria-labelledby="billing-history-heading">
-          <div class="card-heading"><div><h2 id="billing-history-heading">Billing history</h2><p>Invoices record platform charges made to this Marketplace vendor account.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
+          <div class="card-heading"><div><h2 id="billing-history-heading">Billing history</h2><p>Invoices record subscription plan and sponsored listing charges for this Marketplace vendor account.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
           <table class="history-table">
             <colgroup><col class="invoice" /><col class="date" /><col class="description" /><col class="amount" /><col class="status" /><col class="action" /></colgroup>
             <thead><tr><th>Invoice</th><th>Date</th><th>Description</th><th>Amount</th><th>Payment status</th><th></th></tr></thead>
@@ -748,7 +748,7 @@
           </div>
           <p class="billing-notice" id="billing-plan-notice" aria-live="polite"></p>
         </section>
-        <aside class="preview-note"><strong>Preview-only actions:</strong> Update Billing Details should connect to approved Marketplace vendor workflows before production use. Manage Plan, Upgrade Plan, Listing Credits, View Invoice, Payment History, and Credit History open their connected previews.</aside>
+        <aside class="preview-note"><strong>Preview-only actions:</strong> Update Billing Details should connect to approved Marketplace vendor workflows before production use. Manage Plan, Upgrade Plan, Sponsor a Listing, View Invoice, and Payment History open their connected previews.</aside>
       </div>
     </main>
   </div>

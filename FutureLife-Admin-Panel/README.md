@@ -4,7 +4,7 @@ Desktop-only HTML prototype of the internal admin panel for the FutureLife produ
 
 Start at `admin-signin.html` or `admin-dashboard.html`. Preview states are switched with URL parameters such as `?state=`, `?type=`, `?tab=`, `?role=` and `?view=`. Each detail page lists its states in its Preview states panel.
 
-This is the 21-page lean set.
+This is the 20-page lean set. FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Billing & Revenue covers subscriptions and upgrades, sponsored listings, invoices, refunds and payment exceptions.
 
 | Area | Pages |
 |---|---|
@@ -12,11 +12,11 @@ This is the 21-page lean set.
 | Accounts | admin-vendors, admin-vendor-details, admin-users, admin-user-details |
 | Review queues | admin-verification-queue, admin-verification-review, admin-moderation-queue (includes Community posts via `?type=community&topic=`), admin-moderation-review, admin-reports-and-disputes, admin-case-details |
 | Content | admin-marketplace (`?tab=listings\|sponsored\|deals`), admin-jobs, admin-rentals |
-| Finance | admin-orders-and-payouts (`?tab=orders\|schedule\|holds\|statements`), admin-billing-and-revenue (includes `?tab=exceptions` for payment exceptions), admin-fees-and-commissions |
+| Finance | admin-orders-and-payouts (`?tab=orders\|schedule\|holds\|statements`), admin-billing-and-revenue (includes `?tab=exceptions` for payment exceptions) |
 | Configuration | admin-plans-and-pricing, admin-team-and-roles (includes `?view=settings`), admin-audit-log |
 | Sign-in | admin-signin |
 
-Pages merged in the lean set are kept as small redirects that keep the query string and hash (they are not counted in the 21):
+Pages merged in the lean set are kept as small redirects that keep the query string and hash (they are not counted in the 20):
 
 | Old page | Now opens |
 |---|---|
@@ -26,6 +26,7 @@ Pages merged in the lean set are kept as small redirects that keep the query str
 | admin-community.html | admin-moderation-queue.html?type=community (`?tab=` becomes `?topic=`) |
 | admin-deals.html | admin-marketplace.html?tab=deals |
 | admin-settings.html | admin-team-and-roles.html?view=settings |
+| admin-fees-and-commissions.html | admin-billing-and-revenue.html?tab=overview (fees and commissions are no longer charged) |
 
 The live build must follow these rules:
 - Permissions, state changes, entitlements and payment status come from backend workflows. Payment status comes only from verified Stripe webhooks, never from a redirect or a page field.

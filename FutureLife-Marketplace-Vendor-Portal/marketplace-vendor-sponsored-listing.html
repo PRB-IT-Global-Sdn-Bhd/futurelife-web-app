@@ -36,7 +36,7 @@
 
     <main class="content" id="sponsor-listing">
       <div class="heading">
-        <div><p class="eyebrow">Marketplace listings</p><h1>Sponsor Listing</h1><p class="page-copy">Choose an approved sponsorship option for this live listing. Fees and sponsorship terms must be configured by FutureLife.</p></div>
+        <div><p class="eyebrow">Marketplace listings</p><h1>Sponsor Listing</h1><p class="page-copy">Choose an approved sponsorship option for this live listing. Sponsorship prices and terms must be configured by FutureLife.</p></div>
         <a class="button secondary back-link" href="marketplace-vendor-listings.html">Back to Listings</a>
       </div>
 
@@ -51,7 +51,7 @@
           <form id="sponsorship-form" novalidate>
             <div class="form-grid">
               <div class="form-field full"><label for="placement">Placement</label><select id="placement" name="placement" required><option value="{{SPONSORED_PLACEMENT_ID}}">{{SPONSORED_PLACEMENT_NAME}}</option></select><p class="help">Placement availability is determined by the FutureLife Marketplace configuration.</p></div>
-              <div class="form-field full"><label>Duration and fee</label><div class="duration-grid" role="radiogroup" aria-label="Sponsored listing duration and fee">
+              <div class="form-field full"><label>Duration and price</label><div class="duration-grid" role="radiogroup" aria-label="Sponsored listing duration and fee">
                 <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_1}}" data-label="{{SPONSORED_OPTION_LABEL_1}}" data-duration="{{SPONSORED_OPTION_DURATION_1}}" data-fee="{{SPONSORED_OPTION_FEE_1}}" checked /><strong>{{SPONSORED_OPTION_LABEL_1}}</strong><span>{{SPONSORED_OPTION_DURATION_1}}</span><em>RM {{SPONSORED_OPTION_FEE_1}}</em></label>
                 <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_2}}" data-label="{{SPONSORED_OPTION_LABEL_2}}" data-duration="{{SPONSORED_OPTION_DURATION_2}}" data-fee="{{SPONSORED_OPTION_FEE_2}}" /><strong>{{SPONSORED_OPTION_LABEL_2}}</strong><span>{{SPONSORED_OPTION_DURATION_2}}</span><em>RM {{SPONSORED_OPTION_FEE_2}}</em></label>
                 <label class="duration-option"><input type="radio" name="sponsorship-option" value="{{SPONSORED_OPTION_ID_3}}" data-label="{{SPONSORED_OPTION_LABEL_3}}" data-duration="{{SPONSORED_OPTION_DURATION_3}}" data-fee="{{SPONSORED_OPTION_FEE_3}}" /><strong>{{SPONSORED_OPTION_LABEL_3}}</strong><span>{{SPONSORED_OPTION_DURATION_3}}</span><em>RM {{SPONSORED_OPTION_FEE_3}}</em></label>
@@ -73,7 +73,7 @@
         <div class="payment-header"><p class="eyebrow">Marketplace listings</p><h1>Review Sponsored Listing Payment</h1><p class="page-copy">Confirm the configured sponsorship selection before opening Stripe Checkout.</p></div>
         <section class="payment-summary" aria-labelledby="payment-summary-heading">
           <div class="payment-title" id="payment-summary-heading">Payment summary</div>
-          <ul class="summary-list"><li><span>Listing</span><span>{{LISTING_TITLE}}</span></li><li><span>Listing reference</span><span>{{LISTING_ID}}</span></li><li><span>Sponsorship option</span><span>{{SPONSORED_OPTION_LABEL}}</span></li><li><span>Duration</span><span>{{SPONSORED_OPTION_DURATION}}</span></li><li><span>Placement</span><span>{{SPONSORED_PLACEMENT_NAME}}</span></li><li><span>Sponsored listing fee</span><span>RM {{SPONSORED_OPTION_FEE}}</span></li><li><span>Tax</span><span>RM {{TAX_AMOUNT}}</span></li><li class="total"><span>Total payable</span><span>RM {{TOTAL_PAYABLE}}</span></li></ul>
+          <ul class="summary-list"><li><span>Listing</span><span>{{LISTING_TITLE}}</span></li><li><span>Listing reference</span><span>{{LISTING_ID}}</span></li><li><span>Sponsorship option</span><span>{{SPONSORED_OPTION_LABEL}}</span></li><li><span>Duration</span><span>{{SPONSORED_OPTION_DURATION}}</span></li><li><span>Placement</span><span>{{SPONSORED_PLACEMENT_NAME}}</span></li><li><span>Sponsored listing price</span><span>RM {{SPONSORED_OPTION_FEE}}</span></li><li><span>Tax</span><span>RM {{TAX_AMOUNT}}</span></li><li class="total"><span>Total payable</span><span>RM {{TOTAL_PAYABLE}}</span></li></ul>
         </section>
         <section class="payment-method" aria-labelledby="payment-method-heading"><h2 id="payment-method-heading">Payment</h2><p>This preview opens no real checkout. In production, create a Stripe Checkout Session in MYR and supply the payment result through a verified FutureLife server-side webhook.</p><span class="stripe-label">Secure payment by Stripe</span></section>
         <form id="payment-form" novalidate><label class="confirm-check"><input id="payment-confirmation" type="checkbox" /><span>I confirm that the listing and configured sponsorship option above are correct. I understand that sponsorship must not be activated until payment is verified.</span></label><p class="feedback" id="payment-feedback" role="alert"></p><div class="action-row"><a class="button secondary" href="marketplace-vendor-sponsored-listing.html?step=choose&amp;listing={{LISTING_ID}}">Back to Selection</a><button class="button" type="submit">Open Stripe Checkout</button></div></form>

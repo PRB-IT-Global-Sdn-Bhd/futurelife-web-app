@@ -223,7 +223,7 @@
     <header class="topbar"><div class="topbar-label"><strong>Marketplace Vendor</strong> Portal</div></header>
     <header class="mobile-header"><span class="mobile-portal">Marketplace Vendor Portal</span><span class="mobile-account">Kampus Essentials</span></header>
     <main class="content" id="payout-account">
-      <a class="breadcrumb" id="page-breadcrumb" href="marketplace-vendor-payouts.html">← Back to Platform Fees</a>
+      <a class="breadcrumb" id="page-breadcrumb" href="marketplace-vendor-payouts.html">← Back to Payouts</a>
       <p class="eyebrow">Marketplace vendor</p>
       <h1 id="page-heading">Payout Account Setup</h1>
       <p class="page-copy" id="page-copy">Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.</p>
@@ -234,7 +234,7 @@
             <h2 id="setup-heading-pending">Account submitted</h2>
             <p class="section-copy">Your payout details were submitted on {{PAYOUT ACCOUNT SUBMITTED DATE}}. No action is needed while FutureLife checks them.</p>
             <div class="summary-list"><div class="summary-row"><span class="summary-label">Payout method</span><span class="summary-value">{{PAYOUT METHOD}}</span></div><div class="summary-row"><span class="summary-label">Account</span><span class="summary-value">{{PAYOUT ACCOUNT DISPLAY}}</span></div><div class="summary-row"><span class="summary-label">Submitted on</span><span class="summary-value">{{PAYOUT ACCOUNT SUBMITTED DATE}}</span></div></div>
-            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-payout-account.html?state=edit">Update Details</a><a class="button" href="marketplace-vendor-payouts.html">Back to Platform Fees</a></div>
+            <div class="form-actions"><a class="button secondary" href="marketplace-vendor-payout-account.html?state=edit">Update Details</a><a class="button" href="marketplace-vendor-payouts.html">Back to Payouts</a></div>
           </section>
           <section class="card" aria-labelledby="setup-heading-verified" data-states="verified">
             <h2 id="setup-heading-verified">Account verified</h2>
@@ -341,9 +341,9 @@
     // Each state matches a former page: pending / verified / action-required (Payout Account Setup),
     // edit (Manage Payout Details) and failed (Fix Failed Payout). Live status comes from the payout account record.
     const pageStates = {
-      pending: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
-      verified: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
-      'action-required': { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Platform Fees'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.', form: ['Correct the details below and resubmit them for verification.', 'marketplace-vendor-payouts.html?view=history', 'Resubmit Payout Details'] },
+      pending: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Payouts'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
+      verified: { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Payouts'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.' },
+      'action-required': { title: 'Payout Account Setup', description: 'FutureLife Marketplace Vendor payout account setup preview', back: ['marketplace-vendor-payouts.html', '← Back to Payouts'], copy: 'Check the verification status of the account used for eligible FutureLife Marketplace vendor payouts.', form: ['Correct the details below and resubmit them for verification.', 'marketplace-vendor-payouts.html?view=history', 'Resubmit Payout Details'] },
       edit: { title: 'Manage Payout Details', description: 'FutureLife Marketplace Vendor Portal manage payout details preview', back: ['marketplace-vendor-payouts.html', '← Back to Payouts'], copy: 'Add or update the account used for eligible FutureLife Marketplace vendor payouts.', form: ['Choose the method and provide the account details required to receive a payout.', 'marketplace-vendor-payouts.html', 'Save Payout Details'] },
       failed: { title: 'Fix Failed Payout', description: 'FutureLife Marketplace Vendor failed payout preview', back: ['marketplace-vendor-payouts.html?view=history', '← Back to Payout History'], copy: 'A payout could not be sent to your account. Check the reason, then update your payout details.', form: ['Correct the account details. FutureLife will retry the payout after the updated details are verified.', 'marketplace-vendor-payouts.html?view=history', 'Save and Submit for Review'] }
     };
