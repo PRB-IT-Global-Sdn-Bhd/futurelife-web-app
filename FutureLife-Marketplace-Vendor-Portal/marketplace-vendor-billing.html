@@ -439,21 +439,21 @@
       font-weight: 700;
       line-height: 1.35;
     }
-    :where(.billing-plans-sections) .listing-credit-grid {
+    :where(.billing-plans-sections) .sponsored-summary-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       border-top: 1px solid #ededed;
     }
-    :where(.billing-plans-sections) .listing-credit-item {
+    :where(.billing-plans-sections) .sponsored-summary-item {
       min-width: 0;
       padding: 11px 12px;
       border-left: 1px solid #ededed;
     }
-    :where(.billing-plans-sections) .listing-credit-item:first-child {
+    :where(.billing-plans-sections) .sponsored-summary-item:first-child {
       border-left: 0;
       padding-left: 0;
     }
-    :where(.billing-plans-sections) .listing-credit-action {
+    :where(.billing-plans-sections) .sponsored-summary-action {
       display: flex;
       align-items: center;
       padding: 11px 0 11px 12px;
@@ -622,22 +622,22 @@
       :where(.billing-plans-sections) .plan-actions .link-button {
         width: 100%;
       }
-      :where(.billing-plans-sections) .plan-metrics, :where(.billing-plans-sections) .listing-credit-grid, :where(.billing-plans-sections) .billing-contact-grid {
+      :where(.billing-plans-sections) .plan-metrics, :where(.billing-plans-sections) .sponsored-summary-grid, :where(.billing-plans-sections) .billing-contact-grid {
         grid-template-columns: 1fr;
       }
-      :where(.billing-plans-sections) .plan-metric, :where(.billing-plans-sections) .plan-metric:first-child, :where(.billing-plans-sections) .listing-credit-item, :where(.billing-plans-sections) .listing-credit-item:first-child, :where(.billing-plans-sections) .billing-contact-item, :where(.billing-plans-sections) .billing-contact-item:nth-child(even) {
+      :where(.billing-plans-sections) .plan-metric, :where(.billing-plans-sections) .plan-metric:first-child, :where(.billing-plans-sections) .sponsored-summary-item, :where(.billing-plans-sections) .sponsored-summary-item:first-child, :where(.billing-plans-sections) .billing-contact-item, :where(.billing-plans-sections) .billing-contact-item:nth-child(even) {
         border-left: 0;
         padding: 10px 0;
       }
-      :where(.billing-plans-sections) .plan-metric + .plan-metric, :where(.billing-plans-sections) .listing-credit-item + .listing-credit-item, :where(.billing-plans-sections) .billing-contact-item + .billing-contact-item {
+      :where(.billing-plans-sections) .plan-metric + .plan-metric, :where(.billing-plans-sections) .sponsored-summary-item + .sponsored-summary-item, :where(.billing-plans-sections) .billing-contact-item + .billing-contact-item {
         border-top: 1px solid #ededed;
       }
-      :where(.billing-plans-sections) .listing-credit-action {
+      :where(.billing-plans-sections) .sponsored-summary-action {
         padding: 10px 0 0;
         border-top: 1px solid #ededed;
         border-left: 0;
       }
-      :where(.billing-plans-sections) .listing-credit-action .link-button {
+      :where(.billing-plans-sections) .sponsored-summary-action .link-button {
         width: 100%;
       }
       :where(.billing-plans-sections) .history-table {
@@ -706,23 +706,23 @@
         </div>
       </section>
 
-      <section id="plans-and-fees" aria-labelledby="plan-comparison-heading">
+      <section id="plans-and-subscription" aria-labelledby="plan-comparison-heading">
         <div class="plan-comparison-heading"><div><h2 id="plan-comparison-heading">Plan comparison</h2><p>Compare active-listing allowances, sponsored-listing allowances, team access, and support before changing your plan.</p></div><div class="plan-actions"><a class="link-button" href="marketplace-vendor-plan-change.html?intent=manage">Manage Plan</a><a class="link-button primary" href="marketplace-vendor-plan-change.html?intent=upgrade">Upgrade Plan</a></div></div>
         <div class="plan-comparison-grid">
-          <article class="plan-compare-card current"><span class="plan-compare-badge">CURRENT PLAN</span><h3>Marketplace Basic</h3><p class="plan-compare-price">Plan price<strong>Free</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BASIC_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BASIC_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BASIC_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BASIC_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-fees">View plan details →</a></article>
-          <article class="plan-compare-card"><h3>Marketplace Pro</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_PRO_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_PRO_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_PRO_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_PRO_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_PRO_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-fees">View plan details →</a></article>
-          <article class="plan-compare-card"><h3>Marketplace Business</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_BUSINESS_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BUSINESS_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BUSINESS_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BUSINESS_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BUSINESS_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-fees">View plan details →</a></article>
+          <article class="plan-compare-card current"><span class="plan-compare-badge">CURRENT PLAN</span><h3>Marketplace Basic</h3><p class="plan-compare-price">Plan price<strong>Free</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BASIC_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BASIC_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BASIC_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BASIC_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-subscription">View plan details →</a></article>
+          <article class="plan-compare-card"><h3>Marketplace Pro</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_PRO_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_PRO_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_PRO_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_PRO_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_PRO_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-subscription">View plan details →</a></article>
+          <article class="plan-compare-card"><h3>Marketplace Business</h3><p class="plan-compare-price">Plan price<strong>RM {{MARKETPLACE_BUSINESS_PLAN_PRICE}} / {{BILLING_CYCLE}}</strong></p><div class="plan-compare-list"><div><span>Active listing limit</span><strong>{{MARKETPLACE_BUSINESS_LISTING_LIMIT}}</strong></div><div><span>Sponsored listing allowance</span><strong>{{MARKETPLACE_BUSINESS_SPONSORED_ALLOWANCE}}</strong></div><div><span>Team members</span><strong>{{MARKETPLACE_BUSINESS_TEAM_LIMIT}}</strong></div><div><span>Support</span><strong>{{MARKETPLACE_BUSINESS_SUPPORT_LEVEL}}</strong></div></div><a class="plan-compare-link" href="marketplace-vendor-billing.html#plans-and-subscription">View plan details →</a></article>
         </div>
       </section>
 
       <div class="billing-plans-sections">
-        <section class="card" aria-labelledby="listing-credit-heading">
-          <div class="card-heading"><div><h2 id="listing-credit-heading">Sponsored listing summary</h2><p>Active listings come from your plan allowance. Sponsored listings are the only paid add-on.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
-          <div class="listing-credit-grid">
-            <div class="listing-credit-item"><span class="field-label">Sponsored listing allowance remaining</span><span class="field-value">{{SPONSORED_ALLOWANCE_REMAINING}}</span></div>
-            <div class="listing-credit-item"><span class="field-label">Active listings</span><span class="field-value">{{ACTIVE_LISTINGS}} of {{PLAN_LISTING_LIMIT}}</span></div>
-            <div class="listing-credit-item"><span class="field-label">Sponsored listing price</span><span class="field-value">RM {{SPONSORED_LISTING_PRICE}}</span></div>
-            <div class="listing-credit-action"><a class="link-button" href="marketplace-vendor-listings.html">Sponsor a Listing</a></div>
+        <section class="card" aria-labelledby="sponsored-summary-heading">
+          <div class="card-heading"><div><h2 id="sponsored-summary-heading">Sponsored listing summary</h2><p>Active listings come from your plan allowance. Sponsored listings are the only paid add-on.</p></div><a class="link-button" href="marketplace-vendor-payment-history.html">Payment History</a></div>
+          <div class="sponsored-summary-grid">
+            <div class="sponsored-summary-item"><span class="field-label">Sponsored listing allowance remaining</span><span class="field-value">{{SPONSORED_ALLOWANCE_REMAINING}}</span></div>
+            <div class="sponsored-summary-item"><span class="field-label">Active listings</span><span class="field-value">{{ACTIVE_LISTINGS}} of {{PLAN_LISTING_LIMIT}}</span></div>
+            <div class="sponsored-summary-item"><span class="field-label">Sponsored listing price</span><span class="field-value">RM {{SPONSORED_LISTING_PRICE}}</span></div>
+            <div class="sponsored-summary-action"><a class="link-button" href="marketplace-vendor-listings.html">Sponsor a Listing</a></div>
           </div>
         </section>
         <section class="card" aria-labelledby="billing-history-heading">

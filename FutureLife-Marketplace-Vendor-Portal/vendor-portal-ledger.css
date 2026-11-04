@@ -326,14 +326,14 @@ h1 {
   line-height: 1.35;
   text-align: center;
 }
-.fee-note {
+.ledger-note {
   border-left: 4px solid var(--green);
   background: var(--pale-grey);
   color: #5e6168;
   font-size: 9.5px;
   line-height: 1.45;
 }
-.fee-note strong {
+.ledger-note strong {
   color: #30333a;
 }
 .mobile-header {

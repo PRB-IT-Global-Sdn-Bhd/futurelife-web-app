@@ -80,6 +80,9 @@ h1 {
   gap: 10px;
   margin: 14px 0;
 }
+.summary-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 .summary-card {
   min-height: 92px;
   border: 1px solid var(--line);

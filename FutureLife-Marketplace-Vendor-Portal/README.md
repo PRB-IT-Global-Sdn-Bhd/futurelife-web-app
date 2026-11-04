@@ -10,7 +10,7 @@ This archive contains the current Marketplace Vendor Portal preview, including l
 
 Merged pages (one page, several views):
 
-- Billing: `marketplace-vendor-billing.html` shows the current plan (Marketplace Basic is Free), plan comparison with Manage Plan / Upgrade Plan, the sponsored listing summary, invoices (billing history), and the billing contact & payment method. The sidebar sub-link Plans & Sponsored Listings opens `marketplace-vendor-billing.html#plans-and-fees`.
+- Billing: `marketplace-vendor-billing.html` shows the current plan (Marketplace Basic is Free), plan comparison with Manage Plan / Upgrade Plan, the sponsored listing summary, invoices (billing history), and the billing contact & payment method. The sidebar sub-link Plans & Sponsored Listings opens `marketplace-vendor-billing.html#plans-and-subscription`.
 - Payouts: `marketplace-vendor-payouts.html` (fee-free: sellers receive the full order amount less refunds) (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
 - Payout statement: `marketplace-vendor-payout-statement.html?payout=` (`?view=breakdown&order=` shows the order earnings breakdown).
 - Sponsored listing: `marketplace-vendor-sponsored-listing.html?step=choose|review` (choose an option, then review the payment).

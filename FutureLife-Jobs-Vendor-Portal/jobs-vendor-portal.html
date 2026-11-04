@@ -17,7 +17,7 @@
       if (target[1]) params.set('view', target[1]);
       var query = params.toString();
       var hash = window.location.hash;
-      if (!hash && params.get('view') === null && (new URLSearchParams(window.location.search).get('view') === 'billing-plans')) hash = '#plans-and-fees';
+      if (!hash && params.get('view') === null && (new URLSearchParams(window.location.search).get('view') === 'billing-plans')) hash = '#plans-and-subscription';
       window.location.replace(target[0] + (query ? '?' + query : '') + hash);
     })();
   </script>

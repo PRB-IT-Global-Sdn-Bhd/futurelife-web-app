@@ -48,7 +48,7 @@
   <aside class="sidebar" aria-label="Vendor portal navigation">
     <a class="portal-name" href="#dashboard">Marketplace Vendor Portal</a>
     <a class="account-row" href="#profile"><span class="avatar">KE</span><span><strong>Kampus Essentials</strong><span>Vendor account</span></span></a>
-    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-fees">Plans &amp; Sponsored Listings</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
+    <section class="side-section"><p class="side-label">Vendor portal</p><nav class="side-menu" aria-label="Vendor portal pages"><a href="#dashboard">Dashboard</a><a href="#listings">Listings</a><a href="#orders">Orders</a><a class="billing-parent" href="marketplace-vendor-billing.html">Billing</a><a class="billing-sub-link active" href="marketplace-vendor-billing.html#plans-and-subscription">Plans &amp; Sponsored Listings</a><a class="billing-sub-link" href="marketplace-vendor-payouts.html">Payouts</a><a href="#messages">Messages <span class="menu-count">3</span></a><a href="#profile">Profile</a></nav></section>
     <a class="side-logout" href="#logout">Logout</a>
   </aside>
   <div class="page-shell">
@@ -64,7 +64,7 @@
       <div class="layout">
         <section>
           <section class="card" aria-labelledby="line-items-heading"><h2 id="line-items-heading">Items</h2><p class="section-copy">Show only the items recorded on this payment.</p>
-            <table class="statement-table"><colgroup><col class="order" /><col class="eligible" /><col class="gross" /><col class="fee" /><col class="net" /></colgroup><thead><tr><th>Item</th><th>Type</th><th>Quantity</th><th>Unit price</th><th>Amount</th></tr></thead><tbody>
+            <table class="statement-table"><colgroup><col class="order" /><col class="eligible" /><col class="gross" /><col class="unit" /><col class="net" /></colgroup><thead><tr><th>Item</th><th>Type</th><th>Quantity</th><th>Unit price</th><th>Amount</th></tr></thead><tbody>
               <tr><td><span class="order-id">{{ITEM NAME}}</span><span class="sub-value">{{ITEM PERIOD}}</span></td><td>{{PAYMENT TYPE}}</td><td>{{QUANTITY}}</td><td><span class="money">RM {{UNIT PRICE}}</span></td><td><span class="money">RM {{LINE TOTAL}}</span></td></tr>
             </tbody></table>
             <div class="statement-cards">

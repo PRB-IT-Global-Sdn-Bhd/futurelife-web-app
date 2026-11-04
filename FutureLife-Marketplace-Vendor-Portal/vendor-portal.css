@@ -530,16 +530,16 @@ body {
   color: #363940;
   font-size: 10px;
 }
-.earnings-table col.fee {
-  width: 16%;
-}
 .listing-subtitle {
   display: block;
   margin-top: 3px;
   color: #898c92;
   font-size: 9px;
 }
-.statement-table col.fee {
+.earnings-table col.amount {
+  width: 16%;
+}
+.statement-table col.unit {
   width: 18%;
 }
 .earnings-table col.net {
@@ -1193,7 +1193,7 @@ body {
   font-size: 9px;
   line-height: 1.45;
 }
-.fee-note {
+.ledger-note {
   border-left: 4px solid var(--green);
   background: var(--pale-grey);
   color: #5e6168;
@@ -1212,7 +1212,7 @@ body {
   font-size: 9.5px;
   line-height: 1.4;
 }
-.fee-note p {
+.ledger-note p {
   margin: 8px 0 0;
 }
 .timeline-entry time {
@@ -1232,7 +1232,7 @@ body {
 .privacy-card strong {
   color: #2d3036;
 }
-.fee-note strong {
+.ledger-note strong {
   color: #30333a;
 }
 .result-panel {
@@ -1715,9 +1715,6 @@ body {
   justify-content: center;
   gap: 4px 12px;
   margin: 13px 0 0;
-}
-.money.credit {
-  color: #397d13;
 }
 .preview-routes .text-link {
   margin-top: 0;

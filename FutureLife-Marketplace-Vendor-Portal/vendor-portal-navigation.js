@@ -5,7 +5,7 @@
     orders: 'marketplace-vendor-orders.html',
     payouts: 'marketplace-vendor-payouts.html',
     billing: 'marketplace-vendor-billing.html',
-    billingPlans: 'marketplace-vendor-billing.html#plans-and-fees',
+    billingPlans: 'marketplace-vendor-billing.html#plans-and-subscription',
     messages: 'marketplace-vendor-messages.html',
     notifications: 'marketplace-vendor-notifications.html',
     profile: 'marketplace-vendor-profile.html',
@@ -34,9 +34,7 @@
     orders: ROUTES.orders,
     payouts: ROUTES.payouts,
     billing: ROUTES.billing,
-    'plans & sponsored listing fees': ROUTES.billingPlans,
     'plans & sponsored listings': ROUTES.billingPlans,
-    'platform fees': ROUTES.payouts,
     messages: ROUTES.messages,
     profile: ROUTES.profile,
     'vendor profile': ROUTES.profile,
@@ -84,12 +82,12 @@
     document.head.appendChild(style);
   }
 
-  function groupPlatformFeesUnderBilling() {
+  function groupPayoutsUnderBilling() {
     document.querySelectorAll('.side-menu').forEach((nav) => {
-      const platformFees = [...nav.querySelectorAll('a')].find((link) => link.getAttribute('href') === ROUTES.payouts);
-      if (!platformFees) return;
-      platformFees.textContent = 'Payouts';
-      platformFees.classList.add('billing-sub-link');
+      const payoutsLink = [...nav.querySelectorAll('a')].find((link) => link.getAttribute('href') === ROUTES.payouts);
+      if (!payoutsLink) return;
+      payoutsLink.textContent = 'Payouts';
+      payoutsLink.classList.add('billing-sub-link');
       let billing = nav.querySelector('.billing-parent');
       if (!billing || billing.tagName !== 'A') {
         const billingLink = document.createElement('a');
@@ -97,14 +95,14 @@
         billingLink.href = ROUTES.billing;
         billingLink.textContent = 'Billing';
         if (billing) billing.replaceWith(billingLink);
-        else platformFees.insertAdjacentElement('beforebegin', billingLink);
+        else payoutsLink.insertAdjacentElement('beforebegin', billingLink);
         billing = billingLink;
       }
       billing.href = ROUTES.billing;
     });
   }
 
-  function addPlansAndListingFeesUnderBilling() {
+  function addPlansAndSponsoredListingsUnderBilling() {
     document.querySelectorAll('.side-menu').forEach((nav) => {
       const billing = nav.querySelector('.billing-parent');
       if (!billing) return;
@@ -201,8 +199,8 @@
     routeLegacyAnchors();
     exposeNotifications();
     addBillingSubpageStyles();
-    groupPlatformFeesUnderBilling();
-    addPlansAndListingFeesUnderBilling();
+    groupPayoutsUnderBilling();
+    addPlansAndSponsoredListingsUnderBilling();
     indicateCurrentPage();
     setupMobileMenu();
   }

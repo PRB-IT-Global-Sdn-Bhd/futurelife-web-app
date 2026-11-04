@@ -17,7 +17,7 @@
       params.delete('view');
       var query = params.toString();
       var hash = window.location.hash;
-      if (!hash && view === 'billing-plans') hash = '#plans-and-fees';
+      if (!hash && view === 'billing-plans') hash = '#plans-and-subscription';
       window.location.replace(target + (query ? '?' + query : '') + hash);
     })();
   </script>

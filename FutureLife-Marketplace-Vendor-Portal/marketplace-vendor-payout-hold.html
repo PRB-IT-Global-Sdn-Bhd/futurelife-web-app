@@ -70,11 +70,11 @@
       <div class="layout">
         <section>
           <section class="card" aria-labelledby="hold-orders-heading"><h2 id="hold-orders-heading">Affected orders</h2><p class="section-copy">Orders whose earnings are held in this payout.</p>
-            <table class="statement-table"><colgroup><col class="order" /><col class="eligible" /><col class="gross" /><col class="fee" /><col class="net" /></colgroup><thead><tr><th>Order</th><th>Hold reason</th><th>Customer paid</th><th>Platform fee</th><th>Amount held</th></tr></thead><tbody>
-              <tr><td><a class="order-id order-link" href="marketplace-vendor-order-dispute.html?order={{ORDER_ID}}">{{ORDER ID}}</a><span class="sub-value">Marketplace order</span></td><td>{{HOLD REASON}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">None</span></td><td><span class="money">RM {{HELD AMOUNT}}</span></td></tr>
+            <table class="statement-table"><colgroup><col class="order" /><col class="eligible" /><col class="gross" /><col class="net" /></colgroup><thead><tr><th>Order</th><th>Hold reason</th><th>Customer paid</th><th>Amount held</th></tr></thead><tbody>
+              <tr><td><a class="order-id order-link" href="marketplace-vendor-order-dispute.html?order={{ORDER_ID}}">{{ORDER ID}}</a><span class="sub-value">Marketplace order</span></td><td>{{HOLD REASON}}</td><td><span class="money">RM {{ORDER TOTAL}}</span></td><td><span class="money">RM {{HELD AMOUNT}}</span></td></tr>
             </tbody></table>
             <div class="statement-cards">
-              <article class="statement-card"><div class="statement-card-top"><div><a class="order-id order-link" href="marketplace-vendor-order-dispute.html?order={{ORDER_ID}}">{{ORDER ID}}</a><span class="sub-value">{{HOLD REASON}}</span></div></div><div class="mobile-money-grid"><div><span class="side-label-small">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="side-label-small">Platform fee</span><span class="money">None</span></div><div><span class="side-label-small">Amount held</span><span class="money">RM {{HELD AMOUNT}}</span></div></div></article>
+              <article class="statement-card"><div class="statement-card-top"><div><a class="order-id order-link" href="marketplace-vendor-order-dispute.html?order={{ORDER_ID}}">{{ORDER ID}}</a><span class="sub-value">{{HOLD REASON}}</span></div></div><div class="mobile-money-grid"><div><span class="side-label-small">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="side-label-small">Amount held</span><span class="money">RM {{HELD AMOUNT}}</span></div></div></article>
             </div>
           </section>
           <section class="card" aria-labelledby="hold-timeline-heading"><h2 id="hold-timeline-heading">Hold activity</h2><p class="section-copy">What has happened since the hold was placed.</p>

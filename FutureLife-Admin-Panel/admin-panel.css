@@ -382,46 +382,44 @@ input:focus, select:focus, textarea:focus { border-color: var(--green); box-shad
 .plan-metric span { display: block; color: #777a80; font-size: 9px; }
 .plan-metric strong { display: block; overflow: hidden; margin-top: 4px; color: #292c33; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .plan-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.listing-credit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 13px; align-items: end; }
-.listing-credit-item { min-width: 0; }
-.listing-credit-item span { display: block; color: #777a80; font-size: 9px; }
-.listing-credit-item strong { display: block; overflow: hidden; margin-top: 4px; color: #292c33; font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+
+
+
 .billing-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; border-top: 1px solid #ededed; }
 .billing-contact-item { min-width: 0; padding: 10px 0; border-bottom: 1px solid #ededed; }
 .billing-contact-item span { display: block; color: #777a80; font-size: 9px; }
 .billing-contact-item strong { display: block; overflow: hidden; margin-top: 4px; color: #292c33; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .mobile-billing-cards { display: none; }
-.commission-summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
-.commission-summary-card { min-width: 0; border: 1px solid var(--line); border-top: 3px solid #b3b9b0; padding: 14px; background: var(--white); }
-.commission-summary-card.confirmed { border-top-color: #75ad38; }
-.commission-summary-card.payable { border-top-color: #c5a023; }
-.commission-summary-card.paid { border-top-color: #6a9e74; }
-.commission-summary-card span { display: block; color: #74777d; font-size: 9px; }
-.commission-summary-card strong { display: block; overflow-wrap: anywhere; margin-top: 6px; color: #293129; font-size: 16px; font-weight: 800; line-height: 1.2; }
-.commission-summary-card p { margin: 5px 0 0; color: #777a80; font-size: 9px; line-height: 1.35; }
-.commission-ledger-record { border: 1px solid var(--line); background: var(--white); }
-.commission-ledger-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 14px; border-bottom: 1px solid #ededed; }
-.commission-ledger-head > div { min-width: 0; }
-.commission-ledger-head span { display: block; color: #777a80; font-size: 9px; }
-.commission-ledger-head strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #2b332c; font-size: 11px; font-weight: 800; }
-.commission-ledger-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.commission-ledger-fact { min-width: 0; padding: 11px 12px; border-top: 1px solid #ededed; }
-.commission-ledger-fact:nth-child(-n+3) { border-top: 0; }
-.commission-ledger-fact:nth-child(3n+2), .commission-ledger-fact:nth-child(3n+3) { border-left: 1px solid #ededed; }
-.commission-ledger-fact span { display: block; color: #777a80; font-size: 9px; }
-.commission-ledger-fact strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #292c33; font-size: 10px; font-weight: 700; line-height: 1.35; }
-.commission-breakdown-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid #ededed; }
-.commission-breakdown-item { min-width: 0; padding: 11px 12px 11px 0; border-bottom: 1px solid #ededed; }
-.commission-breakdown-item:nth-child(3n+2), .commission-breakdown-item:nth-child(3n+3) { border-left: 1px solid #ededed; padding-right: 0; padding-left: 12px; }
-.commission-breakdown-item span { display: block; color: #777a80; font-size: 9px; }
-.commission-breakdown-item strong { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #292c33; font-size: 10px; font-weight: 700; line-height: 1.35; }
-.commission-policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.commission-policy { border: 1px solid var(--line); padding: 15px; background: var(--white); }
-.commission-policy h2 { margin-bottom: 7px; font-size: 13px; }
-.commission-policy p, .commission-policy li { color: #5f6369; font-size: 10px; line-height: 1.45; }
-.commission-policy p { margin: 0; }
-.commission-policy ul, .commission-policy ol { display: grid; gap: 7px; margin: 12px 0 0; padding-left: 18px; }
-.commission-policy strong { color: #30363a; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   a, button { transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
