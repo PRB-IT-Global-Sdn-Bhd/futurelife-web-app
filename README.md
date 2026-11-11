@@ -23,7 +23,7 @@ These files are visual and interaction prototypes for review. They are intended 
 3. Open the stated HTML entry file in a modern browser such as Google Chrome, Microsoft Edge, Safari, or Firefox.
 4. Use the visible navigation links and buttons to move between the preview pages.
 
-For the Marketplace ZIP, keep all extracted files in the same folder. Its HTML pages share `vendor-portal-navigation.js` and `marketplace-vendor-sponsored-listing-flow.css`.
+For the Marketplace ZIP, keep all extracted files in the same folder. Its HTML pages share `vendor-portal-navigation.js`, `vendor-portal-navigation.css`, `vendor-portal.css`, and the page-group stylesheets (`vendor-portal-ledger.css`, `vendor-portal-statement.css`, `vendor-portal-case.css`, `vendor-portal-listings.css`, `vendor-portal-flow.css`, and `vendor-portal-auth.css`).
 
 For the Jobs ZIP, keep all extracted files in the same folder. It has one HTML page per screen (start at `jobs-vendor-dashboard.html` or `jobs-vendor-signin.html`), and the pages share `jobs-vendor-portal.css`, `jobs-vendor-portal.js`, `vendor-portal-navigation.css`, `vendor-portal-navigation.js`, and `vendor-portal-auth.css`. The older `jobs-vendor-portal.html` file now forwards `?view=` links to the matching page.
 
@@ -35,7 +35,7 @@ All shown values such as `{{ORDER_ID}}`, `{{PAYOUT_AMOUNT}}`, `{{PLAN_PRICE}}`, 
 
 The previews use FutureLife visual conventions: lime green, white, charcoal/grey, responsive desktop/mobile layouts, and square corners for cards, fields, controls, and buttons.
 
-Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Marketplace payouts are fee-free — sellers receive the full order amount less refunds. The Marketplace portal includes preview checkout flows for Sponsored Listings and plan changes; Jobs and Rentals use plan allowances. Retired fee, commission and credit pages redirect to the nearest billing page.
+Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. For Marketplace, card and online payment processing fees are deducted from each order before payout. The Marketplace portal includes preview checkout flows for Sponsored Listings and plan changes; Jobs and Rentals use plan allowances. Retired fee, commission and credit pages redirect to the nearest billing page.
 
 ## Preview-only limitations
 
