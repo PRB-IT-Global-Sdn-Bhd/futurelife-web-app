@@ -216,7 +216,7 @@
               <article class="statement-card"><div class="statement-card-top"><div><a class="order-id order-link" href="marketplace-vendor-payout-statement.html?view=breakdown&amp;order={{ORDER_ID}}">{{ORDER ID}}</a><span class="sub-value">Eligible on {{ELIGIBLE DATE}}</span></div></div><div class="mobile-money-grid"><div><span class="side-label-small">Customer paid</span><span class="money">RM {{ORDER TOTAL}}</span></div><div><span class="side-label-small">Net to vendor</span><span class="money">RM {{NET PAYOUT}}</span></div></div></article>
             </div>
           </section>
-          <section class="card" aria-labelledby="reconciliation-heading"><h2 id="reconciliation-heading">Payout reconciliation</h2><p class="section-copy">This summary shows how the order value becomes the vendor payout.</p><div class="reconciliation"><div class="recon-row"><span>Total customer payments from included orders</span><span class="amount">RM {{TOTAL ORDER VALUE}}</span></div><div class="recon-row"><span>Less: Approved payout adjustments, if any</span><span class="amount">RM {{PAYOUT ADJUSTMENTS}}</span></div><div class="recon-row total"><span>Net payout</span><span class="amount">RM {{PAYOUT AMOUNT}}</span></div></div><p class="policy-note"><strong>Statement clarity.</strong> Display an adjustment only where it is recorded and approved for this payout. The statement should not introduce charges or deductions that are not part of the confirmed FutureLife payout record.</p></section>
+          <section class="card" aria-labelledby="reconciliation-heading"><h2 id="reconciliation-heading">Payout reconciliation</h2><p class="section-copy">This summary shows how the order value becomes the vendor payout.</p><div class="reconciliation"><div class="recon-row"><span>Total customer payments from included orders</span><span class="amount">RM {{TOTAL ORDER VALUE}}</span></div><div class="recon-row"><span>Less: Payment processing fees</span><span class="amount">RM {{PROCESSING_FEE}}</span></div><div class="recon-row"><span>Less: Approved payout adjustments, if any</span><span class="amount">RM {{PAYOUT ADJUSTMENTS}}</span></div><div class="recon-row total"><span>Net payout</span><span class="amount">RM {{PAYOUT AMOUNT}}</span></div></div><p class="policy-note"><strong>Statement clarity.</strong> Display a payment processing fee or adjustment only where it is recorded for this payout. The statement should not introduce charges or deductions that are not part of the confirmed FutureLife payout record.</p></section>
         </section>
         <aside>
           <section class="side-card" aria-labelledby="payout-destination-heading"><h2 id="payout-destination-heading">Payout destination</h2><div class="summary-list"><div class="summary-row"><span class="side-label-small">Payout method</span><span class="summary-value">{{PAYOUT METHOD}}</span></div><div class="summary-row"><span class="side-label-small">Account holder</span><span class="summary-value">{{ACCOUNT HOLDER NAME}}</span></div><div class="summary-row"><span class="side-label-small">Account</span><span class="summary-value">{{PAYOUT ACCOUNT DISPLAY}}</span></div></div></section>
@@ -229,7 +229,7 @@
       <a class="breadcrumb" href="marketplace-vendor-payouts.html">← Back to Payouts</a>
       <p class="eyebrow">Billing</p>
       <h1>Order Earnings Breakdown</h1>
-      <p class="page-copy">Review the settlement calculation for this Marketplace order. The full order amount is included in a vendor payout.</p>
+      <p class="page-copy">Review the settlement calculation for this Marketplace order. Payouts are sent to your bank account. Card and online payment processing fees are deducted from each order before payout.</p>
       <section class="order-banner" aria-labelledby="order-reference-heading"><div><h2 id="order-reference-heading">{{ORDER ID}}</h2><p>Marketplace order · Eligible on {{ELIGIBLE DATE}}</p></div><span class="status">{{PAYOUT STATUS}}</span></section>
       <div class="layout">
         <section>
@@ -243,14 +243,14 @@
             </div>
           </section>
           <section class="card" aria-labelledby="calculation-heading">
-            <h2 id="calculation-heading">Order earnings</h2><p class="section-copy">Only approved adjustments for this order should appear here.</p>
+            <h2 id="calculation-heading">Order earnings</h2><p class="section-copy">Only the payment processing fee and approved adjustments for this order should appear here.</p>
             <div class="calculation">
               <div class="calc-row"><span>Customer paid</span><span class="amount">RM {{ORDER TOTAL}}</span></div>
-              
+              <div class="calc-row deduction"><span>Less: Payment processing fee</span><span class="amount">RM {{PROCESSING_FEE}}</span></div>
               <div class="calc-row deduction"><span>Less: Approved adjustments, if applicable</span><span class="amount">RM {{APPROVED ADJUSTMENTS}}</span></div>
               <div class="calc-row total"><span>Net to vendor</span><span class="amount">RM {{NET PAYOUT}}</span></div>
             </div>
-            <p class="policy-note"><strong>Net payouts.</strong> Net to vendor is the full amount the customer paid, less only an approved order-specific adjustment. FutureLife earns from subscription plans and sponsored listings, never from orders.</p>
+            <p class="policy-note"><strong>Net payouts.</strong> Net to vendor is the amount the customer paid, less the card and online payment processing fee and any approved order-specific adjustment. FutureLife earns from subscription plans and sponsored listings, never from orders.</p>
           </section>
         </section>
         <aside>

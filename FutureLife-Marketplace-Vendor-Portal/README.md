@@ -11,7 +11,7 @@ This archive contains the current Marketplace Vendor Portal preview, including l
 Merged pages (one page, several views):
 
 - Billing (sidebar group with exactly two pages, Plans & Subscriptions and Sponsored Listings): `marketplace-vendor-plans-and-subscriptions.html` shows the current plan, plan comparison, invoices and the billing contact & payment method (default `?tab=plans`), plus `?tab=change` (plan change), `?tab=review&target=` (plan change review), `?tab=checkout&flow=plan-change&state=` (checkout result), `?tab=history` (payment history), `?tab=invoice` (invoice) and `?tab=refund` (refund / dispute status).
-- Payouts (its own top-level sidebar item, not part of Billing; payouts are vendor earnings): `marketplace-vendor-payouts.html` (fee-free: sellers receive the full order amount less refunds) (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
+- Payouts (its own top-level sidebar item, not part of Billing; payouts are vendor earnings): `marketplace-vendor-payouts.html` (payouts are sent to the vendor’s bank account; card and online payment processing fees are deducted from each order before payout) (`?view=history` shows Payout History, filterable with `&status=scheduled|paid|held|failed`).
 - Payout statement: `marketplace-vendor-payout-statement.html?payout=` (`?view=breakdown&order=` shows the order earnings breakdown).
 - Sponsored Listings: `marketplace-vendor-sponsored-listings.html?step=choose|review` (choose an option, then review the payment); `?tab=checkout&flow=sponsored-listing&state=` shows the checkout result.
 
@@ -28,7 +28,7 @@ Additional P0 pages (use `?state=` to preview each state where available):
 - Payouts: `marketplace-vendor-payouts.html?view=history`, `marketplace-vendor-payout-hold.html`, `marketplace-vendor-payout-account.html` (`?state=pending|verified|action-required|edit|failed`)
 - Orders: `marketplace-vendor-order-details.html` (`?state=new|processing|ready-for-dispatch|dispatched|delivered|ready-for-collection|collected|completed|cancelled&method=delivery|collection`)
 
-Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. `marketplace-vendor-listing-credits.html` and `marketplace-vendor-credit-history.html` are retired and redirect to `marketplace-vendor-plans-and-subscriptions.html`, keeping the query string and hash.
+Revenue model: FutureLife earns from vendors only through subscription plans and sponsored listings. There are no listing or job-post credits, placement fees, rental commissions, or order or transaction fees. Card and online payment processing fees are deducted from each Marketplace order before payout. `marketplace-vendor-listing-credits.html` and `marketplace-vendor-credit-history.html` are retired and redirect to `marketplace-vendor-plans-and-subscriptions.html`, keeping the query string and hash.
 
 Retired billing pages redirect (keeping the query string and hash) to the matching page and tab: `marketplace-vendor-billing.html` → Plans & Subscriptions; `plan-change` → `?tab=change`; `plan-change-review` → `?tab=review`; `payment-history` → `?tab=history`; `invoice` → `?tab=invoice`; `payment-refund-status` → `?tab=refund`; `checkout-result` → `?tab=checkout` on Sponsored Listings when `flow=sponsored-listing`, otherwise on Plans & Subscriptions; `marketplace-vendor-sponsored-listing.html` → `marketplace-vendor-sponsored-listings.html`.
 
