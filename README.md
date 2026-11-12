@@ -31,7 +31,17 @@ For the Rentals ZIP, keep all extracted files in the same folder. It has one HTM
 
 ## Product and implementation notes
 
-All shown values such as `{{ORDER_ID}}`, `{{PAYOUT_AMOUNT}}`, `{{PLAN_PRICE}}`, and `{{PROPERTY_ID}}` are dynamic-data placeholders. Replace them with the corresponding Bubble dynamic expressions or secure backend data when implementing the real portals.
+All shown values such as `{{ORDER_ID}}`, `{{PAYOUT_AMOUNT}}`, `{{INVOICE_AMOUNT}}`, and `{{PROPERTY_ID}}` are dynamic-data placeholders. Replace them with the corresponding Bubble dynamic expressions or secure backend data when implementing the real portals.
+
+Plan prices, limits and sponsored-listing prices on the Plans & Subscriptions and Sponsored Listings pages are filled with the approved values (MYR):
+
+| Portal | Basic | Pro | Top tier | Sponsored: 1 week / 2 weeks / 4 weeks (Best value) |
+|---|---|---|---|---|
+| Marketplace | Free, 5 active listings | RM 49 / month, 25 active listings | Business: RM 149 / month, 100 active listings | RM 15 / RM 28 / RM 45 |
+| Jobs | Free, 2 active job posts | RM 49 / month, 10 active job posts | Agency: RM 199 / month, Unlimited (fair use) | RM 25 / RM 45 / RM 75 |
+| Rentals | Free, 2 active properties | RM 49 / month, 15 active properties | Agency: RM 199 / month, Unlimited (fair use) | RM 20 / RM 38 / RM 60 |
+
+On every portal, Basic, Pro and the top tier include 1, 3 and 10 team members and 0, 1 and 4 sponsored weeks per month. Basic is free forever with no renewal date. Sponsored placements are labelled "Sponsored". Billing totals, tax, and FutureLife registration and tax numbers remain placeholders.
 
 The previews use FutureLife visual conventions: lime green, white, charcoal/grey, responsive desktop/mobile layouts, and square corners for cards, fields, controls, and buttons.
 
