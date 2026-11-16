@@ -6,7 +6,7 @@ on:
     paths:
       - "apps/portals/**"
       - ".github/workflows/portals-ci.yml"
-      - "vercel.json"
+      - "apps/portals/vercel.json"
   workflow_dispatch:
 
 jobs:
@@ -26,28 +26,3 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run build
-
-  preview-note:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'pull_request'
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Remind about Vercel preview
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = `### Preview deploy (Phase 0)
-
-            - **Vercel:** Connect this repository with root directory \`apps/portals\` (or use repo-root \`vercel.json\`). Each PR should get a preview URL on the Vercel bot comment.
-            - **UI shell:** Open \`/shell\` on the preview (layout check at **1440×900** and **390×844**).
-            - **GitHub Pages:** Static prototypes at repo root are unchanged; Pages is not replaced by this workflow.
-
-            _CI verified typecheck, lint, and build only._`;
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body,
-            });

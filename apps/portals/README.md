@@ -41,10 +41,12 @@ See `.env.example` for the full list.
 
 ## Preview deploys (Vercel)
 
-1. Import the GitHub repo in Vercel.
-2. Set **Root Directory** to `apps/portals` *or* use the repo-root `vercel.json` (builds this app).
-3. Enable **Preview Deployments** for pull requests.
-4. Open `/shell` on the preview URL for layout screenshots.
+1. Import the GitHub repo in Vercel; set **Root Directory** to `apps/portals`.
+2. Framework preset **Next.js** (see `vercel.json` in this folder).
+3. **Production Branch** `main`; **Preview** env vars for pull requests (see `.env.example`).
+4. After a PR build, use the Vercel bot comment preview URL and open `/shell` (1440×900 and 390×844).
+
+Operator steps (clicks and dashboard table): Project store `docs/vercel-setup.md` on FL-VPAP-2026.
 
 GitHub Actions workflow `.github/workflows/portals-ci.yml` runs typecheck, lint, and build on PRs.
 
