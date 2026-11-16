@@ -4,5 +4,5 @@
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- apps/portals/"
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ."
 }
