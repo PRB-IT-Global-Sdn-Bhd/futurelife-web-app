@@ -1,0 +1,11 @@
+{
+  "name": "futurelife-web-app",
+  "private": true,
+  "description": "Static GitHub Pages prototypes + Next.js apps/portals (FL-VPAP-2026)",
+  "scripts": {
+    "portals:dev": "npm --prefix apps/portals run dev",
+    "portals:build": "npm --prefix apps/portals run build",
+    "portals:lint": "npm --prefix apps/portals run lint",
+    "portals:typecheck": "npm --prefix apps/portals run typecheck"
+  }
+}

@@ -1,5 +1,14 @@
 # FutureLife Vendor Portal Previews
 
+## Next.js foundation (FL-VPAP-2026)
+
+Production vendor portals and admin panel are being built in **`apps/portals/`** (Next.js + TypeScript). **GitHub Pages is unchanged:** root `index.html`, `404.html`, and the `FutureLife-*` prototype folders still serve static previews.
+
+- Dev: see [`apps/portals/README.md`](apps/portals/README.md)
+- API draft: [`docs/api-contracts.md`](docs/api-contracts.md)
+
+---
+
 This release contains the latest static HTML previews for the FutureLife vendor portals:
 
 - Marketplace Vendor Portal

@@ -1,0 +1,18 @@
+/**
+ * Design tokens aligned with static prototype CSS (vendor-portal-listings.css).
+ * Square corners: no border-radius on interactive surfaces unless noted.
+ */
+:root {
+  --fl-green: #78be21;
+  --fl-green-dark: #62a719;
+  --fl-ink: #20232b;
+  --fl-muted: #6d7077;
+  --fl-line: #e7e7e7;
+  --fl-pale-green: #f8fff1;
+  --fl-pale-grey: #fbfbfb;
+  --fl-white: #ffffff;
+  --fl-red: #b94747;
+  --fl-pale-red: #fff8f8;
+  --fl-sidebar-width: 174px;
+  --fl-nav-breakpoint: 960px;
+}
